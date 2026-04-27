@@ -41,8 +41,10 @@ const schema = z.object({
   classLevel: z.enum(CLASS_LEVELS).optional(),
   stream: z.enum(STREAMS).optional(),
   password: z.string().min(10, "At least 10 characters"),
-  consentTos: z.literal(true, {
-    errorMap: () => ({ message: "You must accept the Terms of Service" }),
+  // Schema-typed as boolean (so default false is valid) but refined to
+  // require true. Avoids `false as unknown as true` cast in defaultValues.
+  consentTos: z.boolean().refine((v) => v === true, {
+    message: "You must accept the Terms of Service",
   }),
   consentMarketing: z.boolean().optional().default(false),
 });
@@ -60,7 +62,7 @@ export function RegisterForm() {
       email: "",
       phone: "",
       password: "",
-      consentTos: false as unknown as true,
+      consentTos: false,
       consentMarketing: false,
     },
     mode: "onBlur",

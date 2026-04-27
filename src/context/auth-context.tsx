@@ -29,7 +29,8 @@ export interface RegisterInput {
   classLevel?: string;
   stream?: Stream;
   consentMarketing?: boolean;
-  consentTos: true;
+  // Must be true at the call site — the form's Zod schema enforces this.
+  consentTos: boolean;
 }
 
 interface AuthContextValue {
