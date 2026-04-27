@@ -46,7 +46,7 @@ const schema = z.object({
   consentTos: z.boolean().refine((v) => v === true, {
     message: "You must accept the Terms of Service",
   }),
-  consentMarketing: z.boolean().optional().default(false),
+  consentMarketing: z.boolean(),
 });
 
 type Values = z.infer<typeof schema>;

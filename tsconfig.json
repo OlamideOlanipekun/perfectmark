@@ -22,5 +22,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "bright-future-landing"]
+  "exclude": ["node_modules", "bright-future-landing", "bright-future-landing-ref", "api", "project"]
 }

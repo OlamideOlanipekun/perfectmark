@@ -52,10 +52,10 @@ export interface Lesson {
 
 // ── Request params ──────────────────────────────────────────────────────
 
-export interface ListSubjectsParams {
+export type ListSubjectsParams = {
   examType?: ExamType;
   stream?: Stream;
-}
+};
 
 function toQuery(params: Record<string, string | number | boolean | undefined>): string {
   const entries = Object.entries(params).filter(([, v]) => v !== undefined);
