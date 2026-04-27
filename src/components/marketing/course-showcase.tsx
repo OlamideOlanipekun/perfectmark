@@ -33,7 +33,7 @@ export function CourseShowcase({ limit = 15 }: { limit?: number }) {
 
         {error && (
           <div className="rounded-3xl border border-dashed border-border bg-card p-12 text-center max-w-xl mx-auto">
-            <p className="font-bold text-primary">We're having trouble loading courses</p>
+            <p className="font-bold text-primary">We&apos;re having trouble loading courses</p>
             <p className="mt-2 text-sm text-muted-foreground">
               Check your connection and refresh the page.
             </p>
@@ -44,7 +44,7 @@ export function CourseShowcase({ limit = 15 }: { limit?: number }) {
           <div className="rounded-3xl border border-dashed border-border bg-card p-12 text-center max-w-xl mx-auto">
             <p className="font-bold text-primary">Catalogue coming soon</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              We're recording lessons right now. Subscribe to be first in line.
+              We&apos;re recording lessons right now. Subscribe to be first in line.
             </p>
           </div>
         )}

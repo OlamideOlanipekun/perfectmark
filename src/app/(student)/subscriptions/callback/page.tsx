@@ -71,7 +71,7 @@ function PaystackCallbackInner() {
     return (
       <CallbackShell>
         <XCircle className="h-10 w-10 text-destructive mx-auto mb-4" />
-        <h2 className="text-xl font-extrabold text-primary">Couldn't verify this payment</h2>
+        <h2 className="text-xl font-extrabold text-primary">Couldn&apos;t verify this payment</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Your card may still have been charged. Contact support with reference{" "}
           <code className="font-mono bg-secondary px-1 rounded">{reference}</code>.
@@ -89,7 +89,7 @@ function PaystackCallbackInner() {
         <Loader2 className="h-10 w-10 text-primary mx-auto mb-4 animate-spin" />
         <h2 className="text-xl font-extrabold text-primary">Confirming your payment…</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Paystack has your payment; we're waiting for the webhook to activate your subscription.
+          Paystack has your payment; we&apos;re waiting for the webhook to activate your subscription.
           This usually takes a few seconds.
         </p>
       </CallbackShell>
@@ -127,7 +127,7 @@ function PaystackCallbackInner() {
         <XCircle className="h-10 w-10 text-destructive mx-auto mb-4" />
         <h2 className="text-xl font-extrabold text-primary">Payment failed</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Your card wasn't charged. You can try again from the subscriptions page.
+          Your card wasn&apos;t charged. You can try again from the subscriptions page.
         </p>
         <Button asChild variant="hero" className="w-full rounded-full mt-6">
           <Link href="/subscriptions">Try again</Link>

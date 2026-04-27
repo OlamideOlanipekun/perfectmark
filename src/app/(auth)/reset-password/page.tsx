@@ -109,7 +109,7 @@ function ResetPasswordInner() {
         <CheckCircle2 className="h-10 w-10 text-primary mx-auto mb-4" />
         <h1 className="text-xl font-extrabold text-primary text-center">Password reset</h1>
         <p className="mt-2 text-sm text-muted-foreground text-center">
-          You'll be redirected to sign in with your new password.
+          You&apos;ll be redirected to sign in with your new password.
         </p>
       </Shell>
     );
@@ -122,7 +122,7 @@ function ResetPasswordInner() {
           Choose a new password
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          You'll need to sign in again on every device after this.
+          You&apos;ll need to sign in again on every device after this.
         </p>
       </div>
 

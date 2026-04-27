@@ -104,7 +104,7 @@ export default function SubjectPage({ params }: Params) {
           <div className="rounded-3xl border border-dashed border-border bg-secondary/30 p-12 text-center">
             <p className="font-bold text-primary">No topics yet</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              We're recording new content for this subject — check back soon.
+              We&apos;re recording new content for this subject — check back soon.
             </p>
           </div>
         )}
@@ -246,7 +246,7 @@ function TopicListSkeleton() {
 function ErrorState({ message, backHref }: { message: string; backHref?: string }) {
   return (
     <div className="rounded-3xl border border-dashed border-border bg-secondary/30 p-12 text-center">
-      <p className="font-bold text-primary text-lg">Something's off</p>
+      <p className="font-bold text-primary text-lg">Something&apos;s off</p>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">{message}</p>
       {backHref && (
         <Link

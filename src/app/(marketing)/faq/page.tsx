@@ -71,7 +71,7 @@ export default function FAQPage() {
             Questions? We have <span className="text-gradient">answers.</span>
           </h1>
           <p className="mt-5 max-w-xl mx-auto text-muted-foreground leading-relaxed">
-            Everything you need to know about Perfect Mark Tutors College. Can't find an answer?{" "}
+            Everything you need to know about Perfect Mark Tutors College. Can&apos;t find an answer?{" "}
             <Link href="/contact" className="font-semibold text-primary hover:text-primary-glow transition-smooth underline underline-offset-4">
               Write to us
             </Link>{" "}

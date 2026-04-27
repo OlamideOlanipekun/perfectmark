@@ -163,7 +163,7 @@ function StreamError({ lessonId, error }: { lessonId: string; error: unknown }) 
         </h3>
         <p className="mt-2 max-w-md mx-auto text-sm text-muted-foreground">
           {isCapIssue
-            ? "You're already watching on the maximum number of devices. Close one of them and try again."
+            ? "You&apos;re already watching on the maximum number of devices. Close one of them and try again."
             : "This lesson is part of the subscribed catalogue. Start a free trial to unlock it."}
         </p>
         {!isCapIssue && (
@@ -180,7 +180,7 @@ function StreamError({ lessonId, error }: { lessonId: string; error: unknown }) 
       <div className="relative rounded-[2rem] border border-border bg-card p-12 text-center shadow-card">
         <h3 className="font-extrabold text-primary text-xl">Lesson not found</h3>
         <p className="mt-2 text-sm text-muted-foreground">
-          This lesson may have been unpublished. Browse the catalogue for what's currently available.
+          This lesson may have been unpublished. Browse the catalogue for what&apos;s currently available.
         </p>
         <Button asChild variant="softOutline" className="mt-6 rounded-full">
           <Link href="/catalogue">Back to catalogue</Link>
@@ -204,7 +204,7 @@ function StreamError({ lessonId, error }: { lessonId: string; error: unknown }) 
   void lessonId;
   return (
     <div className="relative rounded-[2rem] border border-border bg-card p-12 text-center shadow-card">
-      <h3 className="font-extrabold text-primary text-xl">Couldn't load the video</h3>
+      <h3 className="font-extrabold text-primary text-xl">Couldn&apos;t load the video</h3>
       <p className="mt-2 text-sm text-muted-foreground">
         Check your connection and try refreshing the page.
       </p>

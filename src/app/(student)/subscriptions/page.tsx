@@ -73,7 +73,7 @@ export default function SubscriptionsPage() {
 
       {plansQuery.error && (
         <div className="rounded-3xl border border-dashed border-border bg-card p-12 text-center">
-          <p className="font-bold text-primary">Couldn't load plans</p>
+          <p className="font-bold text-primary">Couldn&apos;t load plans</p>
           <p className="mt-2 text-sm text-muted-foreground">
             Check your connection and refresh the page.
           </p>

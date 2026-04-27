@@ -91,7 +91,7 @@ function VerifyEmailInner() {
         <CheckCircle2 className="h-10 w-10 text-primary mx-auto mb-4" />
         <h1 className="text-xl font-extrabold text-primary">Email confirmed</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Thanks for confirming. You're all set.
+          Thanks for confirming. You&apos;re all set.
         </p>
         <Button asChild variant="hero" className="w-full rounded-full mt-6">
           <Link href="/dashboard">Go to dashboard</Link>
@@ -106,7 +106,7 @@ function VerifyEmailInner() {
         <XCircle className="h-10 w-10 text-destructive mx-auto mb-4" />
         <h1 className="text-xl font-extrabold text-primary">Link expired</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Verification links are valid for 24 hours. Sign in and we'll send a fresh one.
+          Verification links are valid for 24 hours. Sign in and we&apos;ll send a fresh one.
         </p>
         <Button asChild variant="hero" className="w-full rounded-full mt-6">
           <Link href="/login">Sign in</Link>
@@ -121,7 +121,7 @@ function VerifyEmailInner() {
         <XCircle className="h-10 w-10 text-destructive mx-auto mb-4" />
         <h1 className="text-xl font-extrabold text-primary">Invalid link</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          This token isn't recognised. Check that you opened the most recent verification
+          This token isn&apos;t recognised. Check that you opened the most recent verification
           email.
         </p>
         <Button asChild variant="softOutline" className="w-full rounded-full mt-6">
@@ -134,7 +134,7 @@ function VerifyEmailInner() {
   return (
     <Shell>
       <XCircle className="h-10 w-10 text-destructive mx-auto mb-4" />
-      <h1 className="text-xl font-extrabold text-primary">Couldn't verify</h1>
+      <h1 className="text-xl font-extrabold text-primary">Couldn&apos;t verify</h1>
       <p className="mt-2 text-sm text-muted-foreground">{state.message}</p>
       <Button asChild variant="softOutline" className="w-full rounded-full mt-6">
         <Link href="/login">Back to sign in</Link>

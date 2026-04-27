@@ -295,7 +295,7 @@ export default function AboutPage() {
                 </p>
                 <p className="text-white/85 leading-relaxed">
                   Join thousands of students who are transforming their education journey with our platform. Together,
-                  let's make learning easier, more engaging, and more successful!
+                  let&apos;s make learning easier, more engaging, and more successful!
                 </p>
               </div>
             </div>
