@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/login-form";
 
@@ -13,7 +14,11 @@ export default function LoginPage() {
         </p>
       </div>
 
-      <LoginForm />
+      {/* Suspense boundary required by Next.js 14: LoginForm reads ?next= via
+          useSearchParams() and would otherwise bail out static rendering. */}
+      <Suspense fallback={<div className="h-64" />}>
+        <LoginForm />
+      </Suspense>
 
       <div className="mt-10 flex flex-col gap-5 text-sm border-t border-border pt-8">
         <Link 

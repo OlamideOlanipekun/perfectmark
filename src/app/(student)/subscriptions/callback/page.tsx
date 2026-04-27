@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle2, Loader2, XCircle } from "lucide-react";
@@ -15,8 +16,27 @@ import { usePaymentStatus } from "@/hooks/use-billing";
  *   - Webhook is the source of truth; this page is only UX confirmation.
  *   - After 30 s without a terminal status, show a "still processing" message
  *     and stop polling (user can refresh manually).
+ *
+ * Next 14 requires useSearchParams() callers to live inside a Suspense
+ * boundary or the production build fails. The page is a thin Suspense
+ * wrapper around the inner component that actually reads the params.
  */
 export default function PaystackCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <CallbackShell>
+          <Loader2 className="h-10 w-10 text-primary mx-auto mb-4 animate-spin" />
+          <h2 className="text-xl font-extrabold text-primary">Loading…</h2>
+        </CallbackShell>
+      }
+    >
+      <PaystackCallbackInner />
+    </Suspense>
+  );
+}
+
+function PaystackCallbackInner() {
   const params = useSearchParams();
   const reference = params.get("reference") ?? params.get("trxref");
 
