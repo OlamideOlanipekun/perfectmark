@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import type { MobileNavItem } from "./mobile-top-bar";
+import { NAV_ITEMS, type NavVariant } from "./nav-items";
 
 interface MobileBottomNavProps {
-  items: MobileNavItem[];
+  /** String discriminator (not the items array) so server-component layouts can pass it. */
+  variant: NavVariant;
 }
 
 /**
@@ -20,8 +21,9 @@ interface MobileBottomNavProps {
  * Pages that use the student/admin layout get extra bottom padding from the
  * layout wrapper so content isn't obscured by this bar.
  */
-export function MobileBottomNav({ items }: MobileBottomNavProps) {
+export function MobileBottomNav({ variant }: MobileBottomNavProps) {
   const pathname = usePathname();
+  const items = NAV_ITEMS[variant];
 
   return (
     <nav

@@ -9,17 +9,18 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 import { cn } from "@/lib/utils";
+import { NAV_ITEMS, type NavVariant } from "./nav-items";
 
-export interface MobileNavItem {
-  href: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
+// Re-exported for callers that previously imported the type from this file
+export type { MobileNavItem } from "./nav-items";
 
 interface MobileTopBarProps {
-  items: MobileNavItem[];
-  /** "Student Portal" / "Admin Panel" — small caption under the wordmark in the drawer header */
-  caption: string;
+  /**
+   * Which set of nav items to render. We accept a string discriminator (not
+   * the item array itself) so the parent can be a server component — function
+   * references for icons cannot cross the server→client boundary.
+   */
+  variant: NavVariant;
 }
 
 /**
@@ -28,7 +29,11 @@ interface MobileTopBarProps {
  * user avatar. Drawer opens from the left and shows the same nav items as
  * the desktop sidebar.
  */
-export function MobileTopBar({ items, caption }: MobileTopBarProps) {
+export function MobileTopBar({ variant }: MobileTopBarProps) {
+  // Import here (inside the component module) — never crossing the boundary
+  // as a serialized prop. The icon components stay on the client.
+  const items = NAV_ITEMS[variant];
+  const caption = variant === "admin" ? "Admin Panel" : "Student Portal";
   const pathname = usePathname();
   const { logout, user } = useAuth();
   const [open, setOpen] = useState(false);
