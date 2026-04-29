@@ -1,3 +1,5 @@
+"use client";
+
 import { UserPlus, CreditCard, BookOpenCheck, ArrowRight } from "lucide-react";
 
 const STEPS = [
