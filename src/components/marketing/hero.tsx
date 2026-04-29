@@ -35,7 +35,7 @@ export function Hero() {
             and Trade.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button asChild variant="hero" size="xl">
+            <Button asChild variant="hero" size="xl" className="animate-pulse-subtle">
               <Link href="/register">Get Started</Link>
             </Button>
             <Button asChild variant="softOutline" size="xl">
@@ -61,7 +61,7 @@ export function Hero() {
         <div className="relative h-[520px] lg:h-[620px]">
           {/* Big blue circle behind student */}
           <div className="absolute right-4 top-8 h-[440px] w-[440px] lg:h-[520px] lg:w-[520px] rounded-full bg-gradient-primary shadow-elegant" />
-          <div className="absolute right-2 bottom-6 h-24 w-24 rounded-full bg-primary-glow/30" />
+          <div className="absolute right-2 bottom-6 h-24 w-24 rounded-full bg-primary-glow/30 animate-[glow-pulse_4s_ease-in-out_infinite]" />
 
           <Image
             src="/hero-student.png"
@@ -71,6 +71,19 @@ export function Hero() {
             priority
             className="absolute right-0 bottom-0 h-[540px] lg:h-[640px] w-auto object-contain drop-shadow-2xl"
           />
+
+          {/* New Animated Caption for Student */}
+          <div className="absolute right-[10%] top-[40%] animate-float-slow bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-elegant border border-primary/10 z-10 hidden md:block">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                <GraduationCap className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-primary">JAMB Top Scorer</p>
+                <p className="text-[10px] text-muted-foreground">Class of 2025</p>
+              </div>
+            </div>
+          </div>
 
           {/* Floating cards */}
           <div className="absolute left-0 top-24 animate-float">
@@ -97,6 +110,21 @@ export function Hero() {
               reverse
             />
           </div>
+        </div>
+      </div>
+
+      {/* Moving Subject Marquee */}
+      <div className="relative border-y border-primary/5 bg-primary/5 py-4 overflow-hidden">
+        <div className="animate-marquee flex whitespace-nowrap gap-12 text-sm font-bold uppercase tracking-widest text-primary/40">
+          {[
+            "Mathematics", "English Language", "Physics", "Chemistry", "Biology", "Government", "Economics", "WAEC", "JAMB", "NECO",
+            "Mathematics", "English Language", "Physics", "Chemistry", "Biology", "Government", "Economics", "WAEC", "JAMB", "NECO"
+          ].map((item, idx) => (
+            <span key={idx} className="flex items-center gap-3">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary/20" />
+              {item}
+            </span>
+          ))}
         </div>
       </div>
     </section>
