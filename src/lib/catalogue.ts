@@ -55,6 +55,7 @@ export interface Lesson {
 export type ListSubjectsParams = {
   examType?: ExamType;
   stream?: Stream;
+  search?: string;
 };
 
 function toQuery(params: Record<string, string | number | boolean | undefined>): string {

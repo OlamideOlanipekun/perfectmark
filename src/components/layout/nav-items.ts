@@ -6,6 +6,7 @@ import {
   CreditCard,
   LayoutDashboard,
   Tag,
+  UserCircle,
   Users,
   Video,
 } from "lucide-react";
@@ -32,6 +33,7 @@ export const NAV_ITEMS: Record<"student" | "admin", MobileNavItem[]> = {
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/catalogue", label: "Catalogue", icon: BookOpen },
     { href: "/subscriptions", label: "Plans", icon: CreditCard },
+    { href: "/profile", label: "Profile", icon: UserCircle },
   ],
   admin: [
     { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },

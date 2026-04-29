@@ -13,11 +13,40 @@ const geistSans = localFont({
   display: "swap",
 });
 
+const SITE_URL = "https://perfectmarktutorschoolproject.com";
+
 export const metadata: Metadata = {
-  title: "Perfect Mark Tutors College — Master WAEC, NECO & JAMB",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Perfect Mark Tutors College — Master WAEC, NECO & JAMB",
+    template: "%s | Perfect Mark Tutors College",
+  },
   description:
     "Expertly designed WAEC, NECO and JAMB video tutorials by experienced Nigerian teachers. Cloud-based learning across Sciences, Arts, Languages, Commercial and Trade.",
   icons: { icon: "/logo.jpg", apple: "/logo.jpg" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Perfect Mark Tutors College",
+    title: "Perfect Mark Tutors College — Master WAEC, NECO & JAMB",
+    description:
+      "Expertly designed WAEC, NECO and JAMB video tutorials by experienced Nigerian teachers. Cloud-based learning across Sciences, Arts, Languages, Commercial and Trade.",
+    images: [
+      {
+        url: "/logo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Perfect Mark Tutors College",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Perfect Mark Tutors College — Master WAEC, NECO & JAMB",
+    description:
+      "Expertly designed WAEC, NECO and JAMB video tutorials by experienced Nigerian teachers.",
+    images: ["/logo.jpg"],
+  },
 };
 
 export default function RootLayout({
