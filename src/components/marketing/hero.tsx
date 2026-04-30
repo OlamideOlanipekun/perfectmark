@@ -35,10 +35,10 @@ export function Hero() {
           </h1>
 
           <p className="max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed animate-fade-in-up delay-200">
-            Prepare seamlessly with WAEC, NECO, and JAMB-tailored video
-            lessons crafted by experienced teachers. One click away from
-            mastering every subject — Sciences, Arts, Languages, Commercial,
-            and Trade.
+            Prepare seamlessly with JSS 1-3, WAEC, NECO, and JAMB-tailored
+            video lessons crafted by experienced teachers. One click away
+            from mastering every subject — Sciences, Arts, Languages,
+            Commercial, and Trade.
           </p>
 
           <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">

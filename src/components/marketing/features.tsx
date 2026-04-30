@@ -4,8 +4,8 @@ const FEATURES_DATA = [
   {
     icon: BookOpen,
     title: "Comprehensive Curriculum Coverage",
-    desc: "Aligned with WAEC, NECO, and JAMB syllabi across Sciences, Arts, Languages, Commercial and Trade subjects — every topic, fully covered.",
-    tags: ["WAEC", "NECO", "JAMB"],
+    desc: "Aligned with JSS 1-3, WAEC, NECO, and JAMB syllabi across Sciences, Arts, Languages, Commercial and Trade subjects — every topic, fully covered.",
+    tags: ["JSS 1-3", "WAEC", "NECO", "JAMB"],
     featured: true,
   },
   {

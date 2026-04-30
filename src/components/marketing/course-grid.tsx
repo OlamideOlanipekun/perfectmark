@@ -33,6 +33,9 @@ const COURSES: Course[] = [
   { title: "Pollination",                             category: "Biology",          thumb: "/courses/biology.jpg",   views: "2.2K", viewsNum: 2200, duration: "31 min", level: "SS1"       },
   { title: "Newton's Laws of Motion",                 category: "Physics",          thumb: "/courses/physics.jpg",   views: "4.0K", viewsNum: 4000, duration: "62 min", level: "SS2"       },
   { title: "Algebraic Equations Mastery",             category: "Mathematics",      thumb: "/courses/math.jpg",      views: "5.1K", viewsNum: 5100, duration: "70 min", level: "JAMB/WAEC" },
+  { title: "Introduction to Basic Science",           category: "Science",          thumb: "/courses/physics.jpg",   views: "1.2K", viewsNum: 1200, duration: "25 min", level: "JSS1"      },
+  { title: "Number Bases and Fractions",              category: "Mathematics",      thumb: "/courses/math.jpg",      views: "2.1K", viewsNum: 2100, duration: "32 min", level: "JSS2"      },
+  { title: "Basic Electronics — Part 1",              category: "Trade",            thumb: "/courses/physics.jpg",   views: "850",  viewsNum: 850,  duration: "40 min", level: "JSS3"      },
 ];
 
 const POPULAR_THRESHOLD = 2500;
