@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   },
   description:
     "Expertly designed WAEC, NECO and JAMB video tutorials by experienced Nigerian teachers. Cloud-based learning across Sciences, Arts, Languages, Commercial and Trade.",
-  icons: { icon: "/logo.jpg", apple: "/logo.jpg" },
   openGraph: {
     type: "website",
     url: SITE_URL,
