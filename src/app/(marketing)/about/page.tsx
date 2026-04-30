@@ -229,7 +229,7 @@ export default function AboutPage() {
                   <div className="aspect-[4/5] rounded-3xl bg-primary overflow-hidden relative shadow-elegant">
                     <Image src="/courses/economics.jpg" alt="Economics" fill className="object-cover opacity-60 mix-blend-overlay" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                      <div className="text-2xl font-bold">240+</div>
+                      <div className="text-2xl font-bold">2,000+</div>
                       <div className="text-xs opacity-80 uppercase tracking-widest font-bold">Video Lessons</div>
                     </div>
                   </div>
