@@ -47,6 +47,7 @@ const schema = z.object({
     message: "You must accept the Terms of Service",
   }),
   consentMarketing: z.boolean(),
+  pin: z.string().trim().min(4, "Enter the PIN you purchased"),
 });
 
 type Values = z.infer<typeof schema>;
@@ -64,6 +65,7 @@ export function RegisterForm() {
       password: "",
       consentTos: false,
       consentMarketing: false,
+      pin: "",
     },
     mode: "onBlur",
   });
@@ -80,6 +82,7 @@ export function RegisterForm() {
         stream: values.stream,
         consentMarketing: values.consentMarketing,
         consentTos: true,
+        pin: values.pin,
       });
       toast.success("Welcome to Perfect Mark!");
     } catch (err) {
@@ -140,6 +143,19 @@ export function RegisterForm() {
                 <Input type="tel" autoComplete="tel" placeholder="+234 812 345 6789" {...field} />
               </FormControl>
               <FormDescription>Optional — used for account recovery.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        <FormField
+          control={form.control}
+          name="pin"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Access PIN</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your access PIN" {...field} />
+              </FormControl>
+              <FormDescription>The PIN you purchased for portal access.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

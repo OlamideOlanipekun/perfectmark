@@ -31,6 +31,7 @@ export interface RegisterInput {
   consentMarketing?: boolean;
   // Must be true at the call site — the form's Zod schema enforces this.
   consentTos: boolean;
+  pin: string;
 }
 
 interface AuthContextValue {

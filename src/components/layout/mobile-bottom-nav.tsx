@@ -6,20 +6,13 @@ import { cn } from "@/lib/utils";
 import { NAV_ITEMS, type NavVariant } from "./nav-items";
 
 interface MobileBottomNavProps {
-  /** String discriminator (not the items array) so server-component layouts can pass it. */
+  /** String discriminator so server-component layouts can pass it. */
   variant: NavVariant;
 }
 
 /**
  * Mobile-only bottom navigation, fixed at the viewport bottom. Hidden at
  * `lg` and above where the desktop sidebar provides navigation.
- *
- * Tap targets are 56px tall (above the 44px iOS minimum). The active item
- * is highlighted with a navy pill so the current section is unambiguous on
- * a small screen.
- *
- * Pages that use the student/admin layout get extra bottom padding from the
- * layout wrapper so content isn't obscured by this bar.
  */
 export function MobileBottomNav({ variant }: MobileBottomNavProps) {
   const pathname = usePathname();
@@ -27,7 +20,7 @@ export function MobileBottomNav({ variant }: MobileBottomNavProps) {
 
   return (
     <nav
-      className="fixed bottom-0 inset-x-0 z-30 flex items-stretch border-t border-border bg-background/95 backdrop-blur lg:hidden"
+      className="fixed bottom-0 inset-x-0 z-30 flex items-stretch border-t border-border bg-background/95 backdrop-blur-xl lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="Primary"
     >
@@ -39,19 +32,29 @@ export function MobileBottomNav({ variant }: MobileBottomNavProps) {
             href={href}
             className={cn(
               "flex-1 flex flex-col items-center justify-center gap-1 py-2 text-[11px] font-semibold transition-smooth min-h-[56px]",
-              active ? "text-primary" : "text-muted-foreground active:text-primary",
+              active ? "text-primary" : "text-muted-foreground",
             )}
             aria-current={active ? "page" : undefined}
           >
+            {/* Icon pill */}
             <span
               className={cn(
                 "grid h-9 w-12 place-items-center rounded-xl transition-smooth",
-                active ? "bg-secondary" : "",
+                active
+                  ? "bg-gradient-primary shadow-card"
+                  : "hover:bg-secondary/60",
               )}
             >
-              <Icon className="h-5 w-5" />
+              <Icon
+                className={cn(
+                  "h-5 w-5 transition-transform duration-200",
+                  active ? "text-white scale-110" : "text-muted-foreground",
+                )}
+              />
             </span>
-            <span>{label}</span>
+            <span className={cn(active ? "text-primary font-bold" : "")}>
+              {label}
+            </span>
           </Link>
         );
       })}
