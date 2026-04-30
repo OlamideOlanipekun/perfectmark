@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { Play, Eye } from "lucide-react";
+import Link from "next/link";
+import { Play, Eye, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type Course = { title: string; category: string; thumb: string; views: string };
@@ -41,8 +43,10 @@ export function CourseGrid() {
   return (
     <section id="courses" className="py-20 bg-gradient-soft">
       <div className="container">
+        {/* Section header */}
         <div className="mx-auto max-w-2xl text-center mb-10">
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+            <span className="h-2 w-2 rounded-full bg-primary-glow" />
             Explore Our Courses
           </span>
           <h2 className="mt-4 text-4xl md:text-5xl font-extrabold text-primary">
@@ -55,7 +59,7 @@ export function CourseGrid() {
           </p>
         </div>
 
-        {/* Filter UI */}
+        {/* Filter pills */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((cat) => (
             <button
@@ -65,7 +69,7 @@ export function CourseGrid() {
                 "px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-300",
                 activeCategory === cat
                   ? "bg-gradient-primary text-white shadow-elegant"
-                  : "bg-white border border-border text-foreground/70 hover:border-primary/20 hover:bg-primary/5"
+                  : "bg-white border border-border text-foreground/70 hover:border-primary/20 hover:bg-primary/5",
               )}
             >
               {cat}
@@ -73,7 +77,7 @@ export function CourseGrid() {
           ))}
         </div>
 
-        {/* Course Grid */}
+        {/* Course grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]">
           {filteredCourses.map((c, i) => (
             <article
@@ -93,6 +97,7 @@ export function CourseGrid() {
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
 
+                {/* Shimmer sweep */}
                 <span className="pointer-events-none absolute inset-0 overflow-hidden">
                   <span className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer" />
                 </span>
@@ -120,15 +125,26 @@ export function CourseGrid() {
                   </span>
                   <span className="text-primary font-semibold inline-flex items-center gap-1 transition-transform duration-300 group-hover:translate-x-1">
                     Subscribe to watch
-                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                      →
-                    </span>
+                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </span>
                 </div>
                 <span className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-primary group-hover:w-full transition-all duration-500 ease-out" />
               </div>
             </article>
           ))}
+        </div>
+
+        {/* Browse all CTA */}
+        <div className="mt-12 flex flex-col items-center gap-3">
+          <Button asChild variant="hero" size="lg" className="rounded-full group">
+            <Link href="/courses">
+              Browse All Courses
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+          <p className="text-xs text-muted-foreground">
+            2,000+ lessons across 15+ subjects — new content added weekly
+          </p>
         </div>
       </div>
     </section>
