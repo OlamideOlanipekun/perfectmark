@@ -80,7 +80,7 @@ const columns: Column[] = [
     title: "Help & Support",
     links: [
       { label: "Live Chat", href: "/contact" },
-      { label: "Email Support", href: "mailto:support@perfectmarktutors.com" },
+      { label: "Email Support", href: "mailto:support@perfectmarktutorschoolproject.com" },
       { label: "Submit Feedback", href: "/contact" },
       { label: "Help Ticket", href: "/contact" },
       { label: "Call Center", href: "tel:+2349162062050" },

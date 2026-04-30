@@ -32,7 +32,7 @@ export default function RefundPage() {
           <section>
             <h2 className="text-2xl font-bold text-primary mb-4">3. Process</h2>
             <p>
-              To request a refund, please email our support team at support@perfectmarktutors.com with your account details and reason for the request.
+              To request a refund, please email our support team at support@perfectmarktutorschoolproject.com with your account details and reason for the request.
             </p>
           </section>
         </div>

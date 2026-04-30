@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-bold text-primary mb-4">4. Contact Us</h2>
             <p>
-              If you have any questions about this Privacy Policy, please contact us at support@perfectmarktutors.com.
+              If you have any questions about this Privacy Policy, please contact us at support@perfectmarktutorschoolproject.com.
             </p>
           </section>
         </div>
