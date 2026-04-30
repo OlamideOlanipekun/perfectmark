@@ -19,14 +19,14 @@ export default function LandingPage() {
       <ScrollReveal direction="left">
         <HowItWorks />
       </ScrollReveal>
-      <ScrollReveal direction="up">
-        <Testimonials />
-      </ScrollReveal>
       <ScrollReveal direction="right" delay={100}>
         <Features />
       </ScrollReveal>
       <ScrollReveal direction="up">
         <CourseGrid />
+      </ScrollReveal>
+      <ScrollReveal direction="up">
+        <Testimonials />
       </ScrollReveal>
     </>
   );
