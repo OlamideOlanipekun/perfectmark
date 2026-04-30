@@ -1,5 +1,6 @@
 import { MarketingHeader } from "@/components/layout/marketing-header";
 import { MarketingFooter } from "@/components/layout/marketing-footer";
+import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 
 export default function MarketingLayout({
   children,
@@ -11,6 +12,7 @@ export default function MarketingLayout({
       <MarketingHeader />
       <main className="animate-fade-in">{children}</main>
       <MarketingFooter />
+      <WhatsAppButton />
     </div>
   );
 }
