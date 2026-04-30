@@ -39,57 +39,71 @@ const SocialYoutube = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-type Column = { title: string; links: string[] };
+type LinkItem = { label: string; href: string };
+type Column = { title: string; links: LinkItem[] };
 
 const columns: Column[] = [
   {
     title: "Site Map",
-    links: ["Home", "About", "Courses", "How it works", "Contact", "FAQ"],
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About", href: "/about" },
+      { label: "Courses", href: "/courses" },
+      { label: "How it works", href: "/#how-it-works" },
+      { label: "Contact", href: "/contact" },
+      { label: "FAQ", href: "/faq" },
+    ],
   },
   {
     title: "Subjects",
     links: [
-      "Mathematics",
-      "Physics",
-      "Chemistry",
-      "Biology",
-      "English",
-      "Literature",
+      { label: "Mathematics", href: "/courses?subject=Mathematics" },
+      { label: "Physics", href: "/courses?subject=Physics" },
+      { label: "Chemistry", href: "/courses?subject=Chemistry" },
+      { label: "Biology", href: "/courses?subject=Biology" },
+      { label: "English", href: "/courses?subject=English" },
+      { label: "Literature", href: "/courses?subject=Literature" },
     ],
   },
   {
     title: "Categories",
     links: [
-      "Sciences",
-      "Arts",
-      "Commercial",
-      "Languages",
-      "Government",
-      "Economics",
+      { label: "Sciences", href: "/courses?category=Sciences" },
+      { label: "Arts", href: "/courses?category=Arts" },
+      { label: "Commercial", href: "/courses?category=Commercial" },
+      { label: "Languages", href: "/courses?category=Languages" },
+      { label: "Government", href: "/courses?category=Government" },
+      { label: "Economics", href: "/courses?category=Economics" },
     ],
   },
   {
     title: "Help & Support",
     links: [
-      "Live Chat",
-      "Email Support",
-      "Submit Feedback",
-      "Help Ticket",
-      "Call Center",
+      { label: "Live Chat", href: "/contact" },
+      { label: "Email Support", href: "mailto:support@perfectmarktutors.com" },
+      { label: "Submit Feedback", href: "/contact" },
+      { label: "Help Ticket", href: "/contact" },
+      { label: "Call Center", href: "tel:+2349162062050" },
     ],
   },
   {
     title: "Legal",
     links: [
-      "Privacy Policy",
-      "Terms & Conditions",
-      "Data Policy",
-      "Refund Policy",
+      { label: "Privacy Policy", href: "/legal/privacy" },
+      { label: "Terms & Conditions", href: "/legal/terms" },
+      { label: "Data Policy", href: "/legal/data" },
+      { label: "Refund Policy", href: "/legal/refund" },
     ],
   },
   {
     title: "Account",
-    links: ["Sign Up", "Log in", "My Courses", "Subscription", "Billing"],
+    links: [
+      { label: "Sign Up", href: "/register" },
+      { label: "Log in", href: "/login" },
+      { label: "My Courses", href: "/dashboard" },
+      { label: "Subscription", href: "/dashboard/billing" },
+      { label: "Billing", href: "/dashboard/billing" },
+    ],
   },
 ];
 
@@ -119,12 +133,12 @@ export function MarketingFooter() {
                 </h4>
                 <ul className="space-y-2.5">
                   {col.links.map((link) => (
-                    <li key={link}>
+                    <li key={link.label}>
                       <Link
-                        href="#"
+                        href={link.href}
                         className="text-sm text-primary-foreground/70 hover:text-white transition-smooth story-link"
                       >
-                        {link}
+                        {link.label}
                       </Link>
                     </li>
                   ))}
