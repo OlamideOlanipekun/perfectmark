@@ -146,6 +146,7 @@ export function RegisterForm() {
               <FormMessage />
             </FormItem>
           )}
+        />
         <FormField
           control={form.control}
           name="pin"
