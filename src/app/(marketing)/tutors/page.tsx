@@ -6,14 +6,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Our Tutors",
   description:
-    "Meet the experienced Nigerian teachers behind Perfect Mark Tutors College. Expert educators for WAEC, NECO and JAMB.",
+    "Meet the experienced Nigerian teachers behind Perfect Mark Tutors College. Expert educators for JSS 1-3, WAEC, NECO and JAMB.",
 };
 
 const TUTORS = [
   {
     name: "Mr. Adebayo Okafor",
     subject: "Mathematics & Further Maths",
-    exams: ["WAEC", "NECO", "UTME"],
+    exams: ["JSS", "WAEC", "NECO", "UTME"],
     experience: "15 years",
     bio: "Head of Mathematics at a leading Lagos secondary school. Known for breaking down complex algebra and calculus into simple, easy-to-follow steps.",
     rating: 4.9,
@@ -24,7 +24,7 @@ const TUTORS = [
   {
     name: "Mrs. Chidinma Eze",
     subject: "English Language & Literature",
-    exams: ["WAEC", "NECO", "UTME"],
+    exams: ["JSS", "WAEC", "NECO", "UTME"],
     experience: "12 years",
     bio: "A passionate English teacher with over a decade of experience helping students master comprehension, essay writing, and oral English.",
     rating: 4.8,
@@ -102,7 +102,7 @@ export default function TutorsPage() {
           </h1>
           <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
             Every tutor at Perfect Mark is a qualified, experienced Nigerian teacher who knows
-            exactly what it takes to pass WAEC, NECO and JAMB.
+            exactly what it takes to pass JSS, WAEC, NECO and JAMB exams.
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
             <Button asChild variant="hero" className="rounded-full">
@@ -122,7 +122,7 @@ export default function TutorsPage() {
             ["37+", "Expert Tutors"],
             ["240+", "Video Lessons"],
             ["10K+", "Students Taught"],
-            ["3", "Exam Boards Covered"],
+            ["4", "Exam Boards Covered"],
           ].map(([val, label]) => (
             <div key={label}>
               <div className="text-3xl font-extrabold">{val}</div>

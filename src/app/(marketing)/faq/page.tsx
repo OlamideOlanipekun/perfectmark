@@ -10,8 +10,8 @@ const FAQS = [
   {
     category: "General",
     items: [
-      { q: "What is Perfect Mark Tutors College?", a: "Perfect Mark Tutors College is a cloud-based online school offering high-quality video tutorials aligned to WAEC, NECO, and JAMB syllabi. Our lessons are recorded by experienced Nigerian teachers and cover all SS1–SS3 subjects across Sciences, Arts, Languages, Commercial, and Trade streams." },
-      { q: "Which exams do you cover?", a: "We cover WAEC (G.C.E + S.S.C.E), NECO (Internal + External), JAMB/UTME 2025, and Post-UTME for top Nigerian universities. Our library is updated every year as exam boards release new questions." },
+      { q: "What is Perfect Mark Tutors College?", a: "Perfect Mark Tutors College is a cloud-based online school offering high-quality video tutorials aligned to JSS 1-3, WAEC, NECO, and JAMB syllabi. Our lessons are recorded by experienced Nigerian teachers and cover all Junior and Senior Secondary subjects across Sciences, Arts, Languages, Commercial, and Trade streams." },
+      { q: "Which exams do you cover?", a: "We cover JSS 1-3 (Junior Secondary), WAEC (G.C.E + S.S.C.E), NECO (Internal + External), JAMB/UTME 2025, and Post-UTME for top Nigerian universities. Our library is updated every year as exam boards release new questions." },
       { q: "Who are the teachers?", a: "Every tutor on our platform has at least 8 years of classroom experience and a proven track record of students scoring in the top 10% of their exam. We audition and peer-review every hire before they record a lesson." },
     ],
   },

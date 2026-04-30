@@ -18,7 +18,7 @@ const WHY_CHOOSE = [
   {
     num: "01",
     title: "Curriculum-Aligned Content",
-    body: "Our lessons are expertly crafted by experienced teachers who are familiar with the syllabus. Each tutorial is tailored to align perfectly with the WAEC, NECO, and UTME curriculum, ensuring students are well-prepared for their exams.",
+    body: "Our lessons are expertly crafted by experienced teachers who are familiar with the syllabus. Each tutorial is tailored to align perfectly with the JSS 1-3, WAEC, NECO, and UTME curriculum, ensuring students are well-prepared for their exams.",
   },
   {
     num: "02",
@@ -46,7 +46,7 @@ const CORE_FEATURES = [
   {
     icon: Layers,
     title: "Comprehensive Curriculum Coverage",
-    body: "We provide video tutorials aligned with the WAEC, NECO, and UTME syllabi, covering all subjects for SS1 to SS3 across Sciences, Arts, Languages, Commercial, and Trade classes. This ensures students are thoroughly prepared for their exams.",
+    body: "We provide video tutorials aligned with the JSS 1-3, WAEC, NECO, and UTME syllabi, covering all subjects for Junior and Senior Secondary School (JSS1 to SS3) across Sciences, Arts, Languages, Commercial, and Trade classes.",
   },
   {
     icon: BookOpen,
@@ -68,21 +68,29 @@ const CORE_FEATURES = [
 const SUBJECTS = [
   "Agricultural Science",
   "Arts",
+  "Basic Science",
+  "Basic Technology",
   "Biology",
+  "Business Studies",
   "Chemistry",
   "Christian Religious Knowledge",
+  "Civic Education",
   "Commercial",
+  "Computer Studies (ICT)",
+  "Creative Arts",
   "Economics",
   "English Language",
   "Financial Accounting",
   "General Mathematics",
   "Geography",
   "Government",
+  "Home Economics",
   "Languages",
   "Literature in English",
   "Oral English",
   "Physics",
   "Sciences",
+  "Social Studies",
   "Yoruba",
 ];
 
@@ -133,7 +141,7 @@ export default function AboutPage() {
                 <span className="text-gradient">Excellence</span> with Us
               </h1>
               <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-lg">
-                Premier online tutorial videos helping Nigerian students excel in WAEC, NECO, and UTME — trusted by 10,000+ learners across West Africa.
+                Premier online tutorial videos helping Nigerian students excel in JSS 1-3, WAEC, NECO, and UTME — trusted by 10,000+ learners across West Africa.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="hero" className="rounded-full">
@@ -168,11 +176,11 @@ export default function AboutPage() {
                   className="h-36 w-36 object-contain mx-auto relative z-10"
                   priority
                 />
-                <div className="mt-6 grid grid-cols-3 gap-3 relative z-10">
-                  {["WAEC", "NECO", "JAMB"].map((e) => (
-                    <div key={e} className="rounded-2xl bg-white/10 border border-white/20 px-3 py-3 text-center">
-                      <div className="text-white font-extrabold text-sm">{e}</div>
-                      <div className="text-white/60 text-[10px] mt-0.5">Covered</div>
+                <div className="mt-6 grid grid-cols-4 gap-2 relative z-10">
+                  {["JSS", "WAEC", "NECO", "JAMB"].map((e) => (
+                    <div key={e} className="rounded-2xl bg-white/10 border border-white/20 px-2 py-3 text-center">
+                      <div className="text-white font-extrabold text-[11px]">{e}</div>
+                      <div className="text-white/60 text-[9px] mt-0.5">Covered</div>
                     </div>
                   ))}
                 </div>
@@ -229,8 +237,8 @@ export default function AboutPage() {
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   At Perfect Mark Tutors College, we are committed to providing students with the tools and resources
-                  they need to succeed. Our comprehensive video tutorials cover all subjects for Senior Secondary School
-                  (SS1 to SS3) across diverse disciplines, including:
+                  they need to succeed. Our comprehensive video tutorials cover all subjects for Junior and Senior Secondary School
+                  (JSS1 to SS3) across diverse disciplines, including:
                 </p>
                 <ul className="space-y-2.5">
                   {STREAMS.map(({ label, subjects }) => (
