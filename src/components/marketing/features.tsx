@@ -105,7 +105,7 @@ export function Features() {
             {STATS.map((s, idx) => (
               <div
                 key={s.label}
-                className="group flex flex-col items-center text-center gap-3 rounded-2xl bg-white/10 hover:bg-white/[0.17] border border-white/10 p-5 transition-smooth reveal"
+                className="group flex flex-col items-center text-center gap-3 rounded-2xl bg-white/10 hover:bg-white/[0.17] border border-white/10 p-5 transition-smooth"
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/15 text-white transition-smooth group-hover:scale-110 group-hover:bg-white/25">
