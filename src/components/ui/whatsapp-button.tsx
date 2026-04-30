@@ -1,13 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export function WhatsAppButton() {
+  const [isVisible, setIsVisible] = useState(false);
   const phoneNumber = "2349162062050";
   const message = "Hello PerfectMark! I'd like to learn more about your JSS and SS courses.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 200) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
 
   return (
     <Link
@@ -15,7 +30,8 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "fixed bottom-8 left-8 z-[60] flex items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white shadow-elegant hover:scale-110 active:scale-95 transition-all duration-300 group"
+        "fixed bottom-8 left-8 z-[60] flex items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white shadow-elegant hover:scale-110 active:scale-95 transition-all duration-500 group",
+        isVisible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-10 pointer-events-none"
       )}
       aria-label="Contact us on WhatsApp"
     >
