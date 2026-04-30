@@ -93,7 +93,7 @@ export default function AboutPage() {
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         </div>
 
-        <div className="container relative">
+        <div className="container px-6 md:px-12 lg:px-20 relative">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal direction="left">
               <div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
 
       {/* ── CORE VALUES ── */}
       <section className="py-24 bg-secondary/30 relative">
-        <div className="container">
+        <div className="container px-6 md:px-12 lg:px-20">
           <div className="text-center mb-16">
             <ScrollReveal direction="up">
               <h2 className="text-3xl md:text-5xl font-extrabold text-primary mb-4">Built on <span className="text-gradient">Trust & Innovation</span></h2>
@@ -176,7 +176,7 @@ export default function AboutPage() {
 
       {/* ── THE PROBLEM & SOLUTION ── */}
       <section className="py-24 bg-background">
-        <div className="container">
+        <div className="container px-6 md:px-12 lg:px-20">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <ScrollReveal direction="left">
               <div className="space-y-6">
@@ -242,7 +242,7 @@ export default function AboutPage() {
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl" />
         </div>
 
-        <div className="container relative">
+        <div className="container px-6 md:px-12 lg:px-20 relative">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <ScrollReveal direction="up">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-6">Why Students <span className="text-accent">Choose Us</span></h2>
@@ -266,7 +266,7 @@ export default function AboutPage() {
 
       {/* ── FINAL CTA ── */}
       <section className="py-24 bg-background">
-        <div className="container">
+        <div className="container px-6 md:px-12 lg:px-20">
           <ScrollReveal direction="up">
             <div className="rounded-[40px] bg-gradient-primary p-12 md:p-20 text-center text-white shadow-elegant relative overflow-hidden">
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--accent),transparent_70%)] opacity-20" />
