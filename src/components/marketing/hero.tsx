@@ -55,7 +55,7 @@ export function Hero() {
             {/* Real-looking avatars */}
             <div className="flex -space-x-2.5">
               {AVATAR_SEEDS.map((seed) => (
-                <img
+                <Image
                   key={seed}
                   src={`https://i.pravatar.cc/36?u=${seed}`}
                   alt={`Student ${seed}`}
