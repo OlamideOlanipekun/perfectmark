@@ -4,26 +4,24 @@ import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
   return (
-    <div className="rounded-3xl bg-card/80 backdrop-blur-xl border border-white/20 shadow-elegant p-10 animate-fade-in-up">
-      <div className="mb-8">
+    <div className="space-y-8">
+      <div>
         <h1 className="text-3xl font-extrabold text-primary tracking-tight">
           Welcome <span className="text-gradient">Back</span>
         </h1>
         <p className="mt-2 text-muted-foreground leading-relaxed">
-          Sign in to your account and continue your journey to excellence.
+          Sign in to your account to continue your learning journey.
         </p>
       </div>
 
-      {/* Suspense boundary required by Next.js 14: LoginForm reads ?next= via
-          useSearchParams() and would otherwise bail out static rendering. */}
-      <Suspense fallback={<div className="h-64" />}>
+      <Suspense fallback={<div className="h-64 animate-pulse bg-secondary/20 rounded-3xl" />}>
         <LoginForm />
       </Suspense>
 
-      <div className="mt-10 flex flex-col gap-5 text-sm border-t border-border pt-8">
+      <div className="flex flex-col gap-4 text-sm border-t border-border pt-8">
         <Link 
           href="/forgot-password" 
-          className="text-muted-foreground hover:text-primary transition-smooth story-link w-fit font-medium"
+          className="text-muted-foreground hover:text-primary transition-smooth font-medium w-fit"
         >
           Forgot your password?
         </Link>
@@ -31,7 +29,7 @@ export default function LoginPage() {
           New to Perfect Mark?{" "}
           <Link 
             href="/register" 
-            className="font-bold text-primary hover:text-primary-glow transition-smooth"
+            className="font-bold text-primary hover:text-primary-glow transition-smooth underline underline-offset-4"
           >
             Create an account for free
           </Link>

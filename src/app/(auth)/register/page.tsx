@@ -3,8 +3,8 @@ import { RegisterForm } from "@/components/auth/register-form";
 
 export default function RegisterPage() {
   return (
-    <div className="rounded-3xl bg-card/80 backdrop-blur-xl border border-white/20 shadow-elegant p-10 animate-fade-in-up">
-      <div className="mb-8">
+    <div className="space-y-8 py-8 lg:py-0">
+      <div>
         <h1 className="text-3xl font-extrabold text-primary tracking-tight">
           Create <span className="text-gradient">Account</span>
         </h1>
@@ -15,11 +15,11 @@ export default function RegisterPage() {
 
       <RegisterForm />
 
-      <p className="mt-10 text-sm text-muted-foreground border-t border-border pt-8 text-center sm:text-left">
+      <p className="mt-10 text-sm text-muted-foreground border-t border-border pt-8">
         Already have an account?{" "}
         <Link 
           href="/login" 
-          className="font-bold text-primary hover:text-primary-glow transition-smooth"
+          className="font-bold text-primary hover:text-primary-glow transition-smooth underline underline-offset-4"
         >
           Sign in here
         </Link>

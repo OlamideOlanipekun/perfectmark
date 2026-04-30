@@ -3,38 +3,70 @@ import Link from "next/link";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gradient-soft flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Decorative background elements from reference Hero */}
-      <div className="pointer-events-none fixed -left-40 top-20 h-[600px] w-[600px] rounded-full border border-primary/10 animate-float" />
-      <div className="pointer-events-none fixed -left-20 top-40 h-[420px] w-[420px] rounded-full border border-primary/10 animate-float" style={{ animationDelay: "1s" }} />
-      <div className="pointer-events-none fixed right-20 top-60 h-[260px] w-[260px] rounded-full border border-primary/10 animate-float" style={{ animationDelay: "2s" }} />
-      
-      <div
-        className="pointer-events-none fixed right-0 top-0 h-[600px] w-[600px] opacity-30 bg-gradient-hero"
-      />
+    <div className="min-h-screen grid lg:grid-cols-2 bg-background">
+      {/* Left Side: Brand Panel (Visible on Desktop) */}
+      <div className="relative hidden lg:flex flex-col justify-between p-12 bg-primary overflow-hidden">
+        {/* Abstract Background Image */}
+        <Image
+          src="/auth_background_1777518723146.png"
+          alt="Perfect Mark Background"
+          fill
+          className="object-cover opacity-20 mix-blend-overlay"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/80" />
+        
+        {/* Decorative Circles */}
+        <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full border border-white/5 animate-pulse" />
+        <div className="absolute -right-20 bottom-1/4 h-64 w-64 rounded-full border border-white/5 animate-float" />
 
-      <div className="relative w-full max-w-md">
-        <Link href="/" className="flex items-center justify-center gap-4 mb-10 group">
-          <div className="relative">
+        <div className="relative z-10">
+          <Link href="/" className="flex items-center gap-3 group">
             <Image 
               src="/logo.jpg" 
               alt="Perfect Mark logo" 
-              width={64} 
-              height={64} 
-              className="h-16 w-16 object-contain" 
+              width={48} 
+              height={48} 
+              className="h-12 w-12 object-contain rounded-xl" 
             />
-            <span className="absolute inset-0 rounded-full bg-primary-glow/30 blur-xl opacity-0 group-hover:opacity-100 transition-smooth -z-10" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-2xl font-extrabold text-white tracking-tight">
+                Perfect<span className="text-accent">Mark</span>
+              </span>
+              <span className="text-[10px] uppercase tracking-widest text-white/60 font-bold">
+                Tutors College
+              </span>
+            </div>
+          </Link>
+        </div>
+
+        <div className="relative z-10 max-w-md">
+          <h2 className="text-4xl font-extrabold text-white leading-tight mb-6">
+            Empowering the next generation of <span className="text-accent">African Scholars</span>.
+          </h2>
+          <p className="text-white/70 text-lg leading-relaxed">
+            Join 10,000+ students mastering WAEC, NECO, and JAMB with Nigeria&apos;s most effective video tutorials.
+          </p>
+        </div>
+
+        <div className="relative z-10 text-white/40 text-sm">
+          © {new Date().getFullYear()} Perfect Mark Tutors College. Built for Excellence.
+        </div>
+      </div>
+
+      {/* Right Side: Form Area */}
+      <div className="flex items-center justify-center p-6 md:p-12 relative">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.03]" 
+             style={{ backgroundImage: "radial-gradient(circle at 50% 50%, var(--primary), transparent 70%)" }} />
+        
+        <div className="w-full max-w-[440px] animate-fade-in">
+          <div className="lg:hidden flex justify-center mb-10">
+            <Link href="/" className="flex items-center gap-3">
+              <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain rounded-lg" />
+              <span className="font-extrabold text-primary text-xl">Perfect<span className="text-accent">Mark</span></span>
+            </Link>
           </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-2xl font-extrabold text-primary tracking-tight">
-              Perfect<span className="text-accent">Mark</span>
-            </span>
-            <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground font-semibold">
-              Tutors College
-            </span>
-          </div>
-        </Link>
-        {children}
+          {children}
+        </div>
       </div>
     </div>
   );
