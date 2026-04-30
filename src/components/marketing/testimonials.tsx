@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Star, Quote } from "lucide-react";
 
 const TESTIMONIALS = [
@@ -41,13 +42,13 @@ export function Testimonials() {
             Trusted by <span className="text-gradient">Thousands</span> of Students
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Don't just take our word for it. Hear from the students who are
+            Don&apos;t just take our word for it. Hear from the students who are
             smashing their exams and achieving their dreams with PerfectMark.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((t, idx) => (
+          {TESTIMONIALS.map((t) => (
             <div
               key={t.name}
               className="group relative bg-card p-8 rounded-3xl shadow-card border border-border hover:shadow-elegant hover:-translate-y-2 transition-all duration-500"
@@ -59,13 +60,15 @@ export function Testimonials() {
               </div>
               
               <p className="text-foreground/80 italic leading-relaxed mb-8 relative z-10">
-                "{t.content}"
+                &ldquo;{t.content}&rdquo;
               </p>
 
               <div className="flex items-center gap-4 border-t border-border/50 pt-6">
-                <img
+                <Image
                   src={t.avatar}
                   alt={t.name}
+                  width={48}
+                  height={48}
                   className="h-12 w-12 rounded-full object-cover ring-2 ring-primary/10"
                 />
                 <div>

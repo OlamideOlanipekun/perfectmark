@@ -1,12 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  BookOpen,
-  Globe,
-  Layers,
-  GraduationCap,
   Target,
-  ArrowRight,
   CheckCircle2,
   Users,
   Lightbulb,
