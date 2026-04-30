@@ -23,25 +23,25 @@ export function Hero() {
       <div className="container px-[5%] relative grid lg:grid-cols-2 gap-12 items-center py-16 lg:py-24 pt-32 lg:pt-32">
         {/* Left copy */}
         <div className="animate-fade-in-up space-y-7">
-          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
+          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary animate-fade-in-up">
             <span className="h-2 w-2 rounded-full bg-primary-glow animate-pulse" />
             Cloud Based School
           </span>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-primary">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-primary animate-fade-in-up delay-100">
             Master Your <span className="text-gradient">Exams</span>
             <br />
             With <span className="text-gradient">Expert</span> Tutorials
           </h1>
 
-          <p className="max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+          <p className="max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed animate-fade-in-up delay-200">
             Prepare seamlessly with WAEC, NECO, and JAMB-tailored video
             lessons crafted by experienced teachers. One click away from
             mastering every subject — Sciences, Arts, Languages, Commercial,
             and Trade.
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
             <Button asChild variant="hero" size="xl" className="animate-pulse-subtle">
               <Link href="/register">Get Started</Link>
             </Button>
@@ -51,7 +51,7 @@ export function Hero() {
           </div>
 
           {/* Social proof */}
-          <div className="flex items-center gap-5 pt-2">
+          <div className="flex items-center gap-5 pt-2 animate-fade-in-up delay-400">
             {/* Real-looking avatars */}
             <div className="flex -space-x-2.5">
               {AVATAR_SEEDS.map((seed) => (
@@ -96,7 +96,7 @@ export function Hero() {
             width={1024}
             height={1024}
             priority
-            className="absolute right-0 bottom-0 h-[540px] lg:h-[640px] w-auto object-contain drop-shadow-2xl"
+            className="absolute right-0 bottom-0 h-[540px] lg:h-[640px] w-auto object-contain drop-shadow-2xl animate-fade-in delay-500"
           />
 
           {/* JAMB Top Scorer caption */}

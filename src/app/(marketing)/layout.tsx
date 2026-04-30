@@ -9,7 +9,7 @@ export default function MarketingLayout({
   return (
     <div className="min-h-screen bg-background">
       <MarketingHeader />
-      <main>{children}</main>
+      <main className="animate-fade-in">{children}</main>
       <MarketingFooter />
     </div>
   );
