@@ -8,13 +8,13 @@ export default function LandingPage() {
   return (
     <>
       <Hero />
-      <ScrollReveal>
+      <ScrollReveal direction="left">
         <HowItWorks />
       </ScrollReveal>
-      <ScrollReveal delay={100}>
+      <ScrollReveal direction="right" delay={100}>
         <Features />
       </ScrollReveal>
-      <ScrollReveal>
+      <ScrollReveal direction="up">
         <CourseGrid />
       </ScrollReveal>
     </>

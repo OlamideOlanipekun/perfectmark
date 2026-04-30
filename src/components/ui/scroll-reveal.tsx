@@ -8,6 +8,7 @@ interface ScrollRevealProps {
   className?: string;
   delay?: number;
   once?: boolean;
+  direction?: "up" | "left" | "right";
 }
 
 export function ScrollReveal({
@@ -15,6 +16,7 @@ export function ScrollReveal({
   className,
   delay = 0,
   once = true,
+  direction = "up",
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -45,10 +47,16 @@ export function ScrollReveal({
     };
   }, [once]);
 
+  const directionClass = {
+    up: "reveal",
+    left: "reveal-left",
+    right: "reveal-right",
+  }[direction];
+
   return (
     <div
       ref={ref}
-      className={cn("reveal", className)}
+      className={cn(directionClass, className)}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
