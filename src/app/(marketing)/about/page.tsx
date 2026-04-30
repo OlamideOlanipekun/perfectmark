@@ -8,6 +8,13 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us | Our Mission to Redefine Education in Africa",
+  description: "Learn about the story behind Perfect Mark Tutors College. We are dedicated to providing high-quality, affordable online education for secondary school students in Nigeria.",
+  keywords: ["online education Nigeria", "affordable tutoring", "Nigerian secondary school syllabus", "Perfect Mark story"],
+};
 
 /* ────────────────────────────────────────────────────────────── */
 /* DATA                                                            */

@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Us | Get Support for Your Academic Journey",
   description:
-    "Get in touch with Perfect Mark Tutors College. We're here to help with any questions about our WAEC, NECO and JAMB tutorials.",
+    "Have questions about our WAEC, NECO or JAMB tutorials? Reach out to the Perfect Mark Tutors College support team. We're here to help you succeed.",
+  keywords: ["contact Perfect Mark", "student support Nigeria", "educational help", "exam preparation support"],
 };
 
 const CONTACT_INFO = [

@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Tutors",
+  title: "Meet Our Expert Tutors | Certified Nigerian Educators",
   description:
-    "Meet the experienced Nigerian teachers behind Perfect Mark Tutors College. Expert educators for JSS 1-3, WAEC, NECO and JAMB.",
+    "Learn from the best. Our certified and experienced Nigerian teachers provide clear, high-impact video tutorials for JSS 1-3, WAEC, NECO and JAMB success.",
+  keywords: ["certified teachers Nigeria", "expert tutors", "online math tutor Nigeria", "WAEC subject experts", "JAMB teachers"],
 };
 
 const TUTORS = [
