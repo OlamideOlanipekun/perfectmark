@@ -129,8 +129,8 @@ export default function AboutPage() {
             <ScrollReveal direction="right" className="relative">
               <div className="relative aspect-square md:aspect-[4/5] rounded-[40px] overflow-hidden shadow-elegant border-4 border-white">
                 <Image
-                  src="/about_team_students_1777544582068.png"
-                  alt="Students learning with Perfect Mark"
+                  src="/about-expert.jpg"
+                  alt="Founder of Perfect Mark Tutors College"
                   fill
                   className="object-cover"
                   priority
