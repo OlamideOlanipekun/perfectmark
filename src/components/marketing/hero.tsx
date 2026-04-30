@@ -138,10 +138,13 @@ export function Hero() {
       <div className="relative border-y border-primary/5 bg-primary/5 py-4 overflow-hidden">
         <div className="animate-marquee flex whitespace-nowrap gap-12 text-sm font-bold uppercase tracking-widest text-primary/40">
           {[
-            "Mathematics", "English Language", "Physics", "Chemistry", "Biology",
-            "Government", "Economics", "WAEC", "JAMB", "NECO",
-            "Mathematics", "English Language", "Physics", "Chemistry", "Biology",
-            "Government", "Economics", "WAEC", "JAMB", "NECO",
+            "English Language", "Mathematics", "Basic Science", "Basic Technology",
+            "Social Studies", "Civic Education", "Agricultural Science",
+            "Home Economics", "Business Studies", "Creative Arts",
+            "Computer Studies", "Health Education", "Religious Studies",
+            "Nigerian Language", "French", "Arabic",
+            "English Language", "Mathematics", "Basic Science", "Basic Technology",
+            "Social Studies", "Civic Education", "Agricultural Science",
           ].map((item, idx) => (
             <span key={idx} className="flex items-center gap-3">
               <span className="h-1.5 w-1.5 rounded-full bg-primary/20" />

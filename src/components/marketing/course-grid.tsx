@@ -36,6 +36,9 @@ const COURSES: Course[] = [
   { title: "Introduction to Basic Science",           category: "Science",          thumb: "/courses/physics.jpg",   views: "1.2K", viewsNum: 1200, duration: "25 min", level: "JSS1"      },
   { title: "Number Bases and Fractions",              category: "Mathematics",      thumb: "/courses/math.jpg",      views: "2.1K", viewsNum: 2100, duration: "32 min", level: "JSS2"      },
   { title: "Basic Electronics — Part 1",              category: "Trade",            thumb: "/courses/physics.jpg",   views: "850",  viewsNum: 850,  duration: "40 min", level: "JSS3"      },
+  { title: "Civic Education: National Values",        category: "Social",           thumb: "/courses/english.jpg",   views: "1.5K", viewsNum: 1500, duration: "28 min", level: "JSS1"      },
+  { title: "Social Studies: Family Life",             category: "Social",           thumb: "/courses/economics.jpg", views: "1.1K", viewsNum: 1100, duration: "35 min", level: "JSS2"      },
+  { title: "Business Studies: Double Entry",          category: "Commercial",       thumb: "/courses/economics.jpg", views: "920",  viewsNum: 920,  duration: "45 min", level: "JSS3"      },
 ];
 
 const POPULAR_THRESHOLD = 2500;
