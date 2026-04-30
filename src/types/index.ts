@@ -4,7 +4,9 @@ export type Stream =
   | "Arts"
   | "Languages"
   | "Commercial"
-  | "Trade";
+  | "Trade"
+  | "Junior Secondary"
+  | "General";
 export type UserRole = "student" | "admin";
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 export type LessonStatus = "processing" | "ready" | "failed";
