@@ -27,7 +27,7 @@ import {
 import { useAuth } from "@/context/auth-context";
 import { ApiError } from "@/lib/api";
 
-const STREAMS = ["Sciences", "Arts", "Languages", "Commercial", "Trade"] as const;
+const STREAMS = ["Junior Secondary", "General", "Sciences", "Arts", "Languages", "Commercial", "Trade"] as const;
 const CLASS_LEVELS = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"] as const;
 
 const schema = z.object({
