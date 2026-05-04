@@ -90,7 +90,7 @@ export default function TutorsPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 90% 60%, hsl(43 74% 52% / 0.07), transparent 50%)",
+              "radial-gradient(circle at 90% 60%, hsl(43 53% 59% / 0.07), transparent 50%)",
           }}
         />
         <div className="container relative text-center max-w-2xl mx-auto">
@@ -107,7 +107,7 @@ export default function TutorsPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
             <Button asChild variant="hero" className="rounded-full">
-              <Link href="/register">Start Learning Free</Link>
+              <Link href="/register">Get Started Today</Link>
             </Button>
             <Button asChild variant="softOutline" className="rounded-full">
               <Link href="/courses">Browse Courses</Link>

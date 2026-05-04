@@ -62,11 +62,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const refreshUser = useCallback(async () => {
-    if (!getAccessToken() && !getRefreshToken()) {
+    const at = getAccessToken();
+    const rt = getRefreshToken();
+
+    if (!at && !rt) {
       setUser(null);
       setIsLoading(false);
       return;
     }
+
+
     try {
       const me = await api.get<User>("/auth/me");
       setUser(me);
@@ -102,6 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(
     async (email: string, password: string, mfaCode?: string) => {
+
       const body: Record<string, string> = { email, password };
       if (mfaCode) body.mfaCode = mfaCode;
       const res = await api.post<AuthResponse>("/auth/login", body);

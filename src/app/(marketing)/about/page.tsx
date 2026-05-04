@@ -69,19 +69,19 @@ const VALUES = [
 const STREAMS = [
   {
     label: "Sciences",
-    subjects: ["Physics", "Chemistry", "Biology", "Mathematics", "Further Mathematics"],
+    subjects: ["Physics", "Chemistry", "Biology", "General Mathematics", "Further Mathematics", "Agricultural Science"],
   },
   {
     label: "Arts",
-    subjects: ["Literature-in-English", "History", "Government", "CRS/IRS"],
+    subjects: ["Literature in English", "Government", "History", "Christian Religious Knowledge", "Yoruba", "Arts"],
   },
   {
     label: "Languages",
-    subjects: ["English Language", "French", "Yoruba", "Igbo", "Hausa"],
+    subjects: ["English Language", "Oral English", "French", "Yoruba", "Languages"],
   },
   {
     label: "Commercial",
-    subjects: ["Accounting", "Economics", "Commerce", "Business Studies"],
+    subjects: ["Financial Accounting", "Economics", "Commerce", "Business Studies", "Geography", "Commercial"],
   },
 ];
 
@@ -117,7 +117,7 @@ export default function AboutPage() {
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button asChild variant="hero" size="xl" className="rounded-full">
-                    <Link href="/register">Start Free Trial</Link>
+                    <Link href="/register">Start Learning Today</Link>
                   </Button>
                   <Button asChild variant="softOutline" size="xl" className="rounded-full">
                     <Link href="/courses">Explore Subjects</Link>
@@ -214,14 +214,14 @@ export default function AboutPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4 pt-12">
                   <div className="aspect-[4/5] rounded-3xl bg-primary overflow-hidden relative shadow-elegant">
-                    <Image src="/courses/maths.jpg" alt="Maths" fill className="object-cover opacity-60 mix-blend-overlay" />
+                    <Image src="/courses/math.jpg" alt="Maths" fill className="object-cover opacity-60 mix-blend-overlay" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
                       <div className="text-2xl font-bold">98%</div>
                       <div className="text-xs opacity-80 uppercase tracking-widest font-bold">Success Rate</div>
                     </div>
                   </div>
                   <div className="aspect-square rounded-3xl bg-accent overflow-hidden relative shadow-card">
-                     <Image src="/courses/science.jpg" alt="Science" fill className="object-cover opacity-60 mix-blend-overlay" />
+                     <Image src="/courses/chemistry.jpg" alt="Science" fill className="object-cover opacity-60 mix-blend-overlay" />
                   </div>
                 </div>
                 <div className="space-y-4">
@@ -284,7 +284,7 @@ export default function AboutPage() {
                     <Button asChild size="xl" className="rounded-full bg-white text-primary hover:bg-white/90 shadow-glow font-extrabold px-10">
                       <Link href="/register">Register Now</Link>
                     </Button>
-                    <Button asChild size="xl" variant="softOutline" className="rounded-full border-white/30 text-white hover:bg-white/10 px-10">
+                    <Button asChild size="xl" variant="outline" className="rounded-full border-white/30 text-white hover:bg-white/20 bg-white/10 backdrop-blur-md px-10 font-bold">
                       <Link href="/courses">Browse Catalog</Link>
                     </Button>
                   </div>

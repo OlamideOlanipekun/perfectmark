@@ -5,6 +5,9 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { AuthProvider } from "@/context/auth-context";
 import { Toaster } from "@/components/ui/sonner";
+import { Preloader } from "@/components/animations/preloader";
+import { WhatsappWidget } from "@/components/layout/whatsapp-widget";
+import { StickyCTA } from "@/components/layout/sticky-cta";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,6 +26,23 @@ export const metadata: Metadata = {
   },
   description:
     "Expertly designed WAEC, NECO and JAMB video tutorials by experienced Nigerian teachers. Cloud-based learning across Sciences, Arts, Languages, Commercial and Trade.",
+  keywords: [
+    "WAEC tutorials",
+    "NECO online lessons",
+    "JAMB preparation",
+    "Nigerian education",
+    "online tutors Nigeria",
+    "secondary school video lessons",
+    "SSCE online classes",
+    "PerfectMark",
+    "EdTech Nigeria",
+  ],
+  authors: [{ name: "PerfectMark Tutors College", url: SITE_URL }],
+  creator: "PerfectMark Tutors College",
+  publisher: "PerfectMark Tutors College",
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     type: "website",
     url: SITE_URL,
@@ -57,7 +77,10 @@ export default function RootLayout({
         <ThemeProvider>
           <QueryProvider>
             <AuthProvider>
+              <Preloader />
               {children}
+              <WhatsappWidget />
+            <StickyCTA />
               <Toaster richColors position="top-right" />
             </AuthProvider>
           </QueryProvider>

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const STATS = [
   { value: "2,000+", label: "Video tutorials" },
-  { value: "15+",  label: "Subjects covered" },
+  { value: "18+",  label: "Subjects covered" },
   { value: "4",    label: "Exam boards" },
   { value: "250+", label: "Expert tutors" },
 ];
@@ -22,7 +22,7 @@ export default function CoursesPage() {
     <>
       {/* Hero — light with accent glow, no dark background */}
       <section className="relative overflow-hidden bg-gradient-soft pt-36 pb-12">
-        <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 70% 60%, hsl(43 74% 52% / 0.09), transparent 50%), radial-gradient(circle at 20% 30%, hsl(217 85% 55% / 0.06), transparent 50%)" }} />
+        <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 70% 60%, hsl(43 53% 59% / 0.09), transparent 50%), radial-gradient(circle at 20% 30%, hsl(241 48% 24% / 0.06), transparent 50%)" }} />
         <div className="container relative text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary border border-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary mb-6">
             <span className="h-2 w-2 rounded-full bg-accent" />

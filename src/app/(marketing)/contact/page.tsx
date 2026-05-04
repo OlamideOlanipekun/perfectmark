@@ -21,8 +21,8 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+234 800 000 0000",
-    href: "tel:+2348000000000",
+    value: "+234 916 206 2050",
+    href: "tel:+2349162062050",
     color: "from-[#065f46] to-[#10b981]",
   },
   {
@@ -69,7 +69,7 @@ export default function ContactPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 90% 60%, hsl(43 74% 52% / 0.07), transparent 50%)",
+              "radial-gradient(circle at 90% 60%, hsl(43 53% 59% / 0.07), transparent 50%)",
           }}
         />
         <div className="container relative text-center max-w-2xl mx-auto">

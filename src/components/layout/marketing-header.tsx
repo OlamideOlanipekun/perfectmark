@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sparkles, X } from "lucide-react";
+import { X, Menu, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { label: "Home",         href: "/" },
   { label: "About",        href: "/about" },
   { label: "Courses",      href: "/courses" },
-  { label: "How it works", href: "/about#how" },
+  { label: "How it works", href: "/#how" },
   { label: "FAQ",          href: "/faq" },
 ];
 
@@ -20,223 +21,166 @@ export function MarketingHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hash, setHash] = useState("");
-  const [bannerVisible, setBannerVisible] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("pm-banner-v1")) setBannerVisible(true);
-
     const onScroll = () => setScrolled(window.scrollY > 20);
-    const onHashChange = () => setHash(window.location.hash);
-
     onScroll();
-    onHashChange();
-
     window.addEventListener("scroll", onScroll);
-    window.addEventListener("hashchange", onHashChange);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("hashchange", onHashChange);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const dismissBanner = () => {
-    setBannerVisible(false);
-    localStorage.setItem("pm-banner-v1", "1");
-  };
-
-  const isActive = (href: string) => {
-    const [linkPath, linkHash] = href.split("#");
-    const normalizedLinkHash = linkHash ? `#${linkHash}` : "";
-    if (pathname !== linkPath) return false;
-    if (normalizedLinkHash) return hash === normalizedLinkHash;
-    return !hash;
-  };
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full px-[5%] py-4 pointer-events-none">
-      <div className="mx-auto max-w-7xl pointer-events-auto">
-        {/* Announcement Banner — Now integrated into the floating flow */}
-        {bannerVisible && (
-          <div className="mb-4 overflow-hidden rounded-full border border-primary/10 bg-background/60 backdrop-blur-xl animate-fade-in shadow-sm">
-            <div className="relative flex items-center justify-center gap-2 bg-gradient-primary/5 px-8 py-2">
-              <Sparkles className="h-3.5 w-3.5 text-accent shrink-0 animate-pulse" />
-              <p className="text-[11px] font-bold text-primary tracking-wide">
-                🎓 New A-Level Mathematics courses now live —{" "}
-                <Link
-                  href="/courses"
-                  className="underline underline-offset-2 hover:text-accent transition-smooth"
-                >
-                  Browse now
-                </Link>
-              </p>
-              <button
-                onClick={dismissBanner}
-                aria-label="Dismiss announcement"
-                className="ml-4 text-primary/30 hover:text-primary transition-smooth"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            </div>
+    <motion.header 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
+        scrolled || mobileOpen 
+          ? "bg-white/80 backdrop-blur-xl shadow-sm py-3" 
+          : "bg-transparent py-6"
+      )}
+    >
+      <div className="container mx-auto px-[5%] flex items-center justify-between gap-8">
+        
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="relative h-11 w-11 overflow-hidden rounded-xl shadow-elegant border border-primary/10 transition-transform"
+          >
+            <Image 
+              src="/logo.jpg" 
+              alt="PerfectMark Logo" 
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+          <div className="hidden sm:block">
+            <div className="font-bold text-lg text-primary leading-none tracking-tight">PerfectMark</div>
+            <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-0.5">Tutors College</div>
           </div>
-        )}
+        </Link>
 
-        <div
-          className={cn(
-            "relative flex items-center justify-between gap-4 transition-all duration-500 ease-in-out px-6",
-            scrolled
-              ? "h-20 rounded-[2rem] bg-background/80 backdrop-blur-3xl shadow-elegant border border-primary/10"
-              : "h-24 bg-transparent border-transparent",
-          )}
-        >
-          {/* Subtle bottom glow on scroll */}
-          <div 
-            className={cn(
-              "absolute inset-x-12 -bottom-px h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent transition-opacity duration-500",
-              scrolled ? "opacity-100" : "opacity-0"
-            )} 
-          />
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group relative z-10">
-            <div className="relative">
-              <div className="absolute inset-0 rounded-full bg-primary/20 blur-md group-hover:blur-xl transition-all duration-500" />
-              <Image
-                src="/logo.jpg"
-                alt="Perfect Mark logo"
-                width={56}
-                height={56}
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-8 flex-1 justify-center">
+          {navItems.map((item, idx) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + idx * 0.1 }}
+            >
+              <Link 
+                href={item.href}
                 className={cn(
-                  "object-contain transition-all duration-500 group-hover:scale-110 group-hover:rotate-3",
-                  scrolled ? "h-12 w-12" : "h-14 w-14"
+                  "text-sm font-semibold transition-colors relative py-1",
+                  pathname === item.href 
+                    ? "text-primary" 
+                    : "text-muted-foreground hover:text-primary"
                 )}
-                priority
-              />
-            </div>
-            <div className="hidden sm:flex flex-col leading-none">
-              <span className={cn(
-                "font-extrabold tracking-tight transition-all duration-500",
-                scrolled ? "text-lg" : "text-xl",
-                "text-primary"
-              )}>
-                Perfect<span className="text-accent">Mark</span>
-              </span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-muted-foreground font-black opacity-80 mt-0.5">
-                Tutors College
-              </span>
-            </div>
-          </Link>
+              >
+                {item.label}
+                {pathname === item.href && (
+                  <motion.span 
+                    layoutId="nav-underline"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" 
+                  />
+                )}
+              </Link>
+            </motion.div>
+          ))}
+        </nav>
 
-          {/* Centered slick pill nav */}
-          <nav className="hidden lg:flex items-center gap-1 p-1 rounded-full bg-secondary/40 backdrop-blur-md border border-primary/5 shadow-inner">
-            {navItems.map((item) => {
-              const active = isActive(item.href);
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={cn(
-                    "relative px-5 py-2 text-sm font-bold rounded-full transition-all duration-300",
-                    active
-                      ? "text-white"
-                      : "text-foreground/60 hover:text-primary hover:bg-white/50"
-                  )}
-                >
-                  {active && (
-                    <span className="absolute inset-0 rounded-full bg-gradient-primary shadow-glow animate-scale-in" />
-                  )}
-                  <span className="relative z-10">{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* CTAs */}
-          <div className="flex items-center gap-3 relative z-10">
+        {/* Actions */}
+        <div className="hidden md:flex items-center gap-4 shrink-0">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+          >
             <Link 
               href="/login" 
-              className="hidden md:block text-sm font-bold text-foreground/70 hover:text-primary transition-smooth px-4"
+              className="text-sm font-bold text-primary hover:text-primary-glow transition-colors px-4 py-2"
             >
-              Log in
+              Log In
             </Link>
-
-            <Button
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <Button 
               asChild
-              variant="hero"
-              className={cn(
-                "hidden sm:flex rounded-full px-8 overflow-hidden group/cta relative transition-all duration-500",
-                scrolled ? "h-11" : "h-12"
-              )}
+              className="rounded-full font-bold px-7 shadow-elegant"
+              style={{
+                background: "linear-gradient(135deg,#cead60,#b8962a)",
+                color: "white"
+              }}
             >
               <Link href="/register">
-                <span className="relative z-10 flex items-center gap-2">
-                  Join Free
-                  <Sparkles className="h-3.5 w-3.5 text-accent animate-pulse" />
-                </span>
-                {/* Slick shimmer */}
-                <div className="absolute inset-0 -translate-x-[100%] group-hover/cta:translate-x-[100%] transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+                  Join Now
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-
-            <button
-              onClick={() => setMobileOpen((v) => !v)}
-              className="lg:hidden h-11 w-11 grid place-items-center rounded-2xl bg-secondary text-primary hover:bg-secondary/70 transition-smooth border border-primary/10 shadow-sm"
-              aria-label="Toggle menu"
-            >
-              <div className="relative w-5 h-5 flex flex-col justify-center gap-1.5 overflow-hidden">
-                <span className={cn(
-                  "h-0.5 w-full bg-current transition-all duration-300 origin-center",
-                  mobileOpen ? "rotate-45 translate-y-1" : ""
-                )} />
-                <span className={cn(
-                  "h-0.5 w-full bg-current transition-all duration-300",
-                  mobileOpen ? "-translate-x-full opacity-0" : ""
-                )} />
-                <span className={cn(
-                  "h-0.5 w-full bg-current transition-all duration-300 origin-center",
-                  mobileOpen ? "-rotate-45 -translate-y-1" : ""
-                )} />
-              </div>
-            </button>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Slick Mobile Menu */}
-        {mobileOpen && (
-          <div className="mt-4 lg:hidden rounded-3xl border border-primary/10 bg-background/95 backdrop-blur-3xl p-4 shadow-elegant animate-in fade-in zoom-in-95 duration-300">
-            <nav className="flex flex-col gap-1">
-              {navItems.map((item, i) => {
-                const active = isActive(item.href);
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    style={{ animationDelay: `${i * 50}ms` }}
-                    className={cn(
-                      "flex items-center justify-between px-5 py-4 rounded-2xl text-sm font-bold transition-all animate-in slide-in-from-bottom-2",
-                      active
-                        ? "bg-gradient-primary text-white shadow-glow"
-                        : "text-foreground/70 hover:bg-secondary hover:text-primary"
-                    )}
-                  >
-                    {item.label}
-                    {active && <Sparkles className="h-4 w-4" />}
-                  </Link>
-                );
-              })}
-              <div className="grid grid-cols-2 gap-3 pt-3 mt-2 border-t border-primary/5">
-                <Button asChild variant="ghost" className="rounded-2xl h-12 font-bold">
-                  <Link href="/login">Log in</Link>
-                </Button>
-                <Button asChild variant="hero" className="rounded-2xl h-12 font-bold">
-                  <Link href="/register">Sign Up</Link>
-                </Button>
-              </div>
-            </nav>
-          </div>
-        )}
+        {/* Mobile Toggle */}
+        <button 
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="lg:hidden p-2 text-primary hover:bg-secondary rounded-lg transition-colors"
+          aria-label="Toggle Menu"
+        >
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
       </div>
-    </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden fixed inset-x-0 top-[72px] bg-white border-t border-border p-6 shadow-2xl overflow-hidden"
+          >
+            <div className="flex flex-col gap-5">
+              {navItems.map((item) => (
+                <Link 
+                  key={item.label} 
+                  href={item.href} 
+                  onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "text-lg font-bold transition-colors",
+                    pathname === item.href ? "text-primary" : "text-muted-foreground"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <Link 
+                  href="/login" 
+                  className="flex items-center justify-center font-bold text-primary py-3 rounded-xl border border-primary/10 bg-secondary/50"
+                >
+                  Log In
+                </Link>
+                <Link 
+                  href="/register" 
+                  className="flex items-center justify-center font-bold text-white py-3 rounded-xl shadow-lg"
+                  style={{ background: "linear-gradient(135deg,#cead60,#b8962a)" }}
+                >
+                    Join Now
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

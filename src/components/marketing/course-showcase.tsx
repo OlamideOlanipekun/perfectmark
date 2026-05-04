@@ -5,7 +5,7 @@ import { Eye, Lock, Play } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFreeLessons } from "@/hooks/use-catalogue";
 
-const FILTERS = ["All", "Sciences", "Arts", "Languages", "Commercial", "Trade"];
+const FILTERS = ["All", "Agricultural Science", "Arts", "Biology", "Chemistry", "Christian Religious Knowledge", "Commercial", "Economics", "English Language", "Financial Accounting", "General Mathematics", "Geography", "Government", "Languages", "Literature in English", "Oral English", "Physics", "Sciences", "Yoruba"];
 
 /**
  * Publicly viewable free-lesson marquee for the /courses marketing page.
