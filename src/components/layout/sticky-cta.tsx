@@ -6,22 +6,25 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { usePathname } from "next/navigation";
+
 export function StickyCTA() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show after scrolling 400px (past the hero)
-      setIsVisible(window.scrollY > 400);
+      // Show after scrolling 400px (past the hero) and only on homepage
+      setIsVisible(window.scrollY > 400 && pathname === "/");
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isVisible && pathname === "/" && (
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
