@@ -113,6 +113,7 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-geist-sans), system-ui, sans-serif;
+    display: none !important;
   }
 
   h1, h2, h3, h4 {
