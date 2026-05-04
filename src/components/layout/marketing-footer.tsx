@@ -6,7 +6,10 @@ import Link from "next/link";
 import { ChevronUp, Mail, Phone, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { usePathname } from "next/navigation";
+
 export function MarketingFooter() {
+  const pathname = usePathname();
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
@@ -133,8 +136,11 @@ export function MarketingFooter() {
         onClick={scrollTop}
         aria-label="Back to top"
         className={cn(
-          "fixed bottom-[100px] lg:bottom-10 right-6 lg:right-10 z-[60] grid h-14 w-14 place-items-center rounded-2xl bg-[#cead60] text-[#21205c] shadow-2xl hover:-translate-y-2 active:scale-95 transition-all duration-500",
-          showScroll ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"
+          "fixed right-6 lg:right-10 z-[60] grid h-14 w-14 place-items-center rounded-2xl bg-[#cead60] text-[#21205c] shadow-2xl hover:-translate-y-2 active:scale-95 transition-all duration-500",
+          showScroll ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none",
+          pathname === "/" 
+            ? "bottom-[100px] lg:bottom-10" 
+            : "bottom-10"
         )}
       >
         <ChevronUp className="h-7 w-7" />

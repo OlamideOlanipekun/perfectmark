@@ -3,8 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+import { usePathname } from "next/navigation";
 
 export function WhatsappWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [showWidget, setShowWidget] = useState(false);
 
@@ -39,7 +43,12 @@ export function WhatsappWidget() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.4 }}
-          className="fixed bottom-[100px] lg:bottom-8 left-6 lg:left-8 z-[60] flex flex-col items-start"
+          className={cn(
+            "fixed left-6 lg:left-8 z-[60] flex flex-col items-start transition-all duration-500",
+            pathname === "/" 
+              ? "bottom-[100px] lg:bottom-8" 
+              : "bottom-8"
+          )}
         >
       <AnimatePresence>
         {isOpen && (
