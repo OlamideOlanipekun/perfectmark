@@ -6,13 +6,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     <div className="min-h-screen grid lg:grid-cols-2 bg-background">
       {/* Left Side: Brand Panel (Visible on Desktop) */}
       <div className="relative hidden lg:flex flex-col justify-between p-12 bg-primary overflow-hidden">
-        {/* Abstract Background Image */}
-        <Image
-          src="/auth_background_1777518723146.png"
-          alt="Perfect Mark Background"
-          fill
-          className="object-cover opacity-20 mix-blend-overlay"
-        />
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/80" />
         
         {/* Decorative Circles */}

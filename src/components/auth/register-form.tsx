@@ -169,7 +169,7 @@ export function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Class level</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select onValueChange={field.onChange} value={field.value ?? ""}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select…" />
@@ -194,7 +194,7 @@ export function RegisterForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Stream</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select onValueChange={field.onChange} value={field.value ?? ""}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select…" />
@@ -243,11 +243,11 @@ export function RegisterForm() {
                 />
                 <span className="text-sm text-foreground/90 leading-relaxed">
                   I agree to the{" "}
-                  <Link href="/terms" className="font-semibold text-primary underline underline-offset-2">
+                  <Link href="/legal/terms" className="font-semibold text-primary underline underline-offset-2">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy" className="font-semibold text-primary underline underline-offset-2">
+                  <Link href="/legal/privacy" className="font-semibold text-primary underline underline-offset-2">
                     Privacy Policy
                   </Link>
                   .
