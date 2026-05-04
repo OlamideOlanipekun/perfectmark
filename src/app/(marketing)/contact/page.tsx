@@ -64,7 +64,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-soft pt-36 pb-20">
+      <section className="relative overflow-hidden bg-gradient-soft pt-28 pb-12 md:pt-36 md:pb-20">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -72,41 +72,42 @@ export default function ContactPage() {
               "radial-gradient(circle at 90% 60%, hsl(43 53% 59% / 0.07), transparent 50%)",
           }}
         />
-        <div className="container relative text-center max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-2 rounded-full bg-secondary border border-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary mb-6">
+        <div className="container relative text-center max-w-2xl mx-auto px-[5%]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-secondary border border-primary/10 px-4 py-1.5 text-[10px] md:text-xs font-semibold uppercase tracking-widest text-primary mb-4 md:mb-6">
             <span className="h-2 w-2 rounded-full bg-accent" />
             Get In Touch
           </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-primary">
+          <h1 className="text-3xl md:text-6xl font-extrabold leading-tight tracking-tight text-primary">
             We&apos;re here to{" "}
             <span className="text-gradient">help you</span>
           </h1>
-          <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-4 md:mt-5 text-sm md:text-lg text-muted-foreground leading-relaxed">
             Have a question about our tutorials, subscriptions, or need technical support?
             Reach out and we&apos;ll get back to you as soon as possible.
           </p>
         </div>
       </section>
 
-      <section className="bg-gradient-soft py-20">
-        <div className="container grid lg:grid-cols-[1fr_400px] gap-12 items-start">
-          {/* Left: Contact Form */}
-          <div className="space-y-8">
-            <div className="rounded-3xl border border-border bg-card shadow-card p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-primary text-white shadow-glow">
+      <section className="bg-gradient-soft pb-20 pt-4">
+        <div className="container grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 md:gap-12 items-start px-[5%]">
+          
+          {/* Mobile Order: Info first, then Form */}
+          <div className="order-2 lg:order-1 space-y-8 md:space-y-12">
+            <div className="rounded-[24px] md:rounded-3xl border border-border bg-card shadow-card p-6 md:p-8">
+              <div className="flex items-center gap-3 mb-6 md:mb-8">
+                <div className="grid h-10 w-10 md:h-11 md:w-11 place-items-center rounded-xl md:rounded-2xl bg-gradient-primary text-white shadow-glow">
                   <MessageSquare className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="font-extrabold text-primary text-xl">Send us a message</h2>
-                  <p className="text-sm text-muted-foreground">We reply within 24 hours</p>
+                  <h2 className="font-extrabold text-primary text-lg md:text-xl leading-tight">Send us a message</h2>
+                  <p className="text-[11px] md:text-sm text-muted-foreground">We reply within 24 hours</p>
                 </div>
               </div>
 
               <form className="space-y-5" action="mailto:support@perfectmarktutorschoolproject.com" method="get" encType="text/plain">
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-semibold text-primary mb-1.5" htmlFor="contact-name">
+                  <div className="space-y-1.5">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-primary/60 ml-1" htmlFor="contact-name">
                       Full Name
                     </label>
                     <input
@@ -115,11 +116,11 @@ export default function ContactPage() {
                       type="text"
                       required
                       placeholder="Your full name"
-                      className="w-full rounded-2xl border border-border bg-secondary/30 px-4 py-3 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-smooth"
+                      className="w-full rounded-xl md:rounded-2xl border border-border bg-secondary/30 px-4 py-3.5 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth"
                     />
                   </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-primary mb-1.5" htmlFor="contact-email">
+                  <div className="space-y-1.5">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-primary/60 ml-1" htmlFor="contact-email">
                       Email Address
                     </label>
                     <input
@@ -128,19 +129,19 @@ export default function ContactPage() {
                       type="email"
                       required
                       placeholder="you@example.com"
-                      className="w-full rounded-2xl border border-border bg-secondary/30 px-4 py-3 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-smooth"
+                      className="w-full rounded-xl md:rounded-2xl border border-border bg-secondary/30 px-4 py-3.5 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-primary mb-1.5" htmlFor="contact-subject">
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-primary/60 ml-1" htmlFor="contact-subject">
                     Subject
                   </label>
                   <select
                     id="contact-subject"
                     name="subject"
-                    className="w-full rounded-2xl border border-border bg-secondary/30 px-4 py-3 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-smooth"
+                    className="w-full rounded-xl md:rounded-2xl border border-border bg-secondary/30 px-4 py-3.5 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth appearance-none cursor-pointer"
                   >
                     <option value="">Select a topic…</option>
                     <option value="subscription">Subscription / Billing</option>
@@ -151,8 +152,8 @@ export default function ContactPage() {
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-primary mb-1.5" htmlFor="contact-message">
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-primary/60 ml-1" htmlFor="contact-message">
                     Message
                   </label>
                   <textarea
@@ -161,11 +162,11 @@ export default function ContactPage() {
                     required
                     rows={5}
                     placeholder="Tell us how we can help you…"
-                    className="w-full rounded-2xl border border-border bg-secondary/30 px-4 py-3 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-smooth resize-none"
+                    className="w-full rounded-xl md:rounded-2xl border border-border bg-secondary/30 px-4 py-3.5 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-smooth resize-none"
                   />
                 </div>
 
-                <Button type="submit" variant="hero" className="rounded-full w-full gap-2">
+                <Button type="submit" size="xl" className="rounded-xl w-full gap-2 font-extrabold shadow-elegant" style={{ background: "linear-gradient(135deg,#cead60,#b8962a)", color: "white" }}>
                   <Send className="h-4 w-4" />
                   Send Message
                 </Button>
@@ -174,48 +175,48 @@ export default function ContactPage() {
 
             {/* FAQs */}
             <div>
-              <h2 className="text-2xl font-extrabold text-primary mb-5">
-                Frequently Asked Questions
+              <h2 className="text-xl md:text-2xl font-extrabold text-primary mb-6 ml-1">
+                Common Questions
               </h2>
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
                 {FAQS.map((faq) => (
                   <div
                     key={faq.q}
-                    className="rounded-3xl border border-border bg-card p-6 shadow-card hover:shadow-elegant transition-smooth"
+                    className="rounded-[20px] md:rounded-3xl border border-border bg-card p-5 md:p-6 shadow-sm hover:shadow-elegant transition-smooth border-l-4 border-l-accent"
                   >
-                    <h3 className="font-bold text-primary mb-2">{faq.q}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                    <h3 className="font-bold text-primary text-sm md:text-base mb-2">{faq.q}</h3>
+                    <p className="text-[13px] text-muted-foreground leading-relaxed">{faq.a}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Right: Contact Info */}
-          <aside className="sticky top-28 space-y-5">
-            <div className="rounded-3xl bg-gradient-primary text-white p-8 shadow-elegant relative overflow-hidden">
+          {/* Right: Contact Info (order-1 on mobile) */}
+          <aside className="lg:sticky lg:top-28 space-y-6 order-1 lg:order-2">
+            <div className="rounded-[24px] md:rounded-3xl bg-gradient-primary text-white p-7 md:p-8 shadow-elegant relative overflow-hidden">
               <div className="pointer-events-none absolute inset-0 opacity-10"
                 style={{ backgroundImage: "radial-gradient(circle at 80% 20%, white, transparent 50%)" }} />
-              <h2 className="font-extrabold text-xl mb-2 relative z-10">Contact Information</h2>
-              <p className="text-white/70 text-sm mb-6 relative z-10">
-                Reach us through any of the channels below.
+              <h2 className="font-extrabold text-lg md:text-xl mb-2 relative z-10">Contact Information</h2>
+              <p className="text-white/70 text-xs md:text-sm mb-8 relative z-10 leading-relaxed">
+                Reach us through any of the channels below. We&apos;re here to help.
               </p>
-              <div className="space-y-4 relative z-10">
+              <div className="space-y-6 relative z-10">
                 {CONTACT_INFO.map((item) => (
                   <div key={item.label} className="flex items-center gap-4">
-                    <div className={`grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${item.color} text-white shrink-0`}>
+                    <div className={`grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${item.color} text-white shrink-0 shadow-lg`}>
                       <item.icon className="h-4 w-4" />
                     </div>
                     <div>
-                      <div className="text-[10px] font-bold uppercase tracking-widest text-white/50">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-white/50 mb-0.5">
                         {item.label}
                       </div>
                       {item.href ? (
-                        <a href={item.href} className="text-sm text-white font-semibold hover:text-accent transition-smooth">
+                        <a href={item.href} className="text-sm md:text-base text-white font-bold hover:text-accent transition-smooth">
                           {item.value}
                         </a>
                       ) : (
-                        <div className="text-sm text-white font-semibold">{item.value}</div>
+                        <div className="text-sm md:text-base text-white font-bold">{item.value}</div>
                       )}
                     </div>
                   </div>
@@ -223,22 +224,22 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-border bg-card shadow-card p-6">
-              <h3 className="font-bold text-primary mb-3">Quick Links</h3>
-              <div className="space-y-2">
+            <div className="rounded-[24px] md:rounded-3xl border border-border bg-card shadow-card p-6">
+              <h3 className="font-bold text-primary text-sm md:text-base mb-4 ml-1">Quick Links</h3>
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
                 {[
-                  { label: "Browse Courses", href: "/courses" },
-                  { label: "View Pricing", href: "/subscriptions" },
+                  { label: "Courses", href: "/courses" },
+                  { label: "Pricing", href: "/subscriptions" },
                   { label: "About Us", href: "/about" },
                   { label: "FAQ", href: "/faq" },
                 ].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="flex items-center justify-between rounded-2xl px-4 py-3 bg-secondary/40 text-sm font-semibold text-primary hover:bg-gradient-primary hover:text-white transition-smooth"
+                    className="flex items-center justify-between rounded-xl px-4 py-3 bg-secondary/40 text-[13px] font-bold text-primary hover:bg-gradient-primary hover:text-white transition-smooth"
                   >
                     {link.label}
-                    <span>→</span>
+                    <span className="opacity-50">→</span>
                   </Link>
                 ))}
               </div>
