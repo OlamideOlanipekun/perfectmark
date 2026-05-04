@@ -2,7 +2,7 @@
 
 import React, { useCallback } from "react";
 import Image from "next/image";
-import { Star, Quote, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/animations/scroll-reveal";
