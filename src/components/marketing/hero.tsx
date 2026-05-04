@@ -187,7 +187,7 @@ export function Hero() {
           variants={slideInRight}
           initial="initial"
           animate="animate"
-          className="relative h-[480px] md:h-[520px] lg:h-[620px] mt-8 lg:mt-0"
+          className="relative h-[520px] md:h-[520px] lg:h-[620px] mt-8 lg:mt-0"
         >
           {/* Card */}
           <div
@@ -235,7 +235,7 @@ export function Hero() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="w-[60%] md:w-auto"
+                className="w-[85%] md:w-auto"
               >
                 <Image
                   src="/hero-student.png"
@@ -243,7 +243,7 @@ export function Hero() {
                   width={600}
                   height={640}
                   priority
-                  className="relative z-10 h-[280px] md:h-[340px] lg:h-[400px] w-auto object-contain drop-shadow-2xl mx-auto"
+                  className="relative z-10 h-[320px] md:h-[340px] lg:h-[400px] w-auto object-contain drop-shadow-2xl mx-auto"
                 />
               </motion.div>
             </div>
