@@ -6,15 +6,15 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Course Catalog | JSS, WAEC, NECO & JAMB Tutorials",
-  description: "Browse 2,000+ video tutorials across all Nigerian secondary school subjects. Specialized coaching for Sciences, Arts, Languages, Commercial, and Trade subjects.",
+  description: "Browse video tutorials across all Nigerian secondary school subjects. Specialized coaching for Sciences, Arts, Languages, Commercial, and Trade subjects.",
   keywords: ["online courses Nigeria", "WAEC video lessons", "JAMB tutorials", "Nigerian secondary school subjects", "JSS 1-3 courses"],
 };
 
 const STATS = [
-  { value: "2,000+", label: "Video tutorials" },
-  { value: "18+",  label: "Subjects covered" },
-  { value: "4",    label: "Exam boards" },
-  { value: "250+", label: "Expert tutors" },
+  { value: "JSS-SS3", label: "Full coverage" },
+  { value: "5",       label: "Subject streams" },
+  { value: "WAEC",    label: "& NECO & JAMB" },
+  { value: "HD",      label: "Video quality" },
 ];
 
 export default function CoursesPage() {
@@ -32,7 +32,7 @@ export default function CoursesPage() {
             Your <span className="text-gradient">Gateway</span> to Excellence
           </h1>
           <p className="mt-5 max-w-xl mx-auto text-muted-foreground leading-relaxed">
-            2,000+ expertly-taught video lessons covering JSS 1-3, WAEC, NECO and JAMB — Sciences, Arts, Languages, Commercial and Trade.
+            Expertly-taught video lessons covering JSS 1-3, WAEC, NECO and JAMB — Sciences, Arts, Languages, Commercial and Trade.
           </p>
           {/* Stats strip — card style on light bg */}
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">

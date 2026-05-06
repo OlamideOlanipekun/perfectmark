@@ -1,10 +1,8 @@
 "use client";
 
-import { BookOpen, Video, Globe, Wallet, TrendingUp, Users, Award, Clock } from "lucide-react";
+import { BookOpen, Video, Globe, Wallet } from "lucide-react";
 import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/animations/scroll-reveal";
-import { StatsCounter } from "@/components/animations/stats-counter";
-import { cn } from "@/lib/utils";
 import { cardHover } from "@/lib/animations";
 
 const FEATURES_DATA = [
@@ -41,14 +39,6 @@ const FEATURES_DATA = [
     accentColor: "#cead60",
   },
 ] as const;
-
-const STATS = [
-  { icon: TrendingUp, value: 10000, suffix: "+", label: "Active Students" },
-  { icon: Video,      value: 2000,  suffix: "+",  label: "Video Lessons" },
-  { icon: Users,      value: 250,   suffix: "+", label: "Expert Tutors" },
-  { icon: Award,      value: 98,    suffix: "%",  label: "Pass Rate" },
-  { icon: Clock,      value: 24,    suffix: "/7", label: "Always Available" },
-];
 
 export function Features() {
   return (
@@ -108,48 +98,6 @@ export function Features() {
             <FeatureCard key={feature.title} f={feature} index={FEATURES_DATA.indexOf(feature)} />
           ))}
         </div>
-
-        {/* ── Stats strip ── */}
-        <ScrollReveal delay={0.2}>
-          <div
-            className="mt-16 rounded-3xl p-8 shadow-elegant overflow-hidden relative"
-            style={{ background: "linear-gradient(135deg,#21205c,#312f8a)" }}
-          >
-            {/* Decorative blobs */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full"
-              style={{ background: "radial-gradient(circle,rgba(206,173,96,.12) 0%,transparent 65%)" }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -left-12 -bottom-12 h-44 w-44 rounded-full"
-              style={{ background: "radial-gradient(circle,rgba(206,173,96,.08) 0%,transparent 65%)" }}
-            />
-
-            <div className="relative grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
-              {STATS.map((s, idx) => (
-                <div
-                  key={s.label}
-                  className={cn(
-                    "group flex flex-col items-center text-center gap-2 md:gap-3 rounded-2xl bg-white/10 hover:bg-white/[0.17] border border-white/10 p-4 md:p-5 transition-all duration-300",
-                    idx === 4 && "col-span-2 lg:col-span-1" // Make last item full width on mobile (2 cols)
-                  )}
-                >
-                  <div className="grid h-8 w-8 md:h-10 md:w-10 place-items-center rounded-xl bg-white/15 transition-all duration-300 group-hover:scale-110 group-hover:bg-white/25">
-                    <s.icon className="h-4 w-4 md:h-5 md:w-5 text-accent" />
-                  </div>
-                  <div className="text-2xl md:text-3xl font-extrabold text-white leading-none">
-                    <StatsCounter value={s.value} suffix={s.suffix} />
-                  </div>
-                  <div className="text-[9px] md:text-[11px] uppercase tracking-wider text-white/60 font-semibold leading-tight">
-                    {s.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </ScrollReveal>
       </div>
     </section>
   );

@@ -3,12 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MonitorPlay, GraduationCap, Users, Star, CheckCircle } from "lucide-react";
+import { MonitorPlay, GraduationCap, BookOpen, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, slideInRight } from "@/lib/animations";
-
-const AVATAR_SEEDS = ["amara", "chidi", "fatima", "emeka"];
 
 export function Hero() {
   return (
@@ -145,41 +143,6 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Social Proof */}
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 pt-2">
-            <div className="flex -space-x-2.5">
-              {AVATAR_SEEDS.map((seed) => (
-                <Image
-                  key={seed}
-                  src={`https://i.pravatar.cc/36?u=${seed}`}
-                  alt={`Student ${seed}`}
-                  width={36}
-                  height={36}
-                  className="h-9 w-9 rounded-full object-cover ring-2 ring-background"
-                />
-              ))}
-            </div>
-
-            <div className="hidden sm:block w-px h-10 bg-primary/12" />
-
-            <div className="flex flex-col items-center lg:items-start gap-0.5">
-              <div className="flex items-center gap-0.5">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star
-                    key={s}
-                    className="h-3.5 w-3.5 fill-accent text-accent"
-                  />
-                ))}
-                <span className="ml-1 text-sm font-extrabold text-primary">
-                  4.9
-                </span>
-              </div>
-              <span className="text-sm text-muted-foreground">
-                <strong className="text-primary">10,000+</strong> students
-                learning today
-              </span>
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* Right visual */}
@@ -205,9 +168,9 @@ export function Hero() {
             
             <div className="relative z-10 grid grid-cols-3 gap-2 md:gap-3 mb-6">
               {[
-                { val: "2K+", label: "Videos", icon: "🎬" },
-                { val: "10K+", label: "Students", icon: "🎓" },
-                { val: "250+", label: "Tutors", icon: "👨‍🏫" },
+                { label: "WAEC", icon: "📘" },
+                { label: "NECO", icon: "📗" },
+                { label: "JAMB", icon: "📕" },
               ].map((s) => (
                 <div
                   key={s.label}
@@ -218,8 +181,8 @@ export function Hero() {
                   }}
                 >
                   <span className="text-xl md:text-2xl mb-0.5 md:mb-1">{s.icon}</span>
-                  <span className="text-lg md:text-xl font-extrabold text-[#cead60]">{s.val}</span>
-                  <span className="text-[9px] md:text-[10px] mt-0.5 md:mt-1 font-medium text-white/50">{s.label}</span>
+                  <span className="text-sm md:text-base font-extrabold text-[#cead60]">{s.label}</span>
+                  <span className="text-[9px] md:text-[10px] mt-0.5 md:mt-1 font-medium text-white/50">Ready</span>
                 </div>
               ))}
             </div>
@@ -253,16 +216,16 @@ export function Hero() {
           <div className="absolute -left-2 sm:-left-6 top-16 sm:top-28 z-20 scale-[0.7] sm:scale-100 origin-left">
             <FloatCard
               icon={<MonitorPlay className="h-5 w-5" />}
-              label="WAEC Ready"
-              sub="2K+ Lessons"
+              label="HD Lessons"
+              sub="Cloud-based"
             />
           </div>
 
           <div className="absolute -right-2 sm:-right-4 bottom-10 sm:bottom-16 z-20 scale-[0.7] sm:scale-100 origin-right">
             <FloatCard
-              icon={<Users className="h-5 w-5" />}
-              label="250+"
-              sub="Expert Tutors"
+              icon={<BookOpen className="h-5 w-5" />}
+              label="Full Syllabus"
+              sub="JSS 1 to SS 3"
               reverse
             />
           </div>
@@ -274,8 +237,8 @@ export function Hero() {
                 <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
               <div>
-                <p className="text-[10px] sm:text-xs font-bold text-primary leading-tight">JAMB Top Scorer</p>
-                <p className="text-[8px] sm:text-[10px] text-muted-foreground">Class of 2025</p>
+                <p className="text-[10px] sm:text-xs font-bold text-primary leading-tight">Exam Ready</p>
+                <p className="text-[8px] sm:text-[10px] text-muted-foreground">WAEC, NECO, JAMB</p>
               </div>
             </div>
           </div>

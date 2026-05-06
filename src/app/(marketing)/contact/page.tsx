@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone, MessageSquare, Clock, Send } from "lucide-react";
+import { Mail, MapPin, Phone, MessageSquare, Clock, Send, HelpCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 
@@ -38,25 +38,6 @@ const CONTACT_INFO = [
     value: "Mon – Sat, 8am – 6pm WAT",
     href: null,
     color: "from-[#92400e] to-[#d97706]",
-  },
-];
-
-const FAQS = [
-  {
-    q: "How do I access my lessons after subscribing?",
-    a: "After subscribing, go to your Dashboard and click 'Browse catalogue'. All lessons will be unlocked immediately.",
-  },
-  {
-    q: "Can I watch on my phone?",
-    a: "Yes! Our platform works on any device — phone, tablet, or computer.",
-  },
-  {
-    q: "Do you offer refunds?",
-    a: "We offer a 7-day refund if you haven't watched more than 20% of any lesson.",
-  },
-  {
-    q: "How are tutorials different from other platforms?",
-    a: "Our tutors are experienced Nigerian teachers who align lessons precisely to WAEC, NECO and UTME syllabi.",
   },
 ];
 
@@ -173,22 +154,24 @@ export default function ContactPage() {
               </form>
             </div>
 
-            {/* FAQs */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-primary mb-6 ml-1">
-                Common Questions
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
-                {FAQS.map((faq) => (
-                  <div
-                    key={faq.q}
-                    className="rounded-[20px] md:rounded-3xl border border-border bg-card p-5 md:p-6 shadow-sm hover:shadow-elegant transition-smooth border-l-4 border-l-accent"
-                  >
-                    <h3 className="font-bold text-primary text-sm md:text-base mb-2">{faq.q}</h3>
-                    <p className="text-[13px] text-muted-foreground leading-relaxed">{faq.a}</p>
-                  </div>
-                ))}
+            {/* Link to FAQ page (single source of truth) */}
+            <div className="rounded-[24px] md:rounded-3xl border border-border bg-card p-6 md:p-8 shadow-card flex flex-col sm:flex-row items-start sm:items-center gap-5">
+              <div className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-primary text-white shadow-glow shrink-0">
+                <HelpCircle className="h-6 w-6" />
               </div>
+              <div className="flex-1">
+                <h2 className="text-lg md:text-xl font-extrabold text-primary mb-1">
+                  Looking for answers?
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Browse our full FAQ — covers access, devices, billing and lesson content.
+                </p>
+              </div>
+              <Button asChild variant="softOutline" className="rounded-full shrink-0">
+                <Link href="/faq" className="inline-flex items-center gap-2">
+                  Read FAQ <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </div>
 

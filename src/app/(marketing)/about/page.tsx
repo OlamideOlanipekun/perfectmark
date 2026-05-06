@@ -113,7 +113,7 @@ export default function AboutPage() {
                   <span className="text-gradient">Education</span> in Africa
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg mb-10">
-                  Perfect Mark Tutors College is Nigeria&apos;s leading online school, dedicated to helping JSS and SS students achieve academic excellence through premium video tutorials.
+                  Perfect Mark Tutors College is an online tutoring platform built for Nigerian secondary school students, dedicated to helping JSS and SS learners achieve academic excellence through premium video tutorials.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button asChild variant="hero" size="xl" className="rounded-full">
@@ -137,15 +137,15 @@ export default function AboutPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                 
-                {/* Floating Stat Card */}
+                {/* Floating Caption */}
                 <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-card animate-float">
                   <div className="flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center text-white font-bold">
-                      10K+
+                    <div className="h-12 w-12 rounded-xl bg-gradient-primary flex items-center justify-center text-white">
+                      <Lightbulb className="h-6 w-6" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-primary">Active Students</div>
-                      <div className="text-xs text-muted-foreground">Learning daily across Africa</div>
+                      <div className="text-sm font-bold text-primary">Built in Nigeria</div>
+                      <div className="text-xs text-muted-foreground">For Nigerian secondary students</div>
                     </div>
                   </div>
                 </div>
@@ -216,8 +216,8 @@ export default function AboutPage() {
                   <div className="aspect-[4/5] rounded-3xl bg-primary overflow-hidden relative shadow-elegant">
                     <Image src="/courses/math.jpg" alt="Maths" fill className="object-cover opacity-60 mix-blend-overlay" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                      <div className="text-2xl font-bold">98%</div>
-                      <div className="text-xs opacity-80 uppercase tracking-widest font-bold">Success Rate</div>
+                      <div className="text-2xl font-bold">Mathematics</div>
+                      <div className="text-xs opacity-80 uppercase tracking-widest font-bold">Sciences Stream</div>
                     </div>
                   </div>
                   <div className="aspect-square rounded-3xl bg-accent overflow-hidden relative shadow-card">
@@ -231,8 +231,8 @@ export default function AboutPage() {
                   <div className="aspect-[4/5] rounded-3xl bg-primary overflow-hidden relative shadow-elegant">
                     <Image src="/courses/economics.jpg" alt="Economics" fill className="object-cover opacity-60 mix-blend-overlay" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                      <div className="text-2xl font-bold">2,000+</div>
-                      <div className="text-xs opacity-80 uppercase tracking-widest font-bold">Video Lessons</div>
+                      <div className="text-2xl font-bold">Economics</div>
+                      <div className="text-xs opacity-80 uppercase tracking-widest font-bold">Commercial Stream</div>
                     </div>
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export default function AboutPage() {
           <div className="max-w-3xl mx-auto text-center mb-16">
             <ScrollReveal direction="up">
               <h2 className="text-4xl md:text-5xl font-extrabold mb-6">Why Students <span className="text-accent">Choose Us</span></h2>
-              <p className="text-white/70">Over 10,000 students trust Perfect Mark Tutors College for their academic success. Here is why.</p>
+              <p className="text-white/70">Built around what Nigerian secondary students actually need to pass their exams. Here is why.</p>
             </ScrollReveal>
           </div>
 
@@ -279,7 +279,7 @@ export default function AboutPage() {
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--accent),transparent_70%)] opacity-20" />
                <div className="relative z-10 max-w-2xl mx-auto">
                   <h2 className="text-4xl md:text-6xl font-extrabold mb-8">Ready to Start Your <span className="text-accent">Success Story?</span></h2>
-                  <p className="text-white/80 text-lg mb-10 leading-relaxed">Join thousands of students across Africa who are achieving their academic dreams with Perfect Mark Tutors College.</p>
+                  <p className="text-white/80 text-lg mb-10 leading-relaxed">Be part of the next generation of Nigerian students mastering WAEC, NECO and JAMB with Perfect Mark Tutors College.</p>
                   <div className="flex flex-wrap justify-center gap-4">
                     <Button asChild size="xl" className="rounded-full bg-white text-primary hover:bg-white/90 shadow-glow font-extrabold px-10">
                       <Link href="/register">Register Now</Link>
