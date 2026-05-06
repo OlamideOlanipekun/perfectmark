@@ -46,8 +46,7 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* Live free-lesson grid — powered by GET /catalogue/lessons/free */}
-      <CourseShowcase limit={15} />
+      <CourseShowcase />
 
       {/* CTA */}
       <section className="bg-gradient-soft pb-20">
