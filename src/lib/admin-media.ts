@@ -107,9 +107,10 @@ export function startUpload(args: {
     }
 
     onProgress({ phase: "signing" });
-    let signed: CreateUploadResponse;
     try {
-      signed = await adminMedia.createUpload({
+      // Reserves the rawObjectKey on the lesson and flips status to 'uploading'.
+      // We don't use the returned presigned URL — uploads go through our proxy.
+      await adminMedia.createUpload({
         lessonId,
         contentType,
         sizeBytes: file.size,
