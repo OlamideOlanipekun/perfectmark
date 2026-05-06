@@ -6,6 +6,7 @@ import { Hero } from "@/components/marketing/hero";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { Features } from "@/components/marketing/features";
 import { CourseGrid } from "@/components/marketing/course-grid";
+import { Testimonials } from "@/components/marketing/testimonials";
 import { CTABanner } from "@/components/marketing/cta-banner";
 
 /**
@@ -30,6 +31,9 @@ export default function PerfectMarkLandingPage() {
 
         {/* Course Grid - Subject Library & Previews */}
         <CourseGrid />
+
+        {/* Testimonials - only renders when published reviews exist */}
+        <Testimonials />
 
         {/* Final CTA - Registration Conversion */}
         <CTABanner />
