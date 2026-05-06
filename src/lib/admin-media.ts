@@ -1,5 +1,8 @@
 import { api, ApiError } from "@/lib/api";
+import { getAccessToken } from "@/lib/auth";
 import type { Lesson } from "@/lib/catalogue";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export interface CreateUploadBody {
   lessonId: string;
@@ -118,12 +121,12 @@ export function startUpload(args: {
       throw err;
     }
 
-    // R2 PUT with progress tracking. If this fails we still call the
-    // complete endpoint with success=false so the backend rolls the lesson
-    // back to 'draft' — otherwise it's stuck in 'uploading' forever.
+    // Upload via backend proxy. Some networks (residential ISPs that do
+    // TLS inspection, restrictive mobile carriers) can't reach R2 directly,
+    // so we stream the file through Railway → R2.
     onProgress({ phase: "uploading", loaded: 0, total: file.size });
     try {
-      await putToR2({ xhr, url: signed.uploadUrl, file, contentType, onProgress });
+      await putViaProxy({ xhr, lessonId, file, contentType, onProgress });
     } catch (err) {
       const msg = aborted
         ? "Upload cancelled"
@@ -161,16 +164,23 @@ export function startUpload(args: {
   };
 }
 
-function putToR2(args: {
+function putViaProxy(args: {
   xhr: XMLHttpRequest;
-  url: string;
+  lessonId: string;
   file: File;
   contentType: string;
   onProgress: (s: UploadProgress) => void;
 }): Promise<void> {
   return new Promise((resolve, reject) => {
-    const { xhr, url, file, contentType, onProgress } = args;
+    const { xhr, lessonId, file, contentType, onProgress } = args;
+    const url = `${API_BASE_URL}/admin/media/uploads/${lessonId}/data`;
+    const token = getAccessToken();
+    if (!token) {
+      reject(new Error("Not authenticated"));
+      return;
+    }
     xhr.open("PUT", url, true);
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
     xhr.setRequestHeader("Content-Type", contentType);
     xhr.upload.addEventListener("progress", (e) => {
       if (e.lengthComputable) {
@@ -179,7 +189,7 @@ function putToR2(args: {
     });
     xhr.addEventListener("load", () => {
       if (xhr.status >= 200 && xhr.status < 300) resolve();
-      else reject(new Error(`R2 rejected upload (HTTP ${xhr.status})`));
+      else reject(new Error(`Upload rejected (HTTP ${xhr.status})`));
     });
     xhr.addEventListener("error", () => reject(new Error("Network error during upload")));
     xhr.addEventListener("abort", () => reject(new Error("Upload cancelled")));
