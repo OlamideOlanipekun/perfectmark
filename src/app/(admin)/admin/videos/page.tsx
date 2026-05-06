@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
@@ -226,9 +226,7 @@ function LessonFormDialog({
             <span className="text-sm font-medium text-primary">Free preview (visible without subscription)</span>
           </label>
 
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
-          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
 
           <DialogFooter className="pt-2">
             <Button type="button" variant="outline" onClick={onClose} className="rounded-full">Cancel</Button>
@@ -243,7 +241,7 @@ function LessonFormDialog({
   );
 }
 
-// ── Delete Confirm Dialog ─────────────────────────────────────────────────────
+// ── Single Delete Dialog ──────────────────────────────────────────────────────
 
 function DeleteDialog({ lesson, onClose }: { lesson: FlatLesson; onClose: () => void }) {
   const qc = useQueryClient();
@@ -270,14 +268,82 @@ function DeleteDialog({ lesson, onClose }: { lesson: FlatLesson; onClose: () => 
         )}
         <DialogFooter className="mt-4">
           <Button variant="outline" onClick={onClose} className="rounded-full">Cancel</Button>
+          <Button variant="destructive" className="rounded-full" onClick={() => mutation.mutate()} disabled={mutation.isPending}>
+            {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Trash2 className="h-4 w-4 mr-1" />}
+            Delete
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ── Bulk Delete Dialog ────────────────────────────────────────────────────────
+
+function BulkDeleteDialog({
+  ids, onClose, onDone,
+}: { ids: string[]; onClose: () => void; onDone: () => void }) {
+  const qc = useQueryClient();
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      setProgress(0);
+      for (let i = 0; i < ids.length; i++) {
+        await adminCatalogue.deleteLesson(ids[i]);
+        setProgress(i + 1);
+      }
+    },
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["admin", "all-lessons"] });
+      onDone();
+    },
+    onError: (e: Error) => setError(e.message),
+  });
+
+  return (
+    <Dialog open onOpenChange={(v) => { if (!v && !mutation.isPending) onClose(); }}>
+      <DialogContent className="max-w-sm">
+        <DialogHeader>
+          <DialogTitle>Delete {ids.length} lesson{ids.length !== 1 ? "s" : ""}?</DialogTitle>
+        </DialogHeader>
+        <p className="text-sm text-muted-foreground mt-1">
+          All {ids.length} selected lesson{ids.length !== 1 ? "s" : ""} will be soft-deleted and
+          hidden from students. This cannot be undone from the UI.
+        </p>
+
+        {mutation.isPending && (
+          <div className="mt-3">
+            <div className="flex justify-between text-xs text-muted-foreground mb-1">
+              <span>Deleting…</span>
+              <span>{progress} / {ids.length}</span>
+            </div>
+            <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+              <div
+                className="h-full bg-destructive transition-all"
+                style={{ width: `${(progress / ids.length) * 100}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        {error && <p className="text-sm text-destructive mt-2">{error}</p>}
+
+        <DialogFooter className="mt-4">
+          <Button variant="outline" onClick={onClose} disabled={mutation.isPending} className="rounded-full">
+            Cancel
+          </Button>
           <Button
             variant="destructive"
             className="rounded-full"
             onClick={() => mutation.mutate()}
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Trash2 className="h-4 w-4 mr-1" />}
-            Delete
+            {mutation.isPending
+              ? <Loader2 className="h-4 w-4 animate-spin mr-1" />
+              : <Trash2 className="h-4 w-4 mr-1" />}
+            Delete all
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -293,9 +359,11 @@ export default function AdminVideosPage() {
   const [statusFilter, setStatusFilter] = useState<LessonStatus | "all">("all");
   const [freeFilter, setFreeFilter] = useState<"all" | "free" | "paid">("all");
 
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const [formOpen, setFormOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState<FlatLesson | null>(null);
   const [deletingLesson, setDeletingLesson] = useState<FlatLesson | null>(null);
+  const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
 
   // ── Data fetching ──────────────────────────────────────────────────────────
 
@@ -306,8 +374,6 @@ export default function AdminVideosPage() {
   });
 
   const subjects = subjectsQuery.data?.subjects ?? [];
-
-  // topicsBySubject: Map<subjectId, Topic[]>
   const [topicsBySubject, setTopicsBySubject] = useState<Map<string, Topic[]>>(new Map());
 
   async function fetchTopics(subjectId: string) {
@@ -349,7 +415,35 @@ export default function AdminVideosPage() {
 
   const isLoading = subjectsQuery.isLoading || allLessonsQuery.isLoading;
 
-  // ── Publish / Unpublish inline mutations ───────────────────────────────────
+  // ── Selection helpers ──────────────────────────────────────────────────────
+
+  const allFilteredIds = filtered.map((l) => l.id);
+  const allSelected = allFilteredIds.length > 0 && allFilteredIds.every((id) => selected.has(id));
+  const someSelected = allFilteredIds.some((id) => selected.has(id));
+
+  function toggleAll() {
+    if (allSelected) {
+      setSelected((prev) => {
+        const next = new Set(prev);
+        allFilteredIds.forEach((id) => next.delete(id));
+        return next;
+      });
+    } else {
+      setSelected((prev) => new Set(Array.from(prev).concat(allFilteredIds)));
+    }
+  }
+
+  function toggleOne(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }
+
+  const selectedIds = Array.from(selected).filter((id) => allFilteredIds.includes(id));
+
+  // ── Publish / Unpublish ────────────────────────────────────────────────────
 
   const publishMutation = useMutation({
     mutationFn: ({ id, publish }: { id: string; publish: boolean }) =>
@@ -359,19 +453,13 @@ export default function AdminVideosPage() {
 
   // ── Helpers ────────────────────────────────────────────────────────────────
 
-  function openCreate() {
-    setEditingLesson(null);
-    setFormOpen(true);
-  }
+  function openCreate() { setEditingLesson(null); setFormOpen(true); }
+  function openEdit(lesson: FlatLesson) { setEditingLesson(lesson); setFormOpen(true); }
+  function closeForm() { setFormOpen(false); setEditingLesson(null); }
 
-  function openEdit(lesson: FlatLesson) {
-    setEditingLesson(lesson);
-    setFormOpen(true);
-  }
-
-  function closeForm() {
-    setFormOpen(false);
-    setEditingLesson(null);
+  function handleBulkDeleteDone() {
+    setBulkDeleteOpen(false);
+    setSelected(new Set());
   }
 
   return (
@@ -391,7 +479,7 @@ export default function AdminVideosPage() {
         }
       />
 
-      {/* Filters */}
+      {/* Filters + bulk action bar */}
       <div className="flex flex-wrap gap-3 mb-5">
         <div className="relative flex-1 min-w-48">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -426,6 +514,17 @@ export default function AdminVideosPage() {
             <SelectItem value="paid">Paid only</SelectItem>
           </SelectContent>
         </Select>
+
+        {someSelected && (
+          <Button
+            variant="destructive"
+            className="rounded-2xl gap-1.5"
+            onClick={() => setBulkDeleteOpen(true)}
+          >
+            <Trash2 className="h-4 w-4" />
+            Delete selected ({selectedIds.length})
+          </Button>
+        )}
       </div>
 
       {/* Table */}
@@ -433,6 +532,16 @@ export default function AdminVideosPage() {
         <Table>
           <TableHeader>
             <TableRow className="bg-secondary/40 hover:bg-secondary/40">
+              <TableHead className="w-10 pl-4">
+                <input
+                  type="checkbox"
+                  checked={allSelected}
+                  ref={(el) => { if (el) el.indeterminate = someSelected && !allSelected; }}
+                  onChange={toggleAll}
+                  disabled={isLoading || filtered.length === 0}
+                  className="h-4 w-4 rounded accent-primary cursor-pointer"
+                />
+              </TableHead>
               <TableHead className="font-bold text-primary">Title</TableHead>
               <TableHead className="font-bold text-primary">Subject / Topic</TableHead>
               <TableHead className="font-bold text-primary">Status</TableHead>
@@ -445,7 +554,7 @@ export default function AdminVideosPage() {
           <TableBody>
             {isLoading && Array.from({ length: 6 }).map((_, i) => (
               <TableRow key={i}>
-                {Array.from({ length: 7 }).map((__, j) => (
+                {Array.from({ length: 8 }).map((__, j) => (
                   <TableCell key={j}><div className="h-4 rounded bg-secondary animate-pulse" /></TableCell>
                 ))}
               </TableRow>
@@ -453,7 +562,7 @@ export default function AdminVideosPage() {
 
             {!isLoading && filtered.length === 0 && (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-16 text-muted-foreground">
+                <TableCell colSpan={8} className="text-center py-16 text-muted-foreground">
                   <div className="text-4xl mb-3">🎬</div>
                   <p className="font-semibold text-primary">
                     {search || statusFilter !== "all" || freeFilter !== "all"
@@ -474,9 +583,21 @@ export default function AdminVideosPage() {
               const StatusIcon = status.icon;
               const mins = lesson.durationSeconds ? Math.round(lesson.durationSeconds / 60) : null;
               const isPublished = !!lesson.publishedAt;
+              const isChecked = selected.has(lesson.id);
 
               return (
-                <TableRow key={lesson.id} className="hover:bg-secondary/20 transition-smooth">
+                <TableRow
+                  key={lesson.id}
+                  className={`hover:bg-secondary/20 transition-smooth ${isChecked ? "bg-secondary/30" : ""}`}
+                >
+                  <TableCell className="pl-4">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => toggleOne(lesson.id)}
+                      className="h-4 w-4 rounded accent-primary cursor-pointer"
+                    />
+                  </TableCell>
                   <TableCell>
                     <div className="font-semibold text-primary line-clamp-1">{lesson.title}</div>
                     {lesson.isFree && (
@@ -564,6 +685,14 @@ export default function AdminVideosPage() {
 
       {deletingLesson && (
         <DeleteDialog lesson={deletingLesson} onClose={() => setDeletingLesson(null)} />
+      )}
+
+      {bulkDeleteOpen && (
+        <BulkDeleteDialog
+          ids={selectedIds}
+          onClose={() => setBulkDeleteOpen(false)}
+          onDone={handleBulkDeleteDone}
+        />
       )}
     </>
   );
