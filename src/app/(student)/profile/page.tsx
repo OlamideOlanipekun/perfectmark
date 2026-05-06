@@ -6,12 +6,12 @@ import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { User, Mail, Lock, Camera, Save, Loader2 } from "lucide-react";
+import { User, Mail, Lock, Save, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { ApiError } from "@/lib/api";
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
 
   const [name, setName] = useState(user?.name ?? "");
   const [savingProfile, setSavingProfile] = useState(false);
@@ -27,6 +27,7 @@ export default function ProfilePage() {
     setSavingProfile(true);
     try {
       await api.patch("/me", { name: name.trim() });
+      await refreshUser();
       toast.success("Profile updated successfully!");
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to update profile.");
@@ -38,7 +39,7 @@ export default function ProfilePage() {
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) { toast.error("New passwords do not match."); return; }
-    if (newPassword.length < 8) { toast.error("Password must be at least 8 characters."); return; }
+    if (newPassword.length < 10) { toast.error("Password must be at least 10 characters."); return; }
     setSavingPassword(true);
     try {
       await api.post("/me/change-password", { currentPassword, newPassword });
@@ -75,13 +76,8 @@ export default function ProfilePage() {
 
       {/* Avatar */}
       <div className="rounded-3xl border border-border bg-card shadow-card p-6 flex items-center gap-6">
-        <div className="relative group">
-          <div className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-primary text-white text-2xl font-extrabold shadow-glow">
-            {initials}
-          </div>
-          <div className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 transition-smooth grid place-items-center cursor-pointer">
-            <Camera className="h-5 w-5 text-white" />
-          </div>
+        <div className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-primary text-white text-2xl font-extrabold shadow-glow">
+          {initials}
         </div>
         <div>
           <h2 className="font-extrabold text-primary text-xl">{user.name}</h2>
@@ -174,9 +170,9 @@ export default function ProfilePage() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
-              minLength={8}
+              minLength={10}
               className="w-full rounded-2xl border border-border bg-secondary/30 px-4 py-3 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-smooth"
-              placeholder="Minimum 8 characters"
+              placeholder="Minimum 10 characters"
             />
           </div>
           <div>

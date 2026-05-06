@@ -10,6 +10,7 @@ const STUDENT_PREFIXES = [
   "/catalogue",
   "/watch",
   "/subscriptions",
+  "/profile",
 ];
 const ADMIN_PREFIX = "/admin";
 const AUTH_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
@@ -70,6 +71,8 @@ export const config = {
     "/catalogue/:path*",
     "/watch/:path*",
     "/subscriptions/:path*",
+    "/profile/:path*",
+    "/profile",
     "/admin/:path*",
     "/login",
     "/register",

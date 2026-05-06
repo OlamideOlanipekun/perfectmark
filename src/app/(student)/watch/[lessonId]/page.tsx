@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import {
-  BookmarkPlus,
   Clock,
   Eye,
   Lock,
   PlayCircle,
-  Share2,
   ShieldAlert,
 } from "lucide-react";
 import { VideoPlayer } from "@/components/player/video-player";
@@ -38,24 +36,6 @@ export default function WatchPage({ params }: WatchPageProps) {
               lessonQuery.data?.lesson.description ?? "Preparing your lesson"
             }
           />
-          <div className="flex items-center gap-2 pb-6">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="rounded-full gap-2 text-muted-foreground hover:text-primary"
-            >
-              <BookmarkPlus className="h-4 w-4" />
-              Save
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="rounded-full gap-2 text-muted-foreground hover:text-primary"
-            >
-              <Share2 className="h-4 w-4" />
-              Share
-            </Button>
-          </div>
         </div>
 
         <PlayerShell

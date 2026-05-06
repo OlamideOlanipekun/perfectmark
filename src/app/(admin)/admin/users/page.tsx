@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Search, Loader2, UserCheck, UserX, Clock } from "lucide-react";
+import { Search, Loader2, Clock } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -62,35 +62,10 @@ export default function AdminUsersPage() {
     <>
       <PageHeader title="Users" description="Manage registered students and their subscriptions." />
 
-      {/* Summary cards */}
       {users.data && (
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          {[
-            { label: "Total Users", value: users.data.total, icon: UserCheck, color: "from-[#1a3a8f] to-[#2563eb]" },
-            {
-              label: "Active Subscribers",
-              value: users.data.users.filter(u => u.subscription?.status === "active").length,
-              icon: UserCheck,
-              color: "from-[#065f46] to-[#10b981]",
-            },
-            {
-              label: "No Subscription",
-              value: users.data.users.filter(u => !u.subscription).length,
-              icon: UserX,
-              color: "from-[#92400e] to-[#d97706]",
-            },
-          ].map((card) => (
-            <div key={card.label} className="rounded-3xl border border-border bg-card p-5 shadow-card flex items-center gap-4">
-              <div className={`grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${card.color} text-white shrink-0`}>
-                <card.icon className="h-4 w-4" />
-              </div>
-              <div>
-                <div className="text-2xl font-extrabold text-primary">{card.value}</div>
-                <div className="text-xs text-muted-foreground">{card.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <p className="mb-5 text-sm text-muted-foreground">
+          {users.data.total.toLocaleString()} total user{users.data.total !== 1 ? "s" : ""}
+        </p>
       )}
 
       {/* Search */}

@@ -12,7 +12,13 @@ export function WhatsappWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [showWidget, setShowWidget] = useState(false);
 
-  const isDashboard = pathname.startsWith("/admin") || pathname.startsWith("/student") || pathname.startsWith("/watch");
+  const isDashboard =
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/catalogue") ||
+    pathname.startsWith("/subscriptions") ||
+    pathname.startsWith("/watch") ||
+    pathname.startsWith("/profile");
 
   useEffect(() => {
     const handleScroll = () => {
