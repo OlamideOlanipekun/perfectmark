@@ -8,9 +8,7 @@ import { ScrollReveal } from "@/components/animations/scroll-reveal";
 import { pulseAnimation } from "@/lib/animations";
 
 const TRUST_POINTS = [
-  "No credit card required",
   "Cancel anytime",
-  "Unlimited access to 2,000+ lessons",
   "Free trial for all new accounts"
 ];
 

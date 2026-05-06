@@ -128,7 +128,6 @@ export function Hero() {
             {/* Bullets */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-x-5 gap-y-2">
               {[
-                "No credit card required",
                 "Full exam coverage",
                 "All subjects included",
               ].map((item) => (

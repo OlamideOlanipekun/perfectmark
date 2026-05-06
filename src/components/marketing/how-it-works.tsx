@@ -148,8 +148,7 @@ export function HowItWorks() {
 
         {/* Bottom note */}
         <ScrollReveal delay={0.6} className="text-center mt-12 text-sm text-muted-foreground">
-          <strong className="text-primary">No credit card required</strong> to
-          get started. Free trial available for all new students.
+          Free trial available for all new students.
         </ScrollReveal>
       </div>
     </section>
