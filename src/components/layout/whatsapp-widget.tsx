@@ -12,11 +12,13 @@ export function WhatsappWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [showWidget, setShowWidget] = useState(false);
 
+  const isDashboard = pathname.startsWith("/admin") || pathname.startsWith("/student") || pathname.startsWith("/watch");
+
   useEffect(() => {
     const handleScroll = () => {
       // Show widget after scrolling down 100px
       setShowWidget(window.scrollY > 100);
-      
+
       // Auto-close the popup if scrolling all the way back to top
       if (window.scrollY < 50) {
         setIsOpen(false);
@@ -34,6 +36,8 @@ export function WhatsappWidget() {
   const message = "Hello! I'm interested in PerfectMark Tutors College.";
 
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  if (isDashboard) return null;
 
   return (
     <AnimatePresence>
