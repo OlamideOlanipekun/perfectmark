@@ -248,6 +248,9 @@ function DeleteDialog({ lesson, onClose }: { lesson: FlatLesson; onClose: () => 
   const mutation = useMutation({
     mutationFn: () => adminCatalogue.deleteLesson(lesson.id),
     onSuccess: () => {
+      qc.setQueryData<FlatLesson[]>(["admin", "all-lessons"], (old) =>
+        old ? old.filter((l) => l.id !== lesson.id) : [],
+      );
       void qc.invalidateQueries({ queryKey: ["admin", "all-lessons"] });
       onClose();
     },
@@ -290,9 +293,14 @@ function BulkDeleteDialog({
   const mutation = useMutation({
     mutationFn: async () => {
       setProgress(0);
+      const deletedIds: string[] = [];
       for (let i = 0; i < ids.length; i++) {
         await adminCatalogue.deleteLesson(ids[i]);
+        deletedIds.push(ids[i]);
         setProgress(i + 1);
+        qc.setQueryData<FlatLesson[]>(["admin", "all-lessons"], (old) =>
+          old ? old.filter((l) => !deletedIds.includes(l.id)) : [],
+        );
       }
     },
     onSuccess: () => {
