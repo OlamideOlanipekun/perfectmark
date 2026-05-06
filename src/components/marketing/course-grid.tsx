@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/animations/scroll-reveal";
-import { CourseShowcase } from "@/components/marketing/course-showcase";
 
 export function CourseGrid() {
   return (
@@ -18,15 +17,20 @@ export function CourseGrid() {
             Curated <span className="text-gradient">Learning</span> Paths
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            Free preview lessons from our catalogue. Detailed explanations,
-            practical examples, and exam-focused insights.
+            Expert-recorded lessons covering all major exam subjects.
+            Detailed explanations, practical examples, and exam-focused insights.
           </p>
         </ScrollReveal>
-      </div>
 
-      <CourseShowcase limit={8} />
+        <ScrollReveal delay={0.2}>
+          <div className="rounded-3xl border border-dashed border-border bg-card p-12 text-center max-w-xl mx-auto">
+            <p className="font-bold text-primary">Catalogue coming soon</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              We&apos;re recording lessons right now. Subscribe to be first in line.
+            </p>
+          </div>
+        </ScrollReveal>
 
-      <div className="container">
         <ScrollReveal delay={0.4} className="mt-8 text-center">
           <Button
             asChild
