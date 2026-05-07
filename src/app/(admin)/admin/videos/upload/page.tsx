@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangle,
@@ -372,6 +373,21 @@ export default function UploadLessonPage() {
                 />
               </SelectTrigger>
               <SelectContent>
+                {lessons.isLoading && (
+                  <div className="px-3 py-2 text-sm text-muted-foreground">Loading lessons…</div>
+                )}
+                {!lessons.isLoading && (lessons.data?.lessons.length ?? 0) === 0 && (
+                  <div className="px-3 py-3 text-sm text-muted-foreground space-y-1">
+                    <p className="font-semibold text-primary">No lessons in this topic</p>
+                    <p className="text-xs">
+                      Create one from the{" "}
+                      <Link href="/admin/videos" className="underline text-primary">
+                        Lessons page
+                      </Link>{" "}
+                      first.
+                    </p>
+                  </div>
+                )}
                 {lessons.data?.lessons.map((l) => (
                   <SelectItem key={l.id} value={l.id}>
                     {l.title}
