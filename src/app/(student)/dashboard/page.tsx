@@ -51,7 +51,10 @@ export default function DashboardPage() {
         {watching.isLoading && <ContinueSkeleton />}
 
         {!watching.isLoading && (watching.data?.items.length ?? 0) === 0 && (
-          <EmptyContinue hasSubscription={!!subscription} />
+          <EmptyContinue
+            hasSubscription={!!subscription}
+            hasCompletedLessons={(stats.data?.completedCount ?? 0) > 0}
+          />
         )}
 
         {!watching.isLoading && watching.data && watching.data.items.length > 0 && (
@@ -98,7 +101,7 @@ export default function DashboardPage() {
           <StatCard
             icon={PlayCircle}
             value={stats.data?.completedCount ?? "—"}
-            label="Lessons completed"
+            label={pluralLabel(stats.data?.completedCount, "Lesson completed", "Lessons completed")}
             color="text-primary"
             loading={stats.isLoading}
           />
@@ -119,7 +122,7 @@ export default function DashboardPage() {
           <StatCard
             icon={BookOpen}
             value={catalogueStats.data?.totalLessons ?? "—"}
-            label="Total lessons"
+            label={pluralLabel(catalogueStats.data?.totalLessons, "Lesson in catalogue", "Lessons in catalogue")}
             color="text-primary"
             loading={catalogueStats.isLoading}
           />
@@ -215,18 +218,34 @@ function SubscriptionSkeleton() {
   );
 }
 
-function EmptyContinue({ hasSubscription }: { hasSubscription: boolean }) {
+function EmptyContinue({
+  hasSubscription,
+  hasCompletedLessons,
+}: {
+  hasSubscription: boolean;
+  hasCompletedLessons: boolean;
+}) {
+  let title: string;
+  let body: string;
+
+  if (hasCompletedLessons) {
+    title = "All caught up";
+    body = "You've finished what you started. Browse the catalogue for what's next.";
+  } else if (hasSubscription) {
+    title = "Nothing to resume yet";
+    body = "Start a lesson from the catalogue and we'll keep your place here.";
+  } else {
+    title = "Nothing to resume yet";
+    body = "Grab a plan or try a free lesson — your continue-watching list builds itself.";
+  }
+
   return (
     <div className="rounded-3xl border border-dashed border-border bg-secondary/30 p-10 text-center">
       <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-gradient-primary shadow-glow mb-4">
         <Sparkles className="h-6 w-6 text-white" />
       </div>
-      <p className="font-bold text-primary text-lg">Nothing to resume yet</p>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-        {hasSubscription
-          ? "Start a lesson from the catalogue and we'll keep your place here."
-          : "Grab a plan or try a free lesson — your continue-watching list builds itself."}
-      </p>
+      <p className="font-bold text-primary text-lg">{title}</p>
+      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">{body}</p>
       <Button asChild variant="hero" className="rounded-full mt-5">
         <Link href="/catalogue">Browse catalogue</Link>
       </Button>
@@ -260,6 +279,14 @@ function StatCard({
       <div className="mt-1 text-xs font-semibold text-muted-foreground truncate">{label}</div>
     </div>
   );
+}
+
+function pluralLabel(
+  count: number | undefined,
+  singular: string,
+  plural: string,
+): string {
+  return count === 1 ? singular : plural;
 }
 
 function getTimeBasedGreeting(): string {
