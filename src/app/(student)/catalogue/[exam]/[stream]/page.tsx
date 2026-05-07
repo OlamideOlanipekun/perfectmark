@@ -2,32 +2,12 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight, ChevronRight, PlayCircle } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSubjects } from "@/hooks/use-catalogue";
 import { ApiError } from "@/lib/api";
-import type { ExamType, Stream } from "@/types";
-
-const EXAM_TYPES: readonly ExamType[] = ["WAEC", "NECO", "UTME"] as const;
-const STREAMS: readonly Stream[] = [
-  "Sciences",
-  "Arts",
-  "Languages",
-  "Commercial",
-  "Trade",
-] as const;
-
-function normaliseExam(raw: string): ExamType | null {
-  const upper = raw.toUpperCase();
-  return (EXAM_TYPES as readonly string[]).includes(upper) ? (upper as ExamType) : null;
-}
-
-function normaliseStream(raw: string): Stream | null {
-  const decoded = decodeURIComponent(raw);
-  const title = decoded.charAt(0).toUpperCase() + decoded.slice(1).toLowerCase();
-  return (STREAMS as readonly string[]).includes(title) ? (title as Stream) : null;
-}
+import { normaliseExam, normaliseStream } from "@/lib/streams";
 
 interface Params {
   params: { exam: string; stream: string };
@@ -55,6 +35,19 @@ export default function StreamPage({ params }: Params) {
 
   return (
     <>
+      {/* Breadcrumb */}
+      <nav className="mb-4 flex items-center gap-1.5 text-xs text-muted-foreground">
+        <Link href="/catalogue" className="hover:text-primary transition-smooth">
+          Catalogue
+        </Link>
+        <ChevronRight className="h-3 w-3" />
+        <Link href={`/catalogue/${params.exam}`} className="hover:text-primary transition-smooth">
+          {examType}
+        </Link>
+        <ChevronRight className="h-3 w-3" />
+        <span className="text-primary font-semibold">{stream}</span>
+      </nav>
+
       <PageHeader
         title={`${examType} · ${stream}`}
         description="Subjects in this stream — tap any to see topics and lessons."

@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/auth-context";
 import { useContinueWatching, useCompletionStats } from "@/hooks/use-progress";
 import { useMySubscription } from "@/hooks/use-billing";
+import { useCatalogueStats } from "@/hooks/use-catalogue";
 import type { ContinueWatchingItem } from "@/lib/progress";
 
 export default function DashboardPage() {
@@ -22,33 +23,18 @@ export default function DashboardPage() {
   const sub = useMySubscription();
   const watching = useContinueWatching(6);
   const stats = useCompletionStats();
+  const catalogueStats = useCatalogueStats();
 
-  const firstName = user?.name.split(" ")[0] ?? "Scholar";
+  const firstName = user?.name?.trim().split(" ")[0] ?? "";
+  const greeting = getTimeBasedGreeting();
   const subscription = sub.data?.subscription ?? null;
 
   return (
     <div className="animate-fade-in space-y-10">
-      <div className="flex flex-col md:flex-row items-end justify-between gap-6">
-        <PageHeader
-          title={`Welcome back, ${firstName}`}
-          description="Your path to academic excellence continues here."
-        />
-        <div className="hidden lg:flex items-center gap-3 pb-8">
-          <div className="flex -space-x-2">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="h-8 w-8 rounded-full border-2 border-background bg-secondary text-[10px] grid place-items-center font-bold text-primary"
-              >
-                PM
-              </div>
-            ))}
-          </div>
-          <span className="text-xs font-semibold text-muted-foreground italic">
-            Join 10k+ active students
-          </span>
-        </div>
-      </div>
+      <PageHeader
+        title={firstName ? `${greeting}, ${firstName}` : `${greeting} 👋`}
+        description="Your path to academic excellence continues here."
+      />
 
       {/* Continue Watching */}
       <section className="space-y-4">
@@ -78,28 +64,32 @@ export default function DashboardPage() {
       </section>
 
       {/* Subscription strip */}
-      <section className="rounded-3xl border border-border bg-gradient-to-r from-secondary/50 to-transparent p-6 shadow-card flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-            Subscription
+      {sub.isLoading ? (
+        <SubscriptionSkeleton />
+      ) : (
+        <section className="rounded-3xl border border-border bg-gradient-to-r from-secondary/50 to-transparent p-6 shadow-card flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              Subscription
+            </div>
+            <div className="mt-1 font-extrabold text-primary text-lg">
+              {subscription
+                ? `${subscription.planName} — ${subscription.status}`
+                : "No active plan"}
+            </div>
+            <div className="mt-1 text-xs text-muted-foreground">
+              {subscription?.expiryDate
+                ? `${subscription.autoRenew ? "Renews" : "Ends"} ${new Date(subscription.expiryDate).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}`
+                : "Start learning with Scholar — full library, pay-as-you-go."}
+            </div>
           </div>
-          <div className="mt-1 font-extrabold text-primary text-lg">
-            {subscription
-              ? `${subscription.planName} — ${subscription.status}`
-              : "No active plan"}
-          </div>
-          <div className="mt-1 text-xs text-muted-foreground">
-            {subscription?.expiryDate
-              ? `${subscription.autoRenew ? "Renews" : "Ends"} ${new Date(subscription.expiryDate).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}`
-              : "Start learning with Scholar — full library, pay-as-you-go."}
-          </div>
-        </div>
-        <Button asChild variant="hero" className="rounded-full">
-          <Link href="/subscriptions">
-            {subscription ? "Manage plan" : "View plans"}
-          </Link>
-        </Button>
-      </section>
+          <Button asChild variant="hero" className="rounded-full">
+            <Link href="/subscriptions">
+              {subscription ? "Manage plan" : "View plans"}
+            </Link>
+          </Button>
+        </section>
+      )}
 
       {/* Study Insights */}
       <section className="space-y-4">
@@ -121,16 +111,17 @@ export default function DashboardPage() {
           />
           <StatCard
             icon={Clock}
-            value={stats.data ? formatHours(stats.data.totalWatchMinutes) : "—"}
+            value={stats.data && stats.data.totalWatchMinutes > 0 ? formatHours(stats.data.totalWatchMinutes) : "—"}
             label="Hours studied"
             color="text-primary"
             loading={stats.isLoading}
           />
           <StatCard
             icon={BookOpen}
-            value="240+"
-            label="Total tutorials"
+            value={catalogueStats.data?.totalLessons ?? "—"}
+            label="Total lessons"
             color="text-primary"
+            loading={catalogueStats.isLoading}
           />
         </div>
       </section>
@@ -211,6 +202,19 @@ function ContinueSkeleton() {
   );
 }
 
+function SubscriptionSkeleton() {
+  return (
+    <div className="rounded-3xl border border-border bg-gradient-to-r from-secondary/50 to-transparent p-6 shadow-card flex flex-wrap items-center justify-between gap-4">
+      <div className="space-y-2 flex-1 min-w-48">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="h-5 w-48" />
+        <Skeleton className="h-3 w-64" />
+      </div>
+      <Skeleton className="h-10 w-32 rounded-full" />
+    </div>
+  );
+}
+
 function EmptyContinue({ hasSubscription }: { hasSubscription: boolean }) {
   return (
     <div className="rounded-3xl border border-dashed border-border bg-secondary/30 p-10 text-center">
@@ -245,12 +249,7 @@ function StatCard({
 }) {
   return (
     <div className="group rounded-3xl border border-border bg-white px-6 py-5 shadow-card hover:border-primary/20 transition-smooth">
-      <div className="flex items-center justify-between mb-2">
-        <Icon className={cn("h-4 w-4", color)} />
-        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-          LIVE
-        </span>
-      </div>
+      <Icon className={cn("h-4 w-4 mb-3", color)} />
       {loading ? (
         <Skeleton className="h-8 w-16" />
       ) : (
@@ -261,6 +260,13 @@ function StatCard({
       <div className="mt-1 text-xs font-semibold text-muted-foreground truncate">{label}</div>
     </div>
   );
+}
+
+function getTimeBasedGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
 }
 
 function formatHours(minutes: number): string {

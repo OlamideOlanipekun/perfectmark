@@ -15,6 +15,7 @@ export const catalogueKeys = {
   lessons: (topicId: string) => [...catalogueKeys.all, "lessons", topicId] as const,
   lesson: (id: string) => [...catalogueKeys.all, "lesson", id] as const,
   freeLessons: (limit: number) => [...catalogueKeys.all, "free-lessons", limit] as const,
+  stats: () => [...catalogueKeys.all, "stats"] as const,
 };
 
 export function useSubjects(params: ListSubjectsParams = {}) {
@@ -64,6 +65,14 @@ export function useFreeLessons(limit = 15) {
   return useQuery({
     queryKey: catalogueKeys.freeLessons(limit),
     queryFn: () => catalogue.listFreeLessons(limit),
+    staleTime: FIVE_MINUTES,
+  });
+}
+
+export function useCatalogueStats() {
+  return useQuery({
+    queryKey: catalogueKeys.stats(),
+    queryFn: () => catalogue.getStats(),
     staleTime: FIVE_MINUTES,
   });
 }

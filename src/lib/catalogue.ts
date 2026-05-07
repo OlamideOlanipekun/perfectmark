@@ -87,4 +87,7 @@ export const catalogue = {
     api.get<{ lessons: Lesson[] }>(`/catalogue/lessons/free${toQuery({ limit })}`),
 
   getLesson: (id: string) => api.get<{ lesson: Lesson }>(`/catalogue/lessons/${id}`),
+
+  getStats: () =>
+    api.get<{ totalLessons: number; totalSubjects: number }>("/catalogue/stats"),
 };
