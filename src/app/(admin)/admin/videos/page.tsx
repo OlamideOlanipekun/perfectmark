@@ -10,7 +10,7 @@ import {
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PageHeader } from "@/components/shared/page-header";
@@ -120,6 +120,11 @@ function LessonFormDialog({
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>{isEdit ? "Edit Lesson" : "Create Lesson"}</DialogTitle>
+          <DialogDescription>
+            {isEdit
+              ? "Update lesson details. Topic cannot be changed after creation."
+              : "Pick a subject and topic, then fill in the lesson details."}
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-2">
@@ -261,11 +266,11 @@ function DeleteDialog({ lesson, onClose }: { lesson: FlatLesson; onClose: () => 
       <DialogContent className="max-w-sm">
         <DialogHeader>
           <DialogTitle>Delete lesson?</DialogTitle>
+          <DialogDescription>
+            <span className="font-semibold text-primary">&ldquo;{lesson.title}&rdquo;</span> will be
+            soft-deleted and hidden from students. This cannot be undone from the UI.
+          </DialogDescription>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground mt-1">
-          <span className="font-semibold text-primary">&ldquo;{lesson.title}&rdquo;</span> will be
-          soft-deleted and hidden from students. This cannot be undone from the UI.
-        </p>
         {mutation.error && (
           <p className="text-sm text-destructive mt-2">{(mutation.error as Error).message}</p>
         )}
@@ -315,11 +320,11 @@ function BulkDeleteDialog({
       <DialogContent className="max-w-sm">
         <DialogHeader>
           <DialogTitle>Delete {ids.length} lesson{ids.length !== 1 ? "s" : ""}?</DialogTitle>
+          <DialogDescription>
+            All {ids.length} selected lesson{ids.length !== 1 ? "s" : ""} will be soft-deleted and
+            hidden from students. This cannot be undone from the UI.
+          </DialogDescription>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground mt-1">
-          All {ids.length} selected lesson{ids.length !== 1 ? "s" : ""} will be soft-deleted and
-          hidden from students. This cannot be undone from the UI.
-        </p>
 
         {mutation.isPending && (
           <div className="mt-3">
