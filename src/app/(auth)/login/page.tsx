@@ -18,20 +18,14 @@ export default function LoginPage() {
         <LoginForm />
       </Suspense>
 
-      <div className="flex flex-col gap-4 text-sm border-t border-border pt-8">
-        <Link 
-          href="/forgot-password" 
-          className="text-muted-foreground hover:text-primary transition-smooth font-medium w-fit"
-        >
-          Forgot your password?
-        </Link>
+      <div className="text-sm border-t border-border pt-8">
         <p className="text-muted-foreground">
           New to Perfect Mark?{" "}
-          <Link 
-            href="/register" 
+          <Link
+            href="/register"
             className="font-bold text-primary hover:text-primary-glow transition-smooth underline underline-offset-4"
           >
-            Create an account for free
+            Create an account
           </Link>
         </p>
       </div>

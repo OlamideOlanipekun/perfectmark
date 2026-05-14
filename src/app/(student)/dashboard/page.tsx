@@ -14,20 +14,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/auth-context";
 import { useContinueWatching, useCompletionStats } from "@/hooks/use-progress";
-import { useMySubscription } from "@/hooks/use-billing";
 import { useCatalogueStats } from "@/hooks/use-catalogue";
 import type { ContinueWatchingItem } from "@/lib/progress";
 
 export default function DashboardPage() {
   const { user } = useAuth();
-  const sub = useMySubscription();
   const watching = useContinueWatching(6);
   const stats = useCompletionStats();
   const catalogueStats = useCatalogueStats();
 
   const firstName = user?.name?.trim().split(" ")[0] ?? "";
   const greeting = getTimeBasedGreeting();
-  const subscription = sub.data?.subscription ?? null;
 
   return (
     <div className="animate-fade-in space-y-10">
@@ -52,7 +49,6 @@ export default function DashboardPage() {
 
         {!watching.isLoading && (watching.data?.items.length ?? 0) === 0 && (
           <EmptyContinue
-            hasSubscription={!!subscription}
             hasCompletedLessons={(stats.data?.completedCount ?? 0) > 0}
           />
         )}
@@ -66,33 +62,6 @@ export default function DashboardPage() {
         )}
       </section>
 
-      {/* Subscription strip */}
-      {sub.isLoading ? (
-        <SubscriptionSkeleton />
-      ) : (
-        <section className="rounded-3xl border border-border bg-gradient-to-r from-secondary/50 to-transparent p-6 shadow-card flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-              Subscription
-            </div>
-            <div className="mt-1 font-extrabold text-primary text-lg">
-              {subscription
-                ? `${subscription.planName} — ${subscription.status}`
-                : "No active plan"}
-            </div>
-            <div className="mt-1 text-xs text-muted-foreground">
-              {subscription?.expiryDate
-                ? `${subscription.autoRenew ? "Renews" : "Ends"} ${new Date(subscription.expiryDate).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}`
-                : "Start learning with Scholar — full library, pay-as-you-go."}
-            </div>
-          </div>
-          <Button asChild variant="hero" className="rounded-full">
-            <Link href="/subscriptions">
-              {subscription ? "Manage plan" : "View plans"}
-            </Link>
-          </Button>
-        </section>
-      )}
 
       {/* Study Insights */}
       <section className="space-y-4">
@@ -205,39 +174,11 @@ function ContinueSkeleton() {
   );
 }
 
-function SubscriptionSkeleton() {
-  return (
-    <div className="rounded-3xl border border-border bg-gradient-to-r from-secondary/50 to-transparent p-6 shadow-card flex flex-wrap items-center justify-between gap-4">
-      <div className="space-y-2 flex-1 min-w-48">
-        <Skeleton className="h-3 w-24" />
-        <Skeleton className="h-5 w-48" />
-        <Skeleton className="h-3 w-64" />
-      </div>
-      <Skeleton className="h-10 w-32 rounded-full" />
-    </div>
-  );
-}
-
-function EmptyContinue({
-  hasSubscription,
-  hasCompletedLessons,
-}: {
-  hasSubscription: boolean;
-  hasCompletedLessons: boolean;
-}) {
-  let title: string;
-  let body: string;
-
-  if (hasCompletedLessons) {
-    title = "All caught up";
-    body = "You've finished what you started. Browse the catalogue for what's next.";
-  } else if (hasSubscription) {
-    title = "Nothing to resume yet";
-    body = "Start a lesson from the catalogue and we'll keep your place here.";
-  } else {
-    title = "Nothing to resume yet";
-    body = "Grab a plan or try a free lesson — your continue-watching list builds itself.";
-  }
+function EmptyContinue({ hasCompletedLessons }: { hasCompletedLessons: boolean }) {
+  const title = hasCompletedLessons ? "All caught up" : "Nothing to resume yet";
+  const body = hasCompletedLessons
+    ? "You've finished what you started. Browse the catalogue for what's next."
+    : "Start a lesson from the catalogue and we'll keep your place here.";
 
   return (
     <div className="rounded-3xl border border-dashed border-border bg-secondary/30 p-10 text-center">

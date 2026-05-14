@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, CreditCard, LayoutDashboard, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
+import { BookOpen, LayoutDashboard, LogOut, UserCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -16,9 +16,9 @@ import { useAuth } from "@/context/auth-context";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
-  { href: "/dashboard",     label: "Dashboard",    icon: LayoutDashboard },
-  { href: "/catalogue",     label: "Catalogue",    icon: BookOpen },
-  { href: "/subscriptions", label: "Subscription", icon: CreditCard },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/catalogue", label: "Catalogue", icon: BookOpen },
+  { href: "/profile",   label: "Profile",   icon: UserCircle },
 ];
 
 export function StudentSidebar() {

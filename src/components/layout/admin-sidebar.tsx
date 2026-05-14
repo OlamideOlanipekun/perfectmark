@@ -3,17 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, LayoutDashboard, LogOut, Tag, Users, Video } from "lucide-react";
+import { BarChart3, KeyRound, LayoutDashboard, LogOut, Users, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 import { cn } from "@/lib/utils";
 
 const ITEMS = [
-  { href: "/admin/dashboard", label: "Overview",  icon: LayoutDashboard },
-  { href: "/admin/videos",    label: "Lessons",   icon: Video },
-  { href: "/admin/users",     label: "Users",     icon: Users },
-  { href: "/admin/pricing",   label: "Pricing",   icon: Tag },
-  { href: "/admin/reports",   label: "Reports",   icon: BarChart3 },
+  { href: "/admin/dashboard", label: "Overview",   icon: LayoutDashboard },
+  { href: "/admin/videos",    label: "Lessons",    icon: Video },
+  { href: "/admin/users",     label: "Users",      icon: Users },
+  { href: "/admin/pins",      label: "PIN Codes",  icon: KeyRound },
+  { href: "/admin/reports",   label: "Reports",    icon: BarChart3 },
 ];
 
 export function AdminSidebar() {
@@ -32,7 +32,6 @@ export function AdminSidebar() {
             height={36}
             className="h-9 w-9 object-contain rounded-full ring-2 ring-white/25"
           />
-          {/* Online indicator */}
           <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-primary bg-accent" />
         </div>
         <div className="flex flex-col leading-tight">
@@ -47,7 +46,6 @@ export function AdminSidebar() {
 
       {/* Nav */}
       <nav className="flex-1 p-4">
-        {/* Section label */}
         <p className="mb-3 px-2 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/60 select-none">
           Navigation
         </p>
@@ -66,7 +64,6 @@ export function AdminSidebar() {
                     : "text-muted-foreground hover:bg-secondary hover:text-primary",
                 )}
               >
-                {/* Left accent bar */}
                 <span
                   className={cn(
                     "absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-r-full transition-smooth",
@@ -91,7 +88,6 @@ export function AdminSidebar() {
 
       {/* Footer */}
       <div className="border-t border-border p-4">
-        {/* Section label */}
         <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/60 select-none">
           Account
         </p>
@@ -99,7 +95,6 @@ export function AdminSidebar() {
         {user && (
           <div className="mb-3 rounded-2xl bg-secondary/60 border border-primary/5 p-3">
             <div className="flex items-center gap-2.5">
-              {/* Avatar */}
               <div className="relative shrink-0">
                 <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-primary text-white font-bold text-sm shadow-card ring-2 ring-primary/10">
                   {user.name.charAt(0).toUpperCase()}
@@ -111,8 +106,8 @@ export function AdminSidebar() {
                 <div className="truncate text-xs font-semibold text-primary leading-tight">
                   {user.name}
                 </div>
-                <div className="truncate text-[10px] text-muted-foreground mt-0.5">
-                  {user.email}
+                <div className="truncate text-[10px] text-muted-foreground mt-0.5 capitalize">
+                  {user.role}
                 </div>
               </div>
             </div>

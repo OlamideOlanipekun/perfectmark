@@ -23,13 +23,10 @@ import type { AuthResponse, Stream, User } from "@/types";
 
 export interface RegisterInput {
   name: string;
-  email: string;
-  password: string;
   phone?: string;
   classLevel?: string;
   stream?: Stream;
   consentMarketing?: boolean;
-  // Must be true at the call site — the form's Zod schema enforces this.
   consentTos: boolean;
   pin: string;
 }
@@ -37,7 +34,8 @@ export interface RegisterInput {
 interface AuthContextValue {
   user: User | null;
   isLoading: boolean;
-  login: (email: string, password: string, mfaCode?: string) => Promise<void>;
+  login: (pin: string, mfaCode?: string) => Promise<void>;
+  adminLogin: (email: string, password: string, mfaCode?: string) => Promise<void>;
   register: (input: RegisterInput) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -106,13 +104,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [router]);
 
   const login = useCallback(
-    async (email: string, password: string, mfaCode?: string) => {
-
-      const body: Record<string, string> = { email, password };
+    async (pin: string, mfaCode?: string) => {
+      const body: Record<string, string> = { pin };
       if (mfaCode) body.mfaCode = mfaCode;
       const res = await api.post<AuthResponse>("/auth/login", body);
       applyAuthResponse(res);
       router.push(res.user.role === "admin" ? "/admin/dashboard" : "/dashboard");
+    },
+    [applyAuthResponse, router],
+  );
+
+  const adminLogin = useCallback(
+    async (email: string, password: string, mfaCode?: string) => {
+      const body: Record<string, string> = { email, password };
+      if (mfaCode) body.mfaCode = mfaCode;
+      const res = await api.post<AuthResponse>("/auth/login", body);
+      applyAuthResponse(res);
+      router.push("/admin/dashboard");
     },
     [applyAuthResponse, router],
   );
@@ -141,7 +149,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, isLoading, login, register, logout, refreshUser }}
+      value={{ user, isLoading, login, adminLogin, register, logout, refreshUser }}
     >
       {children}
     </AuthContext.Provider>

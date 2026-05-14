@@ -32,7 +32,6 @@ const CLASS_LEVELS = ["JSS1", "JSS2", "JSS3", "SS1", "SS2", "SS3"] as const;
 
 const schema = z.object({
   name: z.string().trim().min(2, "Enter your full name"),
-  email: z.string().trim().toLowerCase().email("Enter a valid email"),
   phone: z
     .string()
     .trim()
@@ -40,14 +39,15 @@ const schema = z.object({
     .refine((v) => !v || /^\+?[0-9\s-]{7,20}$/.test(v), "Enter a valid phone number"),
   classLevel: z.enum(CLASS_LEVELS).optional(),
   stream: z.enum(STREAMS).optional(),
-  password: z.string().min(10, "At least 10 characters"),
-  // Schema-typed as boolean (so default false is valid) but refined to
-  // require true. Avoids `false as unknown as true` cast in defaultValues.
   consentTos: z.boolean().refine((v) => v === true, {
     message: "You must accept the Terms of Service",
   }),
   consentMarketing: z.boolean(),
-  pin: z.string().trim().min(4, "Enter the PIN you purchased"),
+  pin: z
+    .string()
+    .trim()
+    .transform((v) => v.replace(/\D/g, ""))
+    .refine((v) => v.length === 8, "Enter your 8-digit PIN"),
 });
 
 type Values = z.infer<typeof schema>;
@@ -60,9 +60,7 @@ export function RegisterForm() {
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
-      email: "",
       phone: "",
-      password: "",
       consentTos: false,
       consentMarketing: false,
       pin: "",
@@ -75,8 +73,6 @@ export function RegisterForm() {
     try {
       await register({
         name: values.name,
-        email: values.email,
-        password: values.password,
         phone: values.phone || undefined,
         classLevel: values.classLevel,
         stream: values.stream,
@@ -87,8 +83,12 @@ export function RegisterForm() {
       toast.success("Welcome to Perfect Mark!");
     } catch (err) {
       if (err instanceof ApiError) {
-        if (err.code === "CONFLICT") {
-          form.setError("email", { message: err.message });
+        if (err.code === "INVALID_PIN") {
+          form.setError("pin", { message: "Invalid PIN. Check the number and try again." });
+        } else if (err.code === "PIN_ALREADY_USED") {
+          form.setError("pin", { message: "This PIN has already been used." });
+        } else if (err.code === "PIN_REVOKED") {
+          form.setError("pin", { message: "This PIN is no longer valid. Contact support." });
         } else if (err.code === "VALIDATION_ERROR") {
           toast.error(err.message);
         } else if (err.status === 429) {
@@ -122,19 +122,6 @@ export function RegisterForm() {
         />
         <FormField
           control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" autoComplete="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="phone"
           render={({ field }) => (
             <FormItem>
@@ -154,7 +141,18 @@ export function RegisterForm() {
             <FormItem>
               <FormLabel>Access PIN</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your access PIN" {...field} />
+                <Input
+                  placeholder="1234-5678"
+                  inputMode="numeric"
+                  {...field}
+                  onChange={(e) => {
+                    const digits = e.target.value.replace(/\D/g, "").slice(0, 8);
+                    const formatted = digits.length > 4
+                      ? `${digits.slice(0, 4)}-${digits.slice(4)}`
+                      : digits;
+                    field.onChange(formatted);
+                  }}
+                />
               </FormControl>
               <FormDescription>The PIN you purchased for portal access.</FormDescription>
               <FormMessage />
@@ -216,21 +214,6 @@ export function RegisterForm() {
 
         <FormField
           control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" autoComplete="new-password" {...field} />
-              </FormControl>
-              <FormDescription>At least 10 characters. A passphrase works great.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="consentTos"
           render={({ field, fieldState }) => (
             <FormItem className="space-y-1">
@@ -270,7 +253,7 @@ export function RegisterForm() {
                   onChange={(e) => field.onChange(e.target.checked)}
                   className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/30"
                 />
-                <span>Send me exam tips and study reminders by email (optional).</span>
+                <span>Send me exam tips and study reminders (optional).</span>
               </label>
             </FormItem>
           )}

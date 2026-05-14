@@ -9,7 +9,6 @@ const STUDENT_PREFIXES = [
   "/dashboard",
   "/catalogue",
   "/watch",
-  "/subscriptions",
   "/profile",
 ];
 const ADMIN_PREFIX = "/admin";
@@ -70,7 +69,6 @@ export const config = {
     "/dashboard/:path*",
     "/catalogue/:path*",
     "/watch/:path*",
-    "/subscriptions/:path*",
     "/profile/:path*",
     "/profile",
     "/admin/:path*",

@@ -65,16 +65,6 @@ export default function WatchPage({ params }: WatchPageProps) {
           </div>
         </div>
 
-        <div className="rounded-3xl bg-gradient-primary p-6 text-white shadow-elegant relative overflow-hidden">
-          <div className="absolute top-0 right-0 h-32 w-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-          <h3 className="font-bold text-lg mb-2 relative z-10">Need a subscription?</h3>
-          <p className="text-white/70 text-sm mb-4 relative z-10">
-            Unlock the full library and get access to every lesson across WAEC, NECO and JAMB.
-          </p>
-          <Button asChild className="w-full rounded-xl bg-white text-primary hover:bg-white/90 font-bold relative z-10">
-            <Link href="/subscriptions">View pricing</Link>
-          </Button>
-        </div>
       </aside>
     </div>
   );
@@ -139,18 +129,13 @@ function StreamError({ lessonId, error }: { lessonId: string; error: unknown }) 
           )}
         </div>
         <h3 className="font-extrabold text-primary text-xl">
-          {isCapIssue ? "Too many active devices" : "Subscription required"}
+          {isCapIssue ? "Too many active devices" : "Access required"}
         </h3>
         <p className="mt-2 max-w-md mx-auto text-sm text-muted-foreground">
           {isCapIssue
-            ? "You&apos;re already watching on the maximum number of devices. Close one of them and try again."
-            : "This lesson is part of the subscribed catalogue. Start a free trial to unlock it."}
+            ? "You're already watching on the maximum number of devices. Close one of them and try again."
+            : "You don't have access to this lesson. Contact support if you believe this is a mistake."}
         </p>
-        {!isCapIssue && (
-          <Button asChild variant="hero" className="mt-6 rounded-full">
-            <Link href="/subscriptions">See plans</Link>
-          </Button>
-        )}
       </div>
     );
   }

@@ -10,17 +10,15 @@ export type Stream =
 export type UserRole = "student" | "admin";
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 export type LessonStatus = "processing" | "ready" | "failed";
-export type PlanKind = "single_subject" | "full_stream" | "premium";
+export type PinStatus = "unused" | "used" | "revoked";
 
 export interface User {
   id: string;
-  email: string;
   name: string;
   phone: string | null;
   role: UserRole;
   classLevel: string | null;
   stream: Stream | null;
-  emailVerifiedAt: string | null;
   mfaEnabled: boolean;
   createdAt: string;
 }
@@ -65,27 +63,27 @@ export interface Progress {
   updatedAt: string;
 }
 
-export interface SubscriptionPlan {
+export interface Pin {
   id: string;
-  kind: PlanKind;
-  name: string;
-  description: string;
-  priceNgn: number;
-  intervalDays: number;
-  examType?: ExamType;
-  stream?: Stream;
+  code: string;
+  displayCode: string;
+  status: PinStatus;
+  batchLabel: string | null;
+  createdAt: string;
+  usedAt: string | null;
+  usedBy: { id: string; name: string } | null;
 }
 
-export interface Subscription {
-  id: string;
-  userId: string;
-  planId: string;
-  plan: SubscriptionPlan;
-  startsAt: string;
-  expiresAt: string;
-  reference: string;
-  active: boolean;
-  autoRenew: boolean;
+export interface GeneratePinsResponse {
+  pins: Pin[];
+  count: number;
+}
+
+export interface PinsListResponse {
+  pins: Pin[];
+  total: number;
+  page: number;
+  limit: number;
 }
 
 export interface AuthResponse {

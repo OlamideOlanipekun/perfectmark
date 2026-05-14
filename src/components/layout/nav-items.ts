@@ -3,9 +3,8 @@
 import {
   BarChart3,
   BookOpen,
-  CreditCard,
+  KeyRound,
   LayoutDashboard,
-  Tag,
   UserCircle,
   Users,
   Video,
@@ -31,16 +30,15 @@ export interface MobileNavItem {
 export const NAV_ITEMS: Record<"student" | "admin", MobileNavItem[]> = {
   student: [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/catalogue", label: "Catalogue", icon: BookOpen },
-    { href: "/subscriptions", label: "Plans", icon: CreditCard },
-    { href: "/profile", label: "Profile", icon: UserCircle },
+    { href: "/catalogue",  label: "Catalogue",  icon: BookOpen },
+    { href: "/profile",    label: "Profile",    icon: UserCircle },
   ],
   admin: [
-    { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
-    { href: "/admin/videos", label: "Lessons", icon: Video },
-    { href: "/admin/users", label: "Users", icon: Users },
-    { href: "/admin/pricing", label: "Pricing", icon: Tag },
-    { href: "/admin/reports", label: "Reports", icon: BarChart3 },
+    { href: "/admin/dashboard", label: "Overview",  icon: LayoutDashboard },
+    { href: "/admin/videos",    label: "Lessons",   icon: Video },
+    { href: "/admin/users",     label: "Users",     icon: Users },
+    { href: "/admin/pins",      label: "PIN Codes", icon: KeyRound },
+    { href: "/admin/reports",   label: "Reports",   icon: BarChart3 },
   ],
 };
 

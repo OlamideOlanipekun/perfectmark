@@ -11,14 +11,10 @@ import { api } from "@/lib/api";
 interface AdminUser {
   id: string;
   name: string;
-  email: string;
   role: string;
+  classLevel: string | null;
+  stream: string | null;
   createdAt: string;
-  subscription?: {
-    planName: string;
-    status: string;
-    expiryDate: string | null;
-  } | null;
 }
 
 interface UsersResponse {
@@ -27,13 +23,6 @@ interface UsersResponse {
   page: number;
   limit: number;
 }
-
-const SUB_STATUS: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
-  active:    { label: "Active",    variant: "default" },
-  grace:     { label: "Grace",     variant: "secondary" },
-  cancelled: { label: "Cancelled", variant: "outline" },
-  expired:   { label: "Expired",   variant: "destructive" },
-};
 
 export default function AdminUsersPage() {
   const [search, setSearch] = useState("");
@@ -60,7 +49,7 @@ export default function AdminUsersPage() {
 
   return (
     <>
-      <PageHeader title="Users" description="Manage registered students and their subscriptions." />
+      <PageHeader title="Users" description="Manage registered students." />
 
       {users.data && (
         <p className="mb-5 text-sm text-muted-foreground">
@@ -73,7 +62,7 @@ export default function AdminUsersPage() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <input
           type="text"
-          placeholder="Search by name or email…"
+          placeholder="Search by name…"
           value={search}
           onChange={(e) => handleSearch(e.target.value)}
           className="w-full rounded-2xl border border-border bg-card pl-11 pr-4 py-3 text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-smooth shadow-card"
@@ -85,9 +74,9 @@ export default function AdminUsersPage() {
           <TableHeader>
             <TableRow className="bg-secondary/40 hover:bg-secondary/40">
               <TableHead className="font-bold text-primary">Name</TableHead>
-              <TableHead className="font-bold text-primary">Email</TableHead>
+              <TableHead className="font-bold text-primary">Class</TableHead>
+              <TableHead className="font-bold text-primary">Stream</TableHead>
               <TableHead className="font-bold text-primary">Role</TableHead>
-              <TableHead className="font-bold text-primary">Subscription</TableHead>
               <TableHead className="font-bold text-primary">Joined</TableHead>
             </TableRow>
           </TableHeader>
@@ -109,40 +98,28 @@ export default function AdminUsersPage() {
               </TableRow>
             )}
 
-            {!users.isLoading && (users.data?.users ?? []).map((user) => {
-              const sub = user.subscription;
-              const statusConfig = sub ? (SUB_STATUS[sub.status] ?? { label: sub.status, variant: "outline" as const }) : null;
-
-              return (
-                <TableRow key={user.id} className="hover:bg-secondary/20 transition-smooth">
-                  <TableCell className="font-semibold text-primary">{user.name}</TableCell>
-                  <TableCell className="text-muted-foreground text-sm">{user.email}</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary" className="capitalize text-[10px]">
-                      {user.role}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    {sub && statusConfig ? (
-                      <div>
-                        <Badge variant={statusConfig.variant} className="text-[10px]">
-                          {statusConfig.label}
-                        </Badge>
-                        <div className="text-[10px] text-muted-foreground mt-0.5">{sub.planName}</div>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-muted-foreground">Free</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
-                    <div className="flex items-center gap-1.5">
-                      <Clock className="h-3 w-3" />
-                      {new Date(user.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {!users.isLoading && (users.data?.users ?? []).map((user) => (
+              <TableRow key={user.id} className="hover:bg-secondary/20 transition-smooth">
+                <TableCell className="font-semibold text-primary">{user.name}</TableCell>
+                <TableCell className="text-muted-foreground text-sm">
+                  {user.classLevel ?? <span className="text-muted-foreground/40">—</span>}
+                </TableCell>
+                <TableCell className="text-muted-foreground text-sm">
+                  {user.stream ?? <span className="text-muted-foreground/40">—</span>}
+                </TableCell>
+                <TableCell>
+                  <Badge variant="secondary" className="capitalize text-[10px]">
+                    {user.role}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-muted-foreground text-sm">
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="h-3 w-3" />
+                    {new Date(user.createdAt).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" })}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -167,7 +144,6 @@ export default function AdminUsersPage() {
           >
             Next →
           </button>
-          {users.isFetching && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
         </div>
       )}
     </>
