@@ -15,7 +15,6 @@
 //   'unsafe-eval' (script)     — Next.js dev mode + some libs; review for prod
 //
 // frame-ancestors 'none'       — never embed our app in another iframe
-// upgrade-insecure-requests    — auto-rewrite http→https on legacy refs
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
@@ -28,7 +27,6 @@ const csp = [
   "form-action 'self'",
   "base-uri 'self'",
   "object-src 'none'",
-  "upgrade-insecure-requests",
 ].join("; ");
 
 const securityHeaders = [
