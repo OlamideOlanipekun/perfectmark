@@ -15,10 +15,9 @@ import { toast } from "sonner";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useAdminPins, useGeneratePins, useRevokePin } from "@/hooks/use-pins";
-import { exportPinsCsv, formatPinDisplay } from "@/lib/pins";
+import { exportPinsCsv } from "@/lib/pins";
 import type { Pin, PinStatus } from "@/types";
 
 const STATUS_TABS: { label: string; value: PinStatus | "" }[] = [
