@@ -60,7 +60,7 @@ export default function CoursesPage() {
                 <Link href="/register">Start free trial</Link>
               </Button>
               <Button asChild variant="softOutline" size="xl" className="rounded-full">
-                <Link href="/subscriptions">View pricing</Link>
+                <Link href="/register">Get access</Link>
               </Button>
             </div>
           </div>

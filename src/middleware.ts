@@ -12,7 +12,7 @@ const STUDENT_PREFIXES = [
   "/profile",
 ];
 const ADMIN_PREFIX = "/admin";
-const AUTH_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
+const AUTH_ONLY_PATHS = ["/login", "/register", "/forgot-password", "/admin-login"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -75,5 +75,6 @@ export const config = {
     "/login",
     "/register",
     "/forgot-password",
+    "/admin-login",
   ],
 };
