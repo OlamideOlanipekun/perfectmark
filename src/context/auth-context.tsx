@@ -79,8 +79,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
       } else {
         // Network / 5xx — keep any previous user state, don't silently log out
-        // eslint-disable-next-line no-console
-        console.error("[auth] failed to hydrate user", err);
+        if (process.env.NODE_ENV !== "production") {
+          // eslint-disable-next-line no-console
+          console.error("[auth] failed to hydrate user", err);
+        }
       }
     } finally {
       setIsLoading(false);

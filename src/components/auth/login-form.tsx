@@ -48,7 +48,7 @@ export function LoginForm() {
     setSubmitting(true);
     try {
       await login(values.pin);
-      if (next && next.startsWith("/")) {
+      if (next && next.startsWith("/") && !next.startsWith("//")) {
         router.replace(next);
       }
     } catch (err) {
