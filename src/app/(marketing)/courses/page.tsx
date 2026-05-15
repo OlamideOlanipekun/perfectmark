@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CourseShowcase } from "@/components/marketing/course-showcase";
+import { CourseGrid } from "@/components/marketing/course-grid";
 
 import type { Metadata } from "next";
 
@@ -46,7 +46,7 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      <CourseShowcase />
+      <CourseGrid />
 
       {/* CTA */}
       <section className="bg-gradient-soft pb-20">
@@ -57,10 +57,10 @@ export default function CoursesPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild variant="hero" size="xl" className="rounded-full">
-                <Link href="/register">Start free trial</Link>
+                <Link href="/register">Get started</Link>
               </Button>
               <Button asChild variant="softOutline" size="xl" className="rounded-full">
-                <Link href="/register">Get access</Link>
+                <Link href="/login">Sign in</Link>
               </Button>
             </div>
           </div>
