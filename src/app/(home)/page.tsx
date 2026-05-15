@@ -5,7 +5,6 @@ import { MarketingFooter } from "@/components/layout/marketing-footer";
 import { Hero } from "@/components/marketing/hero";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { Features } from "@/components/marketing/features";
-import { VideoPreview } from "@/components/marketing/video-preview";
 import { CourseGrid } from "@/components/marketing/course-grid";
 import { Testimonials } from "@/components/marketing/testimonials";
 import { CTABanner } from "@/components/marketing/cta-banner";
@@ -29,9 +28,6 @@ export default function PerfectMarkLandingPage() {
 
         {/* How It Works - Step-by-Step Process */}
         <HowItWorks />
-
-        {/* Video Preview - gated teaser lesson */}
-        <VideoPreview />
 
         {/* Course Grid - Subject Library & Previews */}
         <CourseGrid />

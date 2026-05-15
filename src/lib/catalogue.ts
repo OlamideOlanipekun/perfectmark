@@ -52,6 +52,19 @@ export interface Lesson {
   updatedAt: string;
 }
 
+export interface PreviewLesson {
+  id: string;
+  title: string;
+  thumbnailKey: string | null;
+  thumbnailUrl: string | null;
+  durationSeconds: number | null;
+  subjectId: string;
+  subjectName: string;
+  subjectSlug: string;
+  examType: ExamType;
+  stream: Stream;
+}
+
 // ── Request params ──────────────────────────────────────────────────────
 
 export type ListSubjectsParams = {
@@ -92,4 +105,7 @@ export const catalogue = {
 
   getStats: () =>
     api.get<{ totalLessons: number; totalSubjects: number }>("/catalogue/stats"),
+
+  listPreviewLessons: () =>
+    api.get<{ lessons: PreviewLesson[] }>("/catalogue/lessons/preview"),
 };

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { catalogue, type ListSubjectsParams } from "@/lib/catalogue";
 import type { ExamType } from "@/types";
 
+
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 export const catalogueKeys = {
@@ -73,6 +74,14 @@ export function useCatalogueStats() {
   return useQuery({
     queryKey: catalogueKeys.stats(),
     queryFn: () => catalogue.getStats(),
+    staleTime: FIVE_MINUTES,
+  });
+}
+
+export function usePreviewLessons() {
+  return useQuery({
+    queryKey: [...catalogueKeys.all, "preview"] as const,
+    queryFn: () => catalogue.listPreviewLessons(),
     staleTime: FIVE_MINUTES,
   });
 }
