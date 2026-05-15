@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-// Content Security Policy — starts as Report-Only so we can observe what
-// breaks before enforcing. Switch the header name to "Content-Security-Policy"
-// (drop "-Report-Only") once the violation reports are clean.
+// Content Security Policy
 //
 // Sources:
 //   self                       — own origin
@@ -12,12 +10,18 @@
 //   data:                      — inline images / fonts
 //   blob:                      — HLS.js builds segment Blob URLs
 //   'unsafe-inline' (script)   — Next.js hydration scripts; tighten with nonces later
-//   'unsafe-eval' (script)     — Next.js dev mode + some libs; review for prod
 //
 // frame-ancestors 'none'       — never embed our app in another iframe
+const isDev = process.env.NODE_ENV !== "production";
+
+// 'unsafe-eval' is only needed for Next.js hot-reload in dev; never in production.
+const scriptSrc = isDev
+  ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com"
+  : "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com";
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+  scriptSrc,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob: https:",
@@ -30,8 +34,7 @@ const csp = [
 ].join("; ");
 
 const securityHeaders = [
-  // Report-Only first — flip to "Content-Security-Policy" after reviewing reports.
-  { key: "Content-Security-Policy-Report-Only", value: csp },
+  { key: "Content-Security-Policy", value: csp },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -41,12 +44,7 @@ const securityHeaders = [
 
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.pravatar.cc',
-      },
-    ],
+    remotePatterns: [],
   },
   async headers() {
     return [

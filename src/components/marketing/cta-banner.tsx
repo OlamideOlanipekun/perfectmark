@@ -75,9 +75,8 @@ export function CTABanner() {
           </h2>
 
           <p className="text-white/90 text-lg md:text-xl mb-12 leading-relaxed max-w-2xl mx-auto">
-            Join <strong className="text-[#cead60]">10,000+ students</strong> who are acing their 
-            exams today. Get instant access to Nigeria&apos;s most comprehensive 
-            learning platform.
+            Join Nigeria&apos;s growing community of students acing their exams.
+            Get instant access to expert-led WAEC, NECO and JAMB tutorials.
           </p>
 
           <div className="flex flex-col items-center gap-10">

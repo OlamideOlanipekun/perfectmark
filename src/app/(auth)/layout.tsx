@@ -37,7 +37,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             Empowering the next generation of <span className="text-accent">African Scholars</span>.
           </h2>
           <p className="text-white/70 text-lg leading-relaxed">
-            Join 10,000+ students mastering WAEC, NECO, and JAMB with Nigeria&apos;s most effective video tutorials.
+            Start your exam prep journey with Nigeria&apos;s expert-led WAEC, NECO and JAMB video tutorials.
           </p>
         </div>
 
