@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Search, Loader2 } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { useSubjects } from "@/hooks/use-catalogue";
+import { streamToSlug } from "@/lib/streams";
 import type { ExamType } from "@/types";
 
 const EXAMS: { type: ExamType; blurb: string; color: string }[] = [
@@ -54,7 +55,7 @@ export default function CataloguePage() {
               {subjects.data?.subjects.map((s) => (
                 <Link
                   key={s.id}
-                  href={`/catalogue/${s.examType.toLowerCase()}/${s.stream.toLowerCase()}/${s.slug}`}
+                  href={`/catalogue/${s.examType.toLowerCase()}/${streamToSlug(s.stream)}/${s.slug}`}
                   className="group"
                 >
                   <div className="h-full rounded-3xl border border-border bg-card p-6 shadow-card hover:shadow-elegant transition-smooth hover:-translate-y-1">

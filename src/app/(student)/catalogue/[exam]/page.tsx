@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
-import { STREAMS, STREAM_DESCRIPTIONS, normaliseExam } from "@/lib/streams";
+import { STREAMS, STREAM_DESCRIPTIONS, normaliseExam, streamToSlug } from "@/lib/streams";
 
 export default function ExamPage({ params }: { params: { exam: string } }) {
   const examType = normaliseExam(params.exam);
@@ -25,7 +25,7 @@ export default function ExamPage({ params }: { params: { exam: string } }) {
       />
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {STREAMS.map((stream) => (
-          <Link key={stream} href={`/catalogue/${params.exam}/${stream.toLowerCase()}`} className="group">
+          <Link key={stream} href={`/catalogue/${params.exam}/${streamToSlug(stream)}`} className="group">
             <div className="h-full rounded-3xl border border-border bg-card p-6 shadow-card hover:shadow-elegant transition-smooth hover:-translate-y-1">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-bold text-primary">{stream}</h3>
