@@ -178,8 +178,19 @@ function LessonRow({ lesson, index }: { lesson: Lesson; index: number }) {
       href={`/watch/${lesson.id}`}
       className="flex items-center gap-4 px-6 py-4 hover:bg-secondary/40 transition-smooth group"
     >
-      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-primary text-white shadow-card">
-        <PlayCircle className="h-5 w-5" />
+      <div className="relative h-10 w-16 shrink-0 rounded-xl overflow-hidden bg-gradient-primary shadow-card">
+        {lesson.thumbnailUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={lesson.thumbnailUrl}
+            alt=""
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="grid h-full w-full place-items-center text-white">
+            <PlayCircle className="h-5 w-5" />
+          </div>
+        )}
       </div>
 
       <div className="flex-1 min-w-0">

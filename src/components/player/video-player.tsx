@@ -18,6 +18,8 @@ interface VideoPlayerProps {
   initialPosition?: number;
   /** Short identifier displayed as a faint overlay for anti-piracy traceability. */
   watermark?: string;
+  /** Thumbnail URL shown before playback starts (video poster attribute). */
+  poster?: string;
 }
 
 const SPEEDS = [0.75, 1, 1.25, 1.5, 2] as const;
@@ -27,6 +29,7 @@ export function VideoPlayer({
   manifestUrl,
   initialPosition = 0,
   watermark,
+  poster,
 }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [speed, setSpeed] = useState<number>(1);
@@ -93,6 +96,7 @@ export function VideoPlayer({
         playsInline
         controlsList="nodownload"
         disablePictureInPicture
+        poster={poster}
         className="aspect-video w-full"
       />
 

@@ -16,6 +16,7 @@ export interface ContinueWatchingItem {
     description: string | null;
     durationSeconds: number | null;
     thumbnailKey: string | null;
+    thumbnailUrl: string | null;
     subjectId: string;
     topicId: string;
     isFree: boolean;

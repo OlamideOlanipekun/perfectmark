@@ -41,8 +41,10 @@ export interface Lesson {
   status: LessonStatus;
   sortOrder: number;
   durationSeconds: number | null;
-  /** R2 object key, not a URL. Request a signed URL via the media module to render. */
+  /** R2 object key — kept for admin tooling. */
   thumbnailKey: string | null;
+  /** Absolute URL ready for <img src> / video poster. Null when no thumbnail exists. */
+  thumbnailUrl: string | null;
   tags: string[];
   publishedAt: string | null;
   viewCount: number;

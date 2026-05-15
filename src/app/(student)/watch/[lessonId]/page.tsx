@@ -42,6 +42,7 @@ export default function WatchPage({ params }: WatchPageProps) {
           lessonId={lessonId}
           streamQuery={streamQuery}
           lessonLoading={lessonQuery.isLoading}
+          poster={lessonQuery.data?.lesson.thumbnailUrl ?? undefined}
         />
 
         <LessonMeta lessonQuery={lessonQuery} streamQuery={streamQuery} />
@@ -77,10 +78,12 @@ function PlayerShell({
   lessonId,
   streamQuery,
   lessonLoading,
+  poster,
 }: {
   lessonId: string;
   streamQuery: StreamQuery;
   lessonLoading: boolean;
+  poster?: string;
 }) {
   if (streamQuery.isLoading || lessonLoading) {
     return (
@@ -107,6 +110,7 @@ function PlayerShell({
           manifestUrl={streamQuery.data.manifestUrl}
           initialPosition={streamQuery.data.lastPositionSeconds}
           watermark={streamQuery.data.watermark}
+          poster={poster}
         />
       </div>
     </div>

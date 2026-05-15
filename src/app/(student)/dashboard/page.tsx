@@ -119,6 +119,15 @@ function ContinueCard({ item, delay }: { item: ContinueWatchingItem; delay: numb
       className="group animate-fade-in-up relative overflow-hidden rounded-3xl border border-border bg-card shadow-card hover:shadow-elegant hover:-translate-y-1 transition-smooth block"
     >
       <div className="relative aspect-[16/10] bg-gradient-primary overflow-hidden">
+        {item.lesson.thumbnailUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={item.lesson.thumbnailUrl}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/20" />
         <span className="absolute top-3 left-3 rounded-full bg-primary/90 text-white text-[11px] font-semibold px-3 py-1 backdrop-blur">
           {item.lesson.examType} · {item.lesson.subjectName}
         </span>
