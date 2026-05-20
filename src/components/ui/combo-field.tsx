@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Loader2, Plus, X } from "lucide-react";
 
 export interface ComboOption {
   id: string;
@@ -14,6 +14,8 @@ interface ComboFieldProps {
   onChange: (id: string) => void;
   placeholder?: string;
   disabled?: boolean;
+  /** When provided, a "+ Create '...'" row appears for unmatched queries. */
+  onCreateOption?: (label: string) => Promise<string>;
 }
 
 export function ComboField({
@@ -22,22 +24,28 @@ export function ComboField({
   onChange,
   placeholder = "Type or select…",
   disabled = false,
+  onCreateOption,
 }: ComboFieldProps) {
   const selected = options.find((o) => o.id === value) ?? null;
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [creating, setCreating] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const filtered = query.trim()
-    ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
+  const trimmed = query.trim();
+  const filtered = trimmed
+    ? options.filter((o) => o.label.toLowerCase().includes(trimmed.toLowerCase()))
     : options;
 
-  // Close on outside click
+  const exactMatch = options.some(
+    (o) => o.label.toLowerCase() === trimmed.toLowerCase(),
+  );
+  const showCreate = !!onCreateOption && !!trimmed && !exactMatch;
+
   useEffect(() => {
     function handler(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
-        // If nothing was selected and query doesn't match, clear query
         if (!value) setQuery("");
       }
     }
@@ -47,7 +55,7 @@ export function ComboField({
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
-    onChange(""); // clear current selection while typing
+    onChange("");
     setOpen(true);
   }
 
@@ -55,6 +63,19 @@ export function ComboField({
     onChange(opt.id);
     setQuery("");
     setOpen(false);
+  }
+
+  async function handleCreate() {
+    if (!onCreateOption || !trimmed || creating) return;
+    setCreating(true);
+    try {
+      const newId = await onCreateOption(trimmed);
+      onChange(newId);
+      setQuery("");
+      setOpen(false);
+    } finally {
+      setCreating(false);
+    }
   }
 
   function handleClear(e: React.MouseEvent) {
@@ -105,22 +126,39 @@ export function ComboField({
       {open && !disabled && (
         <div className="absolute z-50 top-full mt-1 w-full rounded-xl border border-border bg-card shadow-lg overflow-hidden">
           <ul className="max-h-48 overflow-y-auto py-1">
-            {filtered.length === 0 ? (
+            {filtered.length === 0 && !showCreate && (
               <li className="px-3 py-2.5 text-sm text-muted-foreground">No matches</li>
-            ) : (
-              filtered.map((opt) => (
-                <li key={opt.id}>
-                  <button
-                    type="button"
-                    onMouseDown={() => handleSelect(opt)}
-                    className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-secondary ${
-                      opt.id === value ? "bg-secondary font-semibold text-primary" : "text-primary"
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                </li>
-              ))
+            )}
+            {filtered.map((opt) => (
+              <li key={opt.id}>
+                <button
+                  type="button"
+                  onMouseDown={() => handleSelect(opt)}
+                  className={`w-full text-left px-3 py-2 text-sm transition-colors hover:bg-secondary ${
+                    opt.id === value ? "bg-secondary font-semibold text-primary" : "text-primary"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              </li>
+            ))}
+
+            {showCreate && (
+              <li className="border-t border-border">
+                <button
+                  type="button"
+                  onMouseDown={handleCreate}
+                  disabled={creating}
+                  className="w-full text-left px-3 py-2.5 text-sm font-semibold text-primary hover:bg-secondary transition-colors flex items-center gap-2 disabled:opacity-60"
+                >
+                  {creating ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin shrink-0" />
+                  ) : (
+                    <Plus className="h-3.5 w-3.5 shrink-0" />
+                  )}
+                  {creating ? "Creating…" : `Create "${trimmed}"`}
+                </button>
+              </li>
             )}
           </ul>
         </div>

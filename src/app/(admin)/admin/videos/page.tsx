@@ -149,6 +149,11 @@ function LessonFormDialog({
                   onChange={setTopicId}
                   placeholder={subjectId ? "Type or select topic…" : "Select a subject first"}
                   disabled={!subjectId}
+                  onCreateOption={async (title) => {
+                    const { topic } = await adminCatalogue.createTopic({ subjectId, title });
+                    await onTopicsFetch(subjectId);
+                    return topic.id;
+                  }}
                 />
               </div>
             </>

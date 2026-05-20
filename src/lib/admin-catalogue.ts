@@ -20,6 +20,12 @@ export interface UpdateLessonInput {
   tags?: string[];
 }
 
+export interface CreateTopicInput {
+  subjectId: string;
+  title: string;
+  sortOrder?: number;
+}
+
 export const adminCatalogue = {
   listSubjects: () => api.get<{ subjects: Subject[] }>("/admin/catalogue/subjects"),
 
@@ -27,6 +33,9 @@ export const adminCatalogue = {
     api.get<{ subject: Subject; topics: Topic[] }>(
       `/admin/catalogue/subjects/${subjectId}/topics`,
     ),
+
+  createTopic: (body: CreateTopicInput) =>
+    api.post<{ topic: Topic }>("/admin/catalogue/topics", body),
 
   listLessons: (topicId: string) =>
     api.get<{ lessons: Lesson[] }>(`/admin/catalogue/topics/${topicId}/lessons`),

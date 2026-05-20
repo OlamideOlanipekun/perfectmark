@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ComboField } from "@/components/ui/combo-field";
 import { adminCatalogue } from "@/lib/admin-catalogue";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   assessUploadSize,
   startUpload,
@@ -32,6 +33,7 @@ const ACCEPTED_MIMES = ["video/mp4", "video/quicktime", "video/x-matroska", "vid
 const MAX_BYTES = UPLOAD_LIMITS.frontendHardLimitBytes;
 
 export default function UploadLessonPage() {
+  const qc = useQueryClient();
   const subjects = useQuery({
     queryKey: ["admin", "catalogue", "subjects"],
     queryFn: () => adminCatalogue.listSubjects(),
@@ -336,6 +338,11 @@ export default function UploadLessonPage() {
               onChange={setTopicId}
               placeholder={subjectId ? "Type or select topic…" : "Choose a subject first"}
               disabled={!subjectId || topics.isLoading || isBusy}
+              onCreateOption={async (title) => {
+                const { topic } = await adminCatalogue.createTopic({ subjectId, title });
+                void qc.invalidateQueries({ queryKey: ["admin", "catalogue", "topics", subjectId] });
+                return topic.id;
+              }}
             />
           </Field>
 
