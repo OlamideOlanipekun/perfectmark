@@ -183,7 +183,7 @@ export default function UploadLessonPage() {
               </div>
               <div>
                 <p className="font-bold text-primary text-lg">Drop your video here</p>
-                <p className="text-sm text-muted-foreground mt-1">MP4, MOV, MKV or WebM · Max 5 GB</p>
+                <p className="text-sm text-muted-foreground mt-1">MP4, MOV, MKV or WebM · Up to 5 GB</p>
               </div>
               <Button variant="hero" className="rounded-full">
                 <Upload className="mr-2 h-4 w-4" />

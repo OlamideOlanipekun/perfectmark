@@ -37,18 +37,8 @@ export type UploadProgress =
   | { phase: "done"; lesson: Lesson }
   | { phase: "error"; message: string };
 
-// ─── Pre-compression advice ──────────────────────────────────────────────
-//
-// We bias admins toward smaller, pre-compressed uploads because every byte
-// the server has to handle costs Railway CPU + R2 egress + admin time.
-//
-//   < 500 MB  → green: ship it
-//   < 2 GB    → amber: works, but compress next time
-//   ≥ 2 GB    → red:   refuse on the frontend (backend cap is higher
-//                       so we can override via curl in an emergency)
-
-const SOFT_WARN_BYTES = 500 * 1024 * 1024;       // 500 MB
-const FRONTEND_HARD_LIMIT_BYTES = 2 * 1024 * 1024 * 1024; // 2 GB
+// Frontend cap matches the backend proxy limit (5 GiB).
+const FRONTEND_HARD_LIMIT_BYTES = 5 * 1024 * 1024 * 1024; // 5 GB
 
 export type UploadAdvice =
   | { level: "ok" }
@@ -59,22 +49,13 @@ export function assessUploadSize(sizeBytes: number): UploadAdvice {
   if (sizeBytes >= FRONTEND_HARD_LIMIT_BYTES) {
     return {
       level: "block",
-      message:
-        "Files larger than 2 GB are not accepted. Compress locally first — HandBrake's 'Fast 1080p30' preset typically cuts a recording to under 500 MB without visible quality loss.",
-    };
-  }
-  if (sizeBytes >= SOFT_WARN_BYTES) {
-    return {
-      level: "warn",
-      message:
-        "This file is larger than 500 MB. Transcoding will work but will take noticeably longer and cost more compute. Consider compressing locally first (HandBrake → 'Fast 1080p30' preset).",
+      message: "Files larger than 5 GB are not accepted. Split or compress the recording first.",
     };
   }
   return { level: "ok" };
 }
 
 export const UPLOAD_LIMITS = {
-  softWarnBytes: SOFT_WARN_BYTES,
   frontendHardLimitBytes: FRONTEND_HARD_LIMIT_BYTES,
 } as const;
 
