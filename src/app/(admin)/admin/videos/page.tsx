@@ -13,6 +13,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ComboField } from "@/components/ui/combo-field";
 import { PageHeader } from "@/components/shared/page-header";
 import { adminCatalogue } from "@/lib/admin-catalogue";
 import type { Lesson, LessonStatus, Subject, Topic } from "@/lib/catalogue";
@@ -132,30 +133,23 @@ function LessonFormDialog({
             <>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-primary">Subject</label>
-                <Select value={subjectId} onValueChange={handleSubjectChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select subject…" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {subjects.map((s) => (
-                      <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <ComboField
+                  options={subjects.map((s) => ({ id: s.id, label: s.name }))}
+                  value={subjectId}
+                  onChange={handleSubjectChange}
+                  placeholder="Type or select subject…"
+                />
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-primary">Topic</label>
-                <Select value={topicId} onValueChange={setTopicId} disabled={!subjectId || topics.length === 0}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder={subjectId ? "Select topic…" : "Select a subject first"} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {topics.map((t) => (
-                      <SelectItem key={t.id} value={t.id}>{t.title}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <ComboField
+                  options={topics.map((t) => ({ id: t.id, label: t.title }))}
+                  value={topicId}
+                  onChange={setTopicId}
+                  placeholder={subjectId ? "Type or select topic…" : "Select a subject first"}
+                  disabled={!subjectId}
+                />
               </div>
             </>
           )}
@@ -186,16 +180,12 @@ function LessonFormDialog({
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-primary">Difficulty</label>
-              <Select value={difficulty} onValueChange={(v) => setDifficulty(v as typeof difficulty)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {DIFFICULTIES.map((d) => (
-                    <SelectItem key={d} value={d} className="capitalize">{d}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <ComboField
+                options={DIFFICULTIES.map((d) => ({ id: d, label: d[0].toUpperCase() + d.slice(1) }))}
+                value={difficulty}
+                onChange={(v) => setDifficulty(v as typeof difficulty)}
+                placeholder="Type or select…"
+              />
             </div>
 
             <div className="space-y-1.5">

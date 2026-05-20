@@ -14,14 +14,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ComboField } from "@/components/ui/combo-field";
 import { adminCatalogue } from "@/lib/admin-catalogue";
 import {
   assessUploadSize,
@@ -323,78 +317,49 @@ export default function UploadLessonPage() {
 
           <Field label="Subject">
             {subjects.isLoading ? (
-              <Skeleton className="h-10 w-full rounded-2xl" />
+              <Skeleton className="h-10 w-full rounded-xl" />
             ) : (
-              <Select value={subjectId} onValueChange={setSubjectId} disabled={isBusy}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select subject…" />
-                </SelectTrigger>
-                <SelectContent>
-                  {subjects.data?.subjects.map((s) => (
-                    <SelectItem key={s.id} value={s.id}>
-                      {s.examType} · {s.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <ComboField
+                options={subjects.data?.subjects.map((s) => ({ id: s.id, label: `${s.examType} · ${s.name}` })) ?? []}
+                value={subjectId}
+                onChange={setSubjectId}
+                placeholder="Type or select subject…"
+                disabled={isBusy}
+              />
             )}
           </Field>
 
           <Field label="Topic">
-            <Select
+            <ComboField
+              options={topics.data?.topics.map((t) => ({ id: t.id, label: t.title })) ?? []}
               value={topicId}
-              onValueChange={setTopicId}
+              onChange={setTopicId}
+              placeholder={subjectId ? "Type or select topic…" : "Choose a subject first"}
               disabled={!subjectId || topics.isLoading || isBusy}
-            >
-              <SelectTrigger>
-                <SelectValue
-                  placeholder={subjectId ? "Select topic…" : "Choose a subject first"}
-                />
-              </SelectTrigger>
-              <SelectContent>
-                {topics.data?.topics.map((t) => (
-                  <SelectItem key={t.id} value={t.id}>
-                    {t.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            />
           </Field>
 
           <Field label="Lesson">
-            <Select
-              value={lessonId}
-              onValueChange={setLessonId}
-              disabled={!topicId || lessons.isLoading || isBusy}
-            >
-              <SelectTrigger>
-                <SelectValue
-                  placeholder={topicId ? "Select lesson…" : "Choose a topic first"}
-                />
-              </SelectTrigger>
-              <SelectContent>
-                {lessons.isLoading && (
-                  <div className="px-3 py-2 text-sm text-muted-foreground">Loading lessons…</div>
-                )}
-                {!lessons.isLoading && (lessons.data?.lessons.length ?? 0) === 0 && (
-                  <div className="px-3 py-3 text-sm text-muted-foreground space-y-1">
-                    <p className="font-semibold text-primary">No lessons in this topic</p>
-                    <p className="text-xs">
-                      Create one from the{" "}
-                      <Link href="/admin/videos" className="underline text-primary">
-                        Lessons page
-                      </Link>{" "}
-                      first.
-                    </p>
-                  </div>
-                )}
-                {lessons.data?.lessons.map((l) => (
-                  <SelectItem key={l.id} value={l.id}>
-                    {l.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {!topicId ? (
+              <ComboField options={[]} value="" onChange={() => undefined} placeholder="Choose a topic first" disabled />
+            ) : lessons.isLoading ? (
+              <Skeleton className="h-10 w-full rounded-xl" />
+            ) : (lessons.data?.lessons.length ?? 0) === 0 ? (
+              <div className="rounded-xl border border-border bg-card px-3 py-2.5 text-sm text-muted-foreground">
+                No lessons yet —{" "}
+                <Link href="/admin/videos" className="underline text-primary font-medium">
+                  create one first
+                </Link>
+              </div>
+            ) : (
+              <ComboField
+                options={lessons.data?.lessons.map((l) => ({ id: l.id, label: l.title })) ?? []}
+                value={lessonId}
+                onChange={setLessonId}
+                placeholder="Type or select lesson…"
+                disabled={isBusy}
+              />
+            )}
           </Field>
 
           {selectedLesson && (
